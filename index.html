@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="五行城市命书——用12道不太正经的问题，测出你的五行人格，寻找与你生活节奏更合拍的城市。趣味测试，创意设定。">
+<title>五行城市命书 · 你的下一站，藏在五行里</title>
+<style>
+/* ================= 五行城市命书 · 视觉系统 ================= */
+:root{
+  --paper:#f6f1e6; --paper-2:#efe8d6; --paper-3:#e7ddc6;
+  --ink:#24425c; --ink-2:#43607b; --ink-3:#7d92a3;
+  --line:#d8cfba; --line-2:#c6b99c;
+  --wood:#7a9b6d; --fire:#c15b54; --earth:#c9a06a; --metal:#8fa3ad; --water:#3e5c7e;
+  --seal:#b3502e;
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --t-fast:.3s; --t-slow:.6s;
+  --shadow:0 2px 14px rgba(70,58,32,.10);
+  --shadow-soft:0 1px 6px rgba(70,58,32,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--serif);color:var(--ink);background:var(--paper);
+  line-height:1.85;overflow-x:hidden;
+  background-image:
+    radial-gradient(1200px 600px at 85% -5%, rgba(201,160,106,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(62,92,126,.07), transparent 55%),
+    radial-gradient(700px 500px at 110% 85%, rgba(193,91,84,.06), transparent 60%);
+  min-height:100vh;
+}
+/* 宣纸肌理：内嵌 SVG 噪点 */
+.paper-grain{
+  position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.50 0 0 0 0 0.40 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+.screen{display:none;min-height:100vh}
+.screen.active{display:block;animation:screenIn .32s ease both}
+@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fade-swap{animation:screenIn .3s ease both}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+h1,h2,h3,h4{font-weight:700;letter-spacing:.02em}
+
+/* ================= 通用元件 ================= */
+.kicker{
+  display:inline-block;font-family:var(--sans);font-size:12px;font-weight:600;
+  letter-spacing:.35em;text-indent:.35em;color:var(--ink-2);
+  border:1px solid var(--line-2);border-radius:2px;padding:5px 16px;margin-bottom:26px;
+  background:rgba(255,253,246,.5);
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--serif);font-size:16px;letter-spacing:.14em;text-indent:.14em;
+  min-height:52px;padding:12px 34px;border-radius:3px;transition:all var(--t-fast) ease;
+  user-select:none;
+}
+.btn-main{background:var(--ink);color:#f7f2e5;box-shadow:var(--shadow)}
+.btn-main:hover{background:#31537a;transform:translateY(-1px)}
+.btn-main .arr{transition:transform var(--t-fast) ease;font-family:var(--sans)}
+.btn-main:hover .arr{transform:translateX(5px)}
+.btn-line{border:1px solid var(--line-2);color:var(--ink-2);background:rgba(255,253,246,.6)}
+.btn-line:hover{border-color:var(--ink-2);color:var(--ink);background:#fffdf6}
+.btn-seal{background:var(--seal);color:#f9f2e4;box-shadow:var(--shadow)}
+.btn-seal:hover{background:#c4603c;transform:translateY(-1px)}
+.ghost-btn{
+  font-family:var(--sans);font-size:13px;color:var(--ink-3);
+  border-bottom:1px dashed var(--line-2);padding:2px 1px;transition:color var(--t-fast);
+}
+.ghost-btn:hover{color:var(--ink)}
+.hairline{height:1px;background:linear-gradient(90deg,transparent,var(--line-2),transparent);border:none}
+
+/* ================= 序章 ================= */
+#s-intro{padding:52px 0 70px}
+.intro-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
+.intro-title h1{font-size:clamp(30px,4.6vw,46px);line-height:1.32;letter-spacing:.04em}
+.intro-title h1 em{font-style:normal;color:var(--seal)}
+.intro-sub{margin-top:18px;font-size:15.5px;color:var(--ink-2);max-width:30em}
+.intro-en{font-family:var(--sans);font-size:11px;letter-spacing:.3em;color:var(--ink-3);margin-top:14px;text-transform:uppercase}
+.intro-cta{margin-top:34px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.intro-note{font-size:12.5px;color:var(--ink-3)}
+#intro-art{width:100%}
+#intro-art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 18px rgba(70,58,32,.10))}
+.ele-sec{margin-top:58px}
+.ele-sec h3{font-size:19px;letter-spacing:.2em;text-indent:.2em;color:var(--ink);display:flex;align-items:center;gap:14px}
+.ele-sec h3::after{content:'';flex:1;height:1px;background:var(--line)}
+.ele-sec .ele-sec-sub{font-size:13px;color:var(--ink-3);margin:6px 0 22px}
+.ele-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.ele-card{
+  border:1px solid var(--line);border-radius:6px;padding:18px 12px 14px;text-align:center;
+  background:linear-gradient(180deg,rgba(255,253,246,.72),rgba(247,242,230,.3));
+  transition:transform var(--t-fast) ease,box-shadow var(--t-fast) ease;
+}
+.ele-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-soft)}
+.ele-card svg{width:44px;height:44px;display:block;margin:0 auto 8px}
+.ele-card .e-name{font-size:16px;font-weight:700;letter-spacing:.1em}
+.ele-card .e-tag{display:block;font-size:11px;color:var(--ink-3);margin:1px 0 6px;font-family:var(--sans);letter-spacing:.12em}
+.ele-card .e-desc{font-size:12.5px;color:var(--ink-2);line-height:1.6}
+.intro-foot{margin-top:52px;text-align:center;font-size:12.5px;color:var(--ink-3);line-height:2}
+
+/* ================= 问答 ================= */
+#s-quiz{padding:44px 0 60px}
+.quiz-top{display:flex;align-items:center;gap:22px;margin-bottom:40px}
+.q-progress{flex:1;display:flex;align-items:center;gap:16px}
+#q-num{font-family:var(--sans);font-size:13px;letter-spacing:.18em;color:var(--ink-2);white-space:nowrap}
+.q-bar{flex:1;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+#q-bar-fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ink-2),var(--seal));transition:width .35s ease}
+.q-box{max-width:660px;margin:0 auto}
+#q-tag{font-family:var(--sans);font-size:11.5px;letter-spacing:.28em;color:var(--ink-3);margin-bottom:14px}
+#q-text{font-size:clamp(21px,3.2vw,27px);line-height:1.65;margin-bottom:34px;min-height:2.4em}
+#q-opts{display:flex;flex-direction:column;gap:13px}
+.opt{
+  display:flex;align-items:center;gap:15px;text-align:left;width:100%;
+  border:1px solid var(--line);border-radius:6px;padding:15px 20px;
+  background:rgba(255,253,247,.75);font-size:15.5px;line-height:1.65;color:var(--ink-2);
+  min-height:56px;transition:border-color var(--t-fast),background var(--t-fast),transform var(--t-fast);
+}
+.opt:hover{border-color:var(--line-2);background:#fffdf7;transform:translateX(2px)}
+.opt .opt-key{
+  flex:0 0 auto;width:26px;height:26px;border:1px solid var(--line-2);border-radius:3px;
+  display:grid;place-items:center;font-family:var(--sans);font-size:12px;color:var(--ink-3);
+  transition:all var(--t-fast);
+}
+.opt.sel{border-color:var(--el-c,var(--ink));background:var(--el-bg,rgba(36,66,92,.05));color:var(--ink)}
+.opt.sel .opt-key{background:var(--el-c,var(--ink));border-color:var(--el-c,var(--ink));color:#f7f2e5}
+.opt .opt-dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--el-c,var(--ink));opacity:0;transition:opacity var(--t-fast);margin-left:auto}
+.opt.sel .opt-dot{opacity:.9}
+.q-nav{display:flex;justify-content:space-between;gap:14px;max-width:660px;margin:40px auto 0}
+.q-nav .btn{min-width:128px;padding:12px 22px;font-size:15px}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
+.quiz-foot{text-align:center;margin-top:34px;font-size:12px;color:var(--ink-3);font-family:var(--sans)}
+
+/* ================= 生成仪式 ================= */
+#s-ceremony{display:none;padding:0}
+#s-ceremony.active{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px 20px}
+#cer-art{width:min(340px,72vw)}
+#cer-art svg{width:100%;height:auto;display:block}
+#cer-text{
+  margin-top:34px;font-size:17px;letter-spacing:.22em;text-indent:.22em;color:var(--ink-2);
+  min-height:1.8em;text-align:center;transition:opacity .4s ease;
+}
+#btn-skip{margin-top:40px}
+
+/* ================= 结果页 ================= */
+#s-result{padding:46px 0 40px}
+.report-head{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
+  border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:30px;
+}
+.report-en{font-family:var(--sans);font-size:12px;letter-spacing:.34em;color:var(--ink-2)}
+#report-no{font-family:var(--sans);font-size:12px;letter-spacing:.14em;color:var(--ink-3)}
+.r-persona{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;margin-bottom:38px}
+.seal-badge{
+  flex:0 0 auto;width:76px;height:76px;border-radius:8px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;color:#f9f2e4;
+  box-shadow:var(--shadow-soft);position:relative;
+}
+.seal-badge::after{content:'';position:absolute;inset:4px;border:1px solid rgba(249,242,228,.55);border-radius:5px}
+.seal-badge .s-el{font-size:32px;font-weight:700;line-height:1.15}
+.seal-badge .s-sub{font-size:10px;letter-spacing:.3em;text-indent:.3em;font-family:var(--sans);opacity:.9}
+.r-persona-txt{flex:1;min-width:240px}
+#r-title{font-size:clamp(23px,3.4vw,31px);line-height:1.4}
+#r-combo{font-size:15px;color:var(--ink-2);margin-top:8px}
+#r-line{font-size:14px;color:var(--ink-3);margin-top:6px}
+/* 主城市区 */
+.r-main{display:grid;grid-template-columns:44fr 56fr;gap:34px;align-items:stretch;margin-bottom:44px}
+.r-city-info{display:flex;flex-direction:column;justify-content:center;padding:6px 0}
+.city-kicker{font-family:var(--sans);font-size:11.5px;letter-spacing:.3em;color:var(--seal);margin-bottom:8px}
+#r-city-name{font-size:clamp(34px,5vw,52px);line-height:1.2;letter-spacing:.06em}
+#r-city-en{font-family:var(--sans);font-size:12px;letter-spacing:.26em;color:var(--ink-3);margin:2px 0 16px;text-transform:uppercase}
+.match-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+#r-match-num{font-size:40px;font-weight:700;color:var(--ink)}
+.match-lab{font-size:13px;color:var(--ink-3)}
+#r-parts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+#r-parts span{
+  font-family:var(--sans);font-size:11.5px;color:var(--ink-2);background:var(--paper-2);
+  border:1px solid var(--line);border-radius:100px;padding:3px 11px;
+}
+#r-reasons .rs-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px;color:var(--ink-2)}
+#r-reasons .rs-item:last-child{border-bottom:none}
+#r-reasons .rs-no{color:var(--seal);font-family:var(--sans);font-size:12px;padding-top:3px}
+#r-remind{
+  margin-top:16px;font-size:13.5px;color:#8a6d2f;background:rgba(201,160,106,.13);
+  border:1px solid rgba(201,160,106,.35);border-radius:6px;padding:11px 15px;line-height:1.8;
+}
+.r-city-art{
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  background:#fbf8ef;box-shadow:var(--shadow);position:relative;
+}
+.r-city-art svg{width:100%;height:100%;min-height:380px;display:block}
+.r-city-art .art-cap{
+  position:absolute;left:14px;bottom:12px;font-family:var(--sans);font-size:11px;
+  letter-spacing:.2em;color:rgba(36,66,92,.75);background:rgba(247,242,230,.82);
+  padding:3px 12px;border-radius:100px;border:1px solid rgba(216,207,186,.8);
+}
+/* 区块 */
+.r-block{margin-bottom:44px}
+.r-block>h3{
+  font-size:17px;letter-spacing:.24em;text-indent:.24em;display:flex;align-items:center;gap:14px;margin-bottom:20px;
+}
+.r-block>h3::before{content:'';width:8px;height:8px;background:var(--seal);border-radius:1px;transform:rotate(45deg);flex:0 0 auto}
+.r-block>h3::after{content:'';flex:1;height:1px;background:var(--line)}
+/* 五行能量条 */
+.bar-row{display:grid;grid-template-columns:64px 1fr 52px;gap:14px;align-items:center;padding:8px 0}
+.bar-row .b-name{font-size:15px;font-weight:700;letter-spacing:.1em}
+.bar-row .b-name small{font-family:var(--sans);font-weight:400;font-size:10.5px;color:var(--ink-3);margin-left:5px;letter-spacing:.08em}
+.bar-track{height:12px;background:var(--paper-2);border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.bar-fill{display:block;height:100%;width:0;border-radius:8px;transition:width 1s cubic-bezier(.25,.8,.3,1)}
+.bar-row .b-pct{font-family:var(--sans);font-size:13px;color:var(--ink-2);text-align:right}
+/* 相生相克 */
+.sx-wrap{display:grid;grid-template-columns:300px 1fr;gap:32px;align-items:center}
+#r-sx-art svg{width:100%;height:auto;display:block}
+#r-sx-text h4{font-size:16px;margin-bottom:8px;letter-spacing:.06em}
+#r-sx-text .sx-p{font-size:14px;color:var(--ink-2);margin-bottom:12px;line-height:1.9}
+#r-sx-text .sx-tag{display:inline-block;font-size:12px;border-radius:3px;padding:2px 10px;margin-right:8px;letter-spacing:.1em}
+.sx-good{background:rgba(122,155,109,.16);color:#4e7042}
+.sx-warn{background:rgba(193,91,84,.14);color:#a3423c}
+/* 备选城市 */
+.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.alt-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:rgba(255,253,247,.6);transition:transform var(--t-fast),box-shadow var(--t-fast)}
+.alt-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.alt-art{border-bottom:1px solid var(--line);background:#fbf8ef}
+.alt-art svg{width:100%;height:190px;display:block}
+.alt-body{padding:16px 18px 18px}
+.alt-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.alt-name{font-size:21px;letter-spacing:.06em}
+.alt-match{font-family:var(--sans);font-size:13px;color:var(--seal);white-space:nowrap}
+.alt-why{font-size:13.5px;color:var(--ink-2);margin:8px 0 6px;line-height:1.8}
+.alt-remind{font-size:12.5px;color:var(--ink-3);line-height:1.7;margin-bottom:12px}
+.alt-btn{
+  font-family:var(--serif);font-size:13.5px;letter-spacing:.18em;text-indent:.18em;color:var(--ink);
+  border:1px solid var(--ink-2);border-radius:3px;padding:8px 20px;min-height:44px;
+  transition:all var(--t-fast);display:inline-flex;align-items:center;
+}
+.alt-btn:hover{background:var(--ink);color:#f7f2e5}
+/* 生活建议 */
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.adv-item{border:1px solid var(--line);border-radius:8px;padding:18px 18px 15px;background:rgba(255,253,247,.55)}
+.adv-item h4{font-size:14px;letter-spacing:.2em;text-indent:.2em;color:var(--ink-2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.adv-item p{font-size:13.5px;color:var(--ink-2);line-height:1.9}
+/* 操作区 */
+.r-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:8px 0 44px}
+.r-actions .btn{font-size:14.5px;padding:11px 26px;min-height:48px}
+/* 图鉴 */
+details.wiki{border:1px solid var(--line);border-radius:10px;background:rgba(255,253,247,.55);margin-bottom:34px;overflow:hidden}
+details.wiki summary{
+  list-style:none;cursor:pointer;padding:18px 24px;font-size:15.5px;letter-spacing:.18em;text-indent:.18em;
+  display:flex;align-items:center;justify-content:space-between;user-select:none;
+}
+details.wiki summary::-webkit-details-marker{display:none}
+details.wiki summary::after{content:'展 开';font-size:12px;color:var(--ink-3);font-family:var(--sans);letter-spacing:.2em}
+details.wiki[open] summary::after{content:'收 起'}
+.wiki-body{padding:0 24px 26px;border-top:1px solid var(--line)}
+.wiki-body .w-row{display:flex;gap:26px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.wiki-body p{font-size:13.5px;color:var(--ink-2);line-height:2;flex:1;min-width:250px}
+#wiki-art{flex:0 0 240px}
+#wiki-art svg{width:100%;height:auto;display:block}
+.wiki-body b{color:var(--ink)}
+.site-foot{
+  text-align:center;font-size:12px;color:var(--ink-3);line-height:2.1;
+  border-top:1px solid var(--line);padding:26px 10px 8px;font-family:var(--sans);
+}
+/* toast */
+#toast{
+  position:fixed;left:50%;bottom:44px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#f7f2e5;font-family:var(--sans);font-size:13.5px;letter-spacing:.1em;
+  padding:11px 26px;border-radius:100px;opacity:0;pointer-events:none;
+  transition:all .35s ease;z-index:9999;box-shadow:var(--shadow);
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ================= 响应式 ================= */
+@media (max-width:880px){
+  .intro-grid{grid-template-columns:1fr;gap:30px}
+  .ele-grid{grid-template-columns:repeat(3,1fr)}
+  .r-main{grid-template-columns:1fr}
+  .r-city-art{order:-1}
+  .r-city-art svg{min-height:300px;height:300px}
+  .sx-wrap{grid-template-columns:1fr}
+  #r-sx-art{max-width:280px;margin:0 auto}
+  .alt-grid{grid-template-columns:1fr}
+  .adv-grid{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .ele-grid{grid-template-columns:repeat(2,1fr)}
+  .q-nav .btn{min-width:104px}
+  #r-match-num{font-size:32px}
+  .r-persona{gap:16px}
+  .seal-badge{width:64px;height:64px}
+  .seal-badge .s-el{font-size:27px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="paper-grain" aria-hidden="true"></div>
+
+<!-- ======================= 页面1 · 东方城市序章 ======================= -->
+<section id="s-intro" class="screen active">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="intro-title">
+        <span class="kicker">五行城市命书 · THE ELEMENTAL CITY BOOK</span>
+        <h1>你的下一站，<br>藏在<em>五行</em>里。</h1>
+        <p class="intro-sub">用 12 道不太正经的问题，测出你的五行人格，寻找与你的生活节奏更合拍的城市。</p>
+        <p class="intro-en">Oriental Fortune × City Matchmaking</p>
+        <div class="intro-cta">
+          <button class="btn btn-main" id="btn-start">开始测算我的城市命格 <span class="arr">→</span></button>
+          <span class="intro-note">约需三分钟 · 全程本地计算 · 不收集任何信息</span>
+        </div>
+      </div>
+      <figure id="intro-art" aria-label="中国城市地标水彩群像插画"></figure>
+    </div>
+
+    <div class="ele-sec">
+      <h3>五行图鉴</h3>
+      <p class="ele-sec-sub">天地有五行，城市有性格——先认识一下五位老朋友。</p>
+      <div class="ele-grid" id="ele-grid"></div>
+    </div>
+
+    <p class="intro-foot">
+      木生火 · 火生土 · 土生金 · 金生水 · 水生木<br>
+      本测试为趣味人格与城市探索体验，五行属性为创意设定，不代表真实命理结论。
+    </p>
+  </div>
+</section>
+
+<!-- ======================= 页面2 · 趣味问答 ======================= -->
+<section id="s-quiz" class="screen">
+  <div class="wrap">
+    <div class="quiz-top">
+      <button class="ghost-btn" id="btn-exit">退出测试</button>
+      <div class="q-progress">
+        <span id="q-num">01 / 12</span>
+        <div class="q-bar"><i id="q-bar-fill"></i></div>
+      </div>
+    </div>
+    <div class="q-box" id="q-box">
+      <p id="q-tag"></p>
+      <h2 id="q-text"></h2>
+      <div id="q-opts"></div>
+    </div>
+    <div class="q-nav">
+      <button class="btn btn-line" id="btn-prev">← 上一题</button>
+      <button class="btn btn-main" id="btn-next">下一题 →</button>
+    </div>
+    <p class="quiz-foot">凭第一直觉作答，结果最准。</p>
+  </div>
+</section>
+
+<!-- ======================= 页面3 · 五行生成仪式 ======================= -->
+<section id="s-ceremony" class="screen">
+  <figure id="cer-art" aria-hidden="true"></figure>
+  <p id="cer-text">正在整理你的精神状态……</p>
+  <button class="ghost-btn" id="btn-skip">跳过动画，直接看结果</button>
+</section>
+
+<!-- ======================= 页面4/5 · 命书结果与城市探索 ======================= -->
+<section id="s-result" class="screen">
+  <div class="wrap">
+    <div class="report-head" id="report-head">
+      <span class="report-en">YOUR ELEMENTAL CITY REPORT</span>
+      <span id="report-no"></span>
+    </div>
+
+    <div class="r-persona">
+      <div class="seal-badge" id="r-seal"><span class="s-el">木</span><span class="s-sub">主格</span></div>
+      <div class="r-persona-txt">
+        <h2 id="r-title"></h2>
+        <p id="r-combo"></p>
+        <p id="r-line"></p>
+      </div>
+    </div>
+
+    <div class="r-main">
+      <div class="r-city-info">
+        <p class="city-kicker" id="r-city-kicker"></p>
+        <h2 id="r-city-name"></h2>
+        <p id="r-city-en"></p>
+        <div class="match-row"><span id="r-match-num"></span><span class="match-lab">匹配指数</span></div>
+        <div id="r-parts"></div>
+        <div id="r-reasons"></div>
+        <div id="r-remind"></div>
+      </div>
+      <figure class="r-city-art" id="r-city-art"></figure>
+    </div>
+
+    <div class="r-block">
+      <h3>五行能量图谱</h3>
+      <div id="r-bars"></div>
+    </div>
+
+    <div class="r-block">
+      <h3>相生相克解读</h3>
+      <div class="sx-wrap">
+        <figure id="r-sx-art"></figure>
+        <div id="r-sx-text"></div>
+      </div>
+    </div>
+
+    <div class="r-block">
+      <h3>另外两座适配城市</h3>
+      <div class="alt-grid" id="r-alt"></div>
+    </div>
+
+    <div class="r-block">
+      <h3>生活发展建议</h3>
+      <div class="adv-grid" id="r-advice"></div>
+    </div>
+
+    <div class="r-actions">
+      <button class="btn btn-line" id="btn-back-main" hidden>← 返回原推荐城市</button>
+      <button class="btn btn-line" id="btn-view-alt">查看另一座城市</button>
+      <button class="btn btn-line" id="btn-copy">复制测试结果</button>
+      <button class="btn btn-seal" id="btn-share">下载分享卡片</button>
+      <button class="btn btn-line" id="btn-retest">重新测算</button>
+    </div>
+
+    <details class="wiki" id="r-wiki">
+      <summary>五行图鉴 · 相生相克是怎么回事</summary>
+      <div class="wiki-body">
+        <div class="w-row">
+          <figure id="wiki-art"></figure>
+          <p>
+            <b>相生</b>，是滋养与成全：木生火（柴薪燃火）、火生土（灰烬成土）、土生金（矿藏于土）、金生水（凝露于金）、水生木（润泽草木）。<br>
+            <b>相克</b>，是制衡与修剪：木克土（根系破土）、土克水（堤坝拦水）、水克火（水能灭火）、火克金（烈火炼金）、金克木（利刃剪枝）。<br>
+            生得太过的，需要一点克来收束；克得太狠的，需要一点生来缓和。城市与人的相处，也是同样的道理——没有完美的匹配，只有愿意互相打磨的缘分。
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <footer class="site-foot">
+      本测试为趣味人格与城市探索体验，五行城市属性为创意设定，匹配指数仅代表内部算法得分。<br>
+      实际迁居请结合职业机会、住房预算、通勤与个人需求综合判断。
+    </footer>
+  </div>
+</section>
+
+<div id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* ================================================================
+   五行城市命书 · 数据层
+   五行规则 / 题库 / 城市数据库（均为趣味创意设定）
+   ================================================================ */
+
+/* ---------- 五行定义 ---------- */
+var ELS = ["木","火","土","金","水"];
+var EL_INFO = {
+  "木":{color:"#7a9b6d",bg:"rgba(122,155,109,.12)",tag:"生长",sub:"曲直",
+    desc:"一直在生长，偶尔长歪，但从不打算停下来。",
+    title:"城市缝隙里的生长型选手"},
+  "火":{color:"#c15b54",bg:"rgba(193,91,84,.12)",tag:"炎上",sub:"发亮",
+    desc:"自带气氛组属性，走到哪儿，哪儿就热起来。",
+    title:"精神永远满格的移动火锅"},
+  "土":{color:"#c9a06a",bg:"rgba(201,160,106,.14)",tag:"承载",sub:"稼穑",
+    desc:"稳，特别稳，稳到让全人类安心。",
+    title:"人间秩序的民间维护员"},
+  "金":{color:"#8fa3ad",bg:"rgba(143,163,173,.14)",tag:"收敛",sub:"从革",
+    desc:"万物皆可归档成表格，混乱是你的天敌。",
+    title:"混乱世界的表格管理员"},
+  "水":{color:"#3e5c7e",bg:"rgba(62,92,126,.12)",tag:"润下",sub:"流动",
+    desc:"讲究一个随缘流动，撤退路线永远不止一条。",
+    title:"拥有无限撤退路线的自由生物"}
+};
+/* 相生：X 生 SHENG[X]；相克：X 克 KE[X] */
+var SHENG = {"木":"火","火":"土","土":"金","金":"水","水":"木"};
+var KE = {"木":"土","土":"水","水":"火","火":"金","金":"木"};
+
+/* 主×次 双格组合文案 */
+var COMBO = {
+  "木火":{n:"点燃篝火的园丁",l:"先把想法种进土里，再让全世界看它烧起来。"},
+  "木土":{n:"深耕大地的播种者",l:"你有远方，也有根；走得再远，都记得回来施肥。"},
+  "木金":{n:"修剪枝叶的盆景大师",l:"生长要有方向，剪刀握在自己手里。"},
+  "木水":{n:"顺流而下的种子",l:"不着急扎根，先看看这条河会带你去哪。"},
+  "火土":{n:"把日子烧出窑变的陶艺人",l:"热情烧完之后，剩下的都是结实的东西。"},
+  "火金":{n:"淬火成钢的锻造师",l:"一边沸腾一边成型，火候自己拿捏。"},
+  "火水":{n:"永远在冒热气的茶壶",l:"沸腾是常态，安静是蓄力，没人猜得到你下一步。"},
+  "土金":{n:"地窖里藏金条的老仓鼠",l:"安全感和增值，你全都要，而且都要得住。"},
+  "土水":{n:"会蓄水的堤坝",l:"看似不动声色，其实暗流都被你安排明白了。"},
+  "金水":{n:"冰层下流动的暗河",l:"表面波光冷静，底下深不见底。"}
+};
+function comboOf(main,sec){ return COMBO[main+sec] || COMBO[sec+main] || {n:EL_INFO[main].tag+"型人格",l:"五行气质自成一派。"}; }
+
+/* ---------- 题库：12 题 × 4 选项 ----------
+   e: 选项加分的五行；scene/pace/career: 生活方式标签（采集自特定题） */
+var QUESTIONS = [
+  {tag:"灵魂拷问 · 一",q:"如果你的灵魂是一种家用电器，你是什么？",opts:[
+    {t:"加湿器——无形的存在感，空气因我而湿润",e:["水"]},
+    {t:"扫地机器人——我的秩序地图每天都在更新",e:["金"]},
+    {t:"复古收音机——滋滋电流声里，藏着一整片森林",e:["木"]},
+    {t:"电热水壶——三分钟沸腾，随时准备温暖全场",e:["火"]}
+  ]},
+  {tag:"灵魂拷问 · 二",q:"周一醒来发现自己变成了一颗茶叶蛋，你首先考虑什么？",opts:[
+    {t:"蛋壳上的裂纹，够不够有设计感",e:["金"]},
+    {t:"卤汁有没有浸透我每一寸灵魂",e:["火"]},
+    {t:"赶紧滚回锅里，凉了就不好吃了",e:["土"]},
+    {t:"顺着茶汤漂出去，看看外面的世界",e:["水"]}
+  ]},
+  {tag:"财富观 · 初显",q:"如果突然获得一笔钱，你会先做什么？",opts:[
+    {t:"打开表格，做一份像模像样的资产配置计划",e:["金"]},
+    {t:"报个课，给自己这棵小树苗浇浇水",e:["木"]},
+    {t:"请朋友们吃一顿大的，热闹要紧",e:["火"]},
+    {t:"存进储蓄罐，安全感比利息重要",e:["土"]}
+  ]},
+  {tag:"开放世界 · 人生",q:"如果人生变成开放世界游戏，你最先点亮哪项技能？",opts:[
+    {t:"建造模式——一砖一瓦盖出自己的城堡",e:["土"]},
+    {t:"与植物对话——它们其实非常八卦",e:["木"]},
+    {t:"全场气氛点燃术——走到哪，嗨到哪",e:["火"]},
+    {t:"潜水——水下的地图，才刚刚开始加载",e:["水"]}
+  ]},
+  {tag:"环境偏好 · 认真想",q:"如果必须在一座城市住三年，你希望每天推开窗看见？",opts:[
+    {t:"一片随季节变色的山林",e:["木"],scene:"nature"},
+    {t:"镜面反射着晚霞的摩天楼群",e:["金"],scene:"urban"},
+    {t:"慢悠悠的老街，和梧桐的树影",e:["土"],scene:"cultural"},
+    {t:"一条缓缓流过的江，偶尔有船经过",e:["水"],scene:"water"}
+  ]},
+  {tag:"城市来信 · 假设",q:"如果城市给你发来一封录取通知书，你最希望它承诺什么？",opts:[
+    {t:"一间朝南的房，和安稳的日子",e:["土"]},
+    {t:"白纸黑字写清楚：薪资水平，当地领先",e:["金"]},
+    {t:"每个周末都有新展览、新市集开幕",e:["木"]},
+    {t:"出门一小时之内，有山，也有海",e:["水"]}
+  ]},
+  {tag:"社交能量 · 实况",q:"聚会上，你通常是哪一个？",opts:[
+    {t:"冷场终结者，气氛由我守护",e:["火"]},
+    {t:"静静观察全场，脑内已经写完三篇小说",e:["水"]},
+    {t:"在厨房默默给大家添茶的人",e:["土"]},
+    {t:"和阳台上的猫、以及绿植聊得最投机",e:["木"]}
+  ]},
+  {tag:"工作节奏 · 自查",q:"你理想的工作节奏，更接近哪种？",opts:[
+    {t:"排期精确到半小时，秩序使我快乐",e:["金"],pace:"structured"},
+    {t:"一边做一边冒出新点子，计划赶不上灵感",e:["木"],pace:"flexible"},
+    {t:"deadline 是燃料，越忙越精神",e:["火"],pace:"fast"},
+    {t:"别催我，灵感自己会流过来",e:["水"],pace:"slow"}
+  ]},
+  {tag:"财富观 · 深挖",q:"在你眼里，钱更像什么？",opts:[
+    {t:"一本需要精打细算的账本",e:["金"]},
+    {t:"一粒种子，要种在对的土壤里",e:["木"]},
+    {t:"一堆篝火，大家围着取暖才有意思",e:["火"]},
+    {t:"一条河，会流向格局大的地方",e:["水"]}
+  ]},
+  {tag:"生活切片 · 周末",q:"完美的周末，你会怎么过？",opts:[
+    {t:"给全家人炖一锅汤，然后等人回来",e:["土"]},
+    {t:"把房间收拾到一尘不染，物归原位",e:["金"]},
+    {t:"组局！火锅、桌游、剧本杀连轴转",e:["火"]},
+    {t:"听雨、泡茶、发呆——充电完成",e:["水"]}
+  ]},
+  {tag:"突发状况 · 本能",q:"精心制定的计划被打乱时，你的第一反应是？",opts:[
+    {t:"立刻重排时间表，五分钟内恢复秩序",e:["金"]},
+    {t:"火气上来了，但发完火就立刻开工",e:["火"]},
+    {t:"先吃点东西，天塌下来也要吃饱",e:["土"]},
+    {t:"说不定是好事——被打破的计划里，藏着新的生长点",e:["木"]}
+  ]},
+  {tag:"十年之约 · 未来",q:"十年后，你希望自己成为怎样的人？",opts:[
+    {t:"大家口中「特别稳、靠得住」的那个人",e:["土"],career:"steady"},
+    {t:"带着一群人，把一件事干成了的人",e:["火"],career:"startup"},
+    {t:"有一门越老越值钱手艺的人",e:["金"],career:"craft"},
+    {t:"像候鸟一样，在几座城市间自由来去的人",e:["水"],career:"free"}
+  ]}
+];
+
+/* ---------- 城市数据库（22 座 · 五行属性为创意设定） ----------
+   el:城市五行  pace:节奏  scenes:场景  careers:发展方向
+   why:3条匹配理由模板 {main}=主格 {sec}=次格  remind:现实提醒  ke:与相克五行组合时的附加提示 */
+var CITIES = [
+  {id:"shanghai",name:"上海",en:"SHANGHAI",el:"金",pace:"fast",scenes:["urban"],careers:["startup","craft","free"],
+   tagline:"把契约精神过成日常的摩登金格之城",
+   industries:"金融、贸易、时尚消费、总部经济与专业服务",
+   lifeNote:"节奏快、选择多，深夜的便利店里坐满了刚下班和刚开工的人。",
+   houseNote:"内环居住成本高，地铁网络发达，通勤时间值得认真算账。",
+   why:["你的{main}格在这座「金」性的城市里会被打磨得很亮——上海欣赏规则内的聪明，而你的{sec}格正好提供那份聪明",
+        "这座城市的信息浓度和审美浓度都足够高，对喜欢把日子过出质感的{main}型人格非常友好",
+        "机会密度大意味着试错成本低，适合想多看看、再选择的你"],
+   remind:"生活成本与通勤强度是明牌，先算清每月固定支出再心动。"},
+
+  {id:"beijing",name:"北京",en:"BEIJING",el:"土",pace:"structured",scenes:["cultural","urban"],careers:["steady","startup","craft"],
+   tagline:"承载一切也沉淀一切的厚重土格古都",
+   industries:"科技互联网、文化传媒、教育科研、政务资源",
+   lifeNote:"大而有序，城市像一座巨大的图书馆，什么都有，就看你找不找得到。",
+   houseNote:"城市半径大，通勤是重要成本，住在哪比想象中更影响生活质量。",
+   why:["皇城根下的「土」格与你的{main}格气味相投——这座城养得住沉得下心的人",
+        "历史厚度和当下的思想浓度同时拉满，{main}格的你在这里既踩得到根，也够得着前沿",
+        "资源和圈子都在这里，适合想认真做点事的{sec}格能量生长"],
+   remind:"通勤半径和落户门槛是现实变量，选对居住板块比选对行业更先决定幸福感。"},
+
+  {id:"shenzhen",name:"深圳",en:"SHENZHEN",el:"火",pace:"fast",scenes:["urban"],careers:["startup","craft"],
+   tagline:"四十多年一直年轻、一直燃烧的创新火格之城",
+   industries:"硬科技、互联网、新能源、智能制造",
+   lifeNote:"「来了就是深圳人」不是口号，是这座城市真实的操作系统。",
+   houseNote:"居住成本不低，但城市新、配套新，城中村给了年轻人缓冲带。",
+   why:["「火」格的深圳和{main}格的你一拍即合——这里最不缺的就是敢想敢干的热量",
+        "这座城市对失败宽容、对速度痴迷，{sec}格的灵活在这里是硬通货",
+        "产业链密度全国罕见，一个想法从图纸到打样，可能只需要一顿肠粉的时间"],
+   remind:"节奏快是双刃剑，记得给自己留出不被推着走的空隙。"},
+
+  {id:"guangzhou",name:"广州",en:"GUANGZHOU",el:"火",pace:"flexible",scenes:["cultural","urban"],careers:["startup","free","craft"],
+   tagline:"把人间烟火烧得恰到好处的老火靓汤之城",
+   industries:"商贸会展、汽车制造、美妆日化、跨境电商与直播电商",
+   lifeNote:"务实、松弛、讲究：早茶可以谈成生意，生意也要让位给生活。",
+   houseNote:"老城区烟火与新城区便利各有拥趸，居住性价比在一线城市里最友好。",
+   why:["广州的「火」不是烈火，是慢火煨汤——{main}格的你会被这座城的耐心滋养",
+        "千年商都的务实和你的{sec}格很合拍：不玩虚的，把日子和生意都过扎实",
+        "吃喝玩乐的生活浓度和创业成本的低门槛，在这里同时成立"],
+   remind:"夏天很长很湿热，体质怕热的话先掂量一下自己的空调信仰。"},
+
+  {id:"hangzhou",name:"杭州",en:"HANGZHOU",el:"木",pace:"flexible",scenes:["nature","water","urban"],careers:["startup","craft","free"],
+   tagline:"数字经济与湖山草木一起生长的木格之城",
+   industries:"电商与云计算、数字内容、直播经济、文旅",
+   lifeNote:"一半山水一半代码，周末爬山划船，周中写方案见投资人。",
+   houseNote:"互联网板块房租不低，城市不大，通勤友好，西湖是免费的。",
+   why:["「木」格杭州最懂生长——你的{main}格在这里会被浇灌得枝繁叶茂",
+        "山水和野心在这座城里和平共处，{sec}格的你既能拼事业也留得住生活",
+        "数字经济浓度高，{main}格想发芽的很多想法，在这里都能找到土壤和园丁"],
+   remind:"互联网浓度高的另一面是竞争浓度也高，卷不卷取决于你想要的节奏。"},
+
+  {id:"chengdu",name:"成都",en:"CHENGDU",el:"水",pace:"slow",scenes:["nature","urban"],careers:["free","craft","startup"],
+   tagline:"把松弛感泡进茶碗里的润泽水格之城",
+   industries:"游戏与数字文创、消费品牌、会展、生物医药",
+   lifeNote:"雪山下的公园城市，泡在茶馆里的下午，不算虚度。",
+   houseNote:"生活成本友好，地铁覆盖广，「安逸」是写进城市基因的关键词。",
+   why:["成都的「水」性温柔地接住你的{main}格——这座城不催你，但机会自己会流过来",
+        "茶馆文化和新经济同时繁荣，{sec}格的你可以在松弛里把事情办成",
+        "生活成本与幸福感的比值极高，适合想清楚「要什么」之后再发力的你"],
+   remind:"太安逸是甜蜜的陷阱——建议先定好目标，再享受巴适。"},
+
+  {id:"nanjing",name:"南京",en:"NANJING",el:"土",pace:"slow",scenes:["cultural","nature"],careers:["steady","craft"],
+   tagline:"六朝烟水沉淀出的沉稳土格学者之城",
+   industries:"科教研发、软件与电子信息、智能制造、文旅",
+   lifeNote:"梧桐树影里的城市，节奏不快，但底蕴深得能听见回声。",
+   houseNote:"老城有味道、新城更便利，高校多，租房市场对年轻人友好。",
+   why:["南京的「土」格安稳厚重，正好安放{main}格的你那颗想沉下来的心",
+        "高校与科研院所密度高，{sec}格的求知欲在这里永远有去处",
+        "历史感和书卷气让这座城市自带定力，适合慢慢长成大树的{main}型选手"],
+   remind:"冬天湿冷没暖气、夏天是标准火炉，体感季节跨度大，先做心理建设。"},
+
+  {id:"suzhou",name:"苏州",en:"SUZHOU",el:"木",pace:"slow",scenes:["cultural","water","nature"],careers:["craft","steady"],
+   tagline:"在园林里把日子修剪成诗的精致木格之城",
+   industries:"高端制造、生物医药、纳米技术、工业设计",
+   lifeNote:"白墙黛瓦和产业园区各占一半，古典和精密在这里互不干扰。",
+   houseNote:"老城限高保风貌，园区现代更实用，通勤半径可控。",
+   why:["「木」格苏州自己就是一座园林——你的{main}格会在这里被修剪出更好的形状",
+        "最强地级市的产业底子配上江南的生活质感，{sec}格的讲究在这里全用得上",
+        "适合手艺人心态：慢慢打磨，苏州城等得起，你的{main}格也等得起"],
+   remind:"城市气质偏静，追求夜生活和热闹的人需要自备娱乐方案。"},
+
+  {id:"wuhan",name:"武汉",en:"WUHAN",el:"水",pace:"fast",scenes:["water","urban"],careers:["steady","craft","startup"],
+   tagline:"两江交汇、九省通衢的奔流水格枢纽之城",
+   industries:"光电子信息、汽车、生物医药、高等教育",
+   lifeNote:"过早的热干面配长江的汽笛，这座城市的性格是敞亮的。",
+   houseNote:"三镇格局让城市很大，选住址先看工作地点，跨江通勤要认真考虑。",
+   why:["「水」格武汉的江湖气和{main}格的你天然合拍——爽朗、直接、不装",
+        "九省通衢意味着流动的机会，{sec}格的能量在这里转得起来",
+        "高校百万在校生撑起的年轻浓度，让{main}格的想法总能找到同频的人"],
+   remind:"夏天极热、冬天湿冷，「过早」热量爆炸，好City但考验体质。"},
+
+  {id:"chongqing",name:"重庆",en:"CHONGQONG",el:"火",pace:"fast",scenes:["urban","nature"],careers:["startup","free"],
+   tagline:"把热辣刻进等高线的立体火格山城",
+   industries:"汽车制造、电子信息、文旅消费、火锅经济",
+   lifeNote:"8D魔幻地形自带戏剧感：你以为在1楼，其实在22楼。",
+   houseNote:"爬坡上坎是日常，住址和轻轨站的关系直接决定生活幸福度。",
+   why:["「火」格重庆和{main}格的你互相点燃——这座城市的能量场就是热气腾腾四个字",
+        "城市本身即顶流IP，{sec}格的创意和表达欲在这里不缺素材",
+        "生活成本可控、烟火气全国顶级，适合想边闯边生活的你"],
+   remind:"导航在这里经常沉默，出门预留找路的体力，膝盖和鞋底都要好。"},
+
+  {id:"tianjin",name:"天津",en:"TIANJIN",el:"水",pace:"slow",scenes:["water","cultural"],careers:["steady","craft"],
+   tagline:"九河下梢、把幽默过成日常的松弛水格之城",
+   industries:"航空航天、石油化工、高端装备、港口经济",
+   lifeNote:"海河穿城，相声下饭，这座城市对「乐呵」有执念。",
+   houseNote:"房价友好度高，市区生活半径紧凑，骑车可达很多地方。",
+   why:["天津的「水」格是慢水流深——{main}格的你在这里会莫名地松弛下来",
+        "曲艺之都的幽默感和{sec}格的通透相得益彰，日子过得有滋有味",
+        "生活成本低加上离北京近，进可打拼退可安居，{main}格的选择权很值钱"],
+   remind:"冬天海河边风大且直，围巾是刚需不是配饰。"},
+
+  {id:"qingdao",name:"青岛",en:"QINGDAO",el:"水",pace:"slow",scenes:["water","nature"],careers:["steady","free","craft"],
+   tagline:"红瓦绿树、碧海蓝天的清爽水格海滨之城",
+   industries:"智能家电、海洋经济、啤酒与食品、影视文旅",
+   lifeNote:"吹海风、哈啤酒、吃蛤蜊，青岛的生活有一套自己的度量衡。",
+   houseNote:"老城区坡多、景色好，新区平缓、更现代，海景房量力而行。",
+   why:["「水」格青岛的海风正好吹散{main}格的燥气——这座城市自带滤镜和凉意",
+        "海滨生活的松弛和产业底子的扎实并存，{sec}格想要的平衡这里真的有",
+        "城市颜值常年在线，对重视生活美感的{main}型人格是持续的加分项"],
+   remind:"旅游旺季游客浓度高，热门海鲜市场请提前做好攻略。"},
+
+  {id:"xian",name:"西安",en:"XI'AN",el:"土",pace:"slow",scenes:["cultural"],careers:["steady","craft","startup"],
+   tagline:"把三千年历史揉进面团的厚土格古都",
+   industries:"文化旅游、航空航天、半导体与硬科技、高校科研",
+   lifeNote:"城墙下唱摇滚，博物馆里过周末，这座城的反差感是天赋。",
+   houseNote:"古城内安静有味，高新区现代忙碌，一碗面钱的生活成本很友好。",
+   why:["「土」格西安的厚重正好稳稳托住{main}格的你——历史感这种东西，很治愈焦虑",
+        "硬科技与文旅双轮驱动，{sec}格的才华在这里有古今两个赛道可选",
+        "生活成本友好到可以安心试错，{main}格的新芽在这里不怕长得慢"],
+   remind:"气候干燥、春天偶有沙尘，南方来的朋友记得备好加湿器——和水杯。"},
+
+  {id:"changsha",name:"长沙",en:"CHANGSHA",el:"火",pace:"fast",scenes:["urban","cultural","nature"],careers:["free","startup","craft"],
+   tagline:"凌晨两点还在排队的快乐火格不夜之城",
+   industries:"传媒娱乐、工程机械、新消费品牌、文创",
+   lifeNote:"茶颜悦色和超级文和友的故乡，把「快乐」做成了产业。",
+   houseNote:"房价洼地中的战斗机，市中心安家不是梦想。",
+   why:["「火」格长沙的快乐浓度全国最高——{main}格的你在这里根本冷场不起来",
+        "传媒与文创业态成熟，{sec}格的表达欲和创作欲有出口也有市场",
+        "房价友好到惊人，安居乐业在这里不是并列词，是因果词"],
+   remind:"辣度与夜生活强度成正比，作息党的自律将接受终极考验。"},
+
+  {id:"zhengzhou",name:"郑州",en:"ZHENGZHOU",el:"土",pace:"structured",scenes:["urban"],careers:["steady","craft"],
+   tagline:"天地之中、纵横四海的枢纽土格之城",
+   industries:"现代物流、电子信息、食品加工、轨道交通装备",
+   lifeNote:"火车拉来的城市，如今高铁半日可达大半个中国。",
+   houseNote:"生活成本适中，城市框架拉得大，新区居住体验不断升级。",
+   why:["「土」格郑州的四平八稳正好接住{main}格的你——枢纽城市的好处是「都在路上」",
+        "物流与制造的底盘扎实，{sec}格的执行力在这里非常吃得开",
+        "米字形高铁网让你周五出发周日回，{main}格的探索半径大到惊人"],
+   remind:"春运期间的火车站是国家级奇观，错峰出行保平安。"},
+
+  {id:"hefei",name:"合肥",en:"HEFEI",el:"木",pace:"fast",scenes:["urban","nature"],careers:["startup","craft"],
+   tagline:"闷声干大事、疯狂生长的科创木格黑马",
+   industries:"新能源汽车、量子科技、半导体、生物医药",
+   lifeNote:"「风投之城」的胆子和科学城的脑子，都在悄悄变大。",
+   houseNote:"城市扩张快，新区房子新、马路宽，性价比正在被发现。",
+   why:["「木」格合肥是长势最猛的城市之一——{main}格的你和它一起长，速度加倍",
+        "科创浓度远超城市知名度，{sec}格的技术宅属性在这里如鱼得水",
+        "现在入场还是「潜力股」价格，{main}格的判断力值得在这里押一注"],
+   remind:"城市配套还在追产业发展速度，对新区的「暂时不便」要有预期。"},
+
+  {id:"ningbo",name:"宁波",en:"NINGBO",el:"水",pace:"fast",scenes:["water","urban"],careers:["startup","craft","steady"],
+   tagline:"通江达海、书藏古今的实干水格港城",
+   industries:"港口贸易、绿色石化、高端制造、跨境电商",
+   lifeNote:"宁波帮的精明藏在低调里，这座城把「问生意」当作问候语。",
+   houseNote:"市区紧凑便利，房价适中，海边新城风景与性价比兼得。",
+   why:["「水」格宁波深谙流动的智慧——{main}格的灵活在这里能兑换成真金白银",
+        "港口连着全球市场，{sec}格的商业嗅觉不愁没有用武之地",
+        "书藏古今的天一阁气质和务实商帮精神并存，适合{main}格的进退有度"],
+   remind:"台风季需要尊重，七八月的雨说来就来，伞是常驻装备。"},
+
+  {id:"wuxi",name:"无锡",en:"WUXI",el:"金",pace:"slow",scenes:["water","nature"],careers:["craft","steady"],
+   tagline:"太湖明珠、把精密做成艺术的金格小城",
+   industries:"物联网、集成电路、生物医药、高端装备",
+   lifeNote:"城市不大，产业很硬；樱花季的鼋头渚，是江南的顶配浪漫。",
+   houseNote:"宜居榜常客，生活成本适中，市区通勤幸福感高。",
+   why:["「金」格无锡的精密气质和{main}格的讲究一拍即合——这座城小而完整",
+        "物联网与集成电路的产业精度，配得上{sec}格对专业的执着",
+        "太湖和樱花负责治愈，产业园和实验室负责托底，{main}格的平衡感在这里成立"],
+   remind:"樱花季鼋头渚人潮汹涌，本地人的攻略是：工作日请假去。"},
+
+  {id:"xiamen",name:"厦门",en:"XIA MEN",el:"木",pace:"slow",scenes:["water","nature"],careers:["free","craft","steady"],
+   tagline:"海上花园、文艺与烟火共生的木格岛城",
+   industries:"文旅会展、软件信息、航运物流、创意设计",
+   lifeNote:"鼓浪屿的琴声和沙坡尾的咖啡香，是这座城的背景音。",
+   houseNote:"岛内紧凑精致、成本偏高，岛外空间更大、性价比更高。",
+   why:["「木」格厦门温柔地适合一切想慢下来的{main}格——海风会替你原谅自己",
+        "文艺浓度和商业气息平衡得刚好，{sec}格的审美在这里能变现",
+        "小而美的城市尺度，{main}格的你可以在半小时内从会议室走到海边"],
+   remind:"岛内居住成本不低，游客高峰期出行请预留充足的时间与耐心。"},
+
+  {id:"kunming",name:"昆明",en:"KUN MING",el:"木",pace:"slow",scenes:["nature"],careers:["free","craft"],
+   tagline:"四季如春、鲜花论斤称的治愈木格春城",
+   industries:"花卉产业、大健康、文旅、绿色食品",
+   lifeNote:"海拔1891米的松弛，阳光是这座城市最慷慨的福利。",
+   houseNote:"生活成本温和，城市尺度舒适，晒太阳的公共空间管够。",
+   why:["「木」格昆明的治愈力是国家级的——{main}格的紧绷在这里会自动松开",
+        "鲜花和大健康产业自带松弛属性，{sec}格的慢灵感在这里能落地",
+        "四季如春意味着全年户外，{main}格的活力不被季节打断"],
+   remind:"高原紫外线不含糊，防晒是昆明生活的第一门必修课。"},
+
+  {id:"jinan",name:"济南",en:"JI NAN",el:"水",pace:"structured",scenes:["cultural","water"],careers:["steady","craft"],
+   tagline:"泉水叮咚、稳中带萌的温润水格泉城",
+   industries:"软件信息服务、重型装备、医药健康、食品",
+   lifeNote:"家家泉水、户户垂杨，老城的松弛感是从地底下冒出来的。",
+   houseNote:"生活成本友好，城市节奏平稳，通勤压力整体可控。",
+   why:["「水」格济南的泉水气质温柔地包裹{main}格的你——这座城有一种不争的定力",
+        "软件名城的名号不响但底子扎实，{sec}格的稳扎稳打在这里被珍视",
+        "四面荷花三面柳，{main}格的你花不多的钱就能住进风景里"],
+   remind:"夏天桑拿天威力不小，泉水再凉也救不了户外暴走，注意补水。"},
+
+  {id:"fuzhou",name:"福州",en:"FU ZHOU",el:"火",pace:"fast",scenes:["water","cultural"],careers:["startup","craft","free"],
+   tagline:"爱拼才会赢的榕荫火格闽都",
+   industries:"数字经济、纺织化纤、海洋渔业、跨境电商",
+   lifeNote:"榕树荫下泡温泉，闽江边上谈生意，福州人的松弛是热腾腾的。",
+   houseNote:"老城烟火、新城现代，房价在沿海省会里相对温柔。",
+   why:["「火」格福州的闯劲藏在茶香里——{main}格的你和闽商精神意外地对味",
+        "数字经济增速惊人，{sec}格的实干在这里有赛道也有回响",
+        "温泉与榕树负责生活质感，{main}格的打拼可以不那么苦大仇深"],
+   remind:"回南天加台风季双重考验，除湿机是福州家居的隐藏家电。"}
+];
+
+/* ---------- 场景关联度（用于部分匹配） ---------- */
+var SCENE_MATES = {"nature":["water"],"water":["nature"],"urban":["cultural"],"cultural":["urban"]};
+
+/* ---------- 计分与城市匹配（纯函数，可独立测试） ---------- */
+function computeScores(answers){
+  var sc = {"木":0,"火":0,"土":0,"金":0,"水":0}, total = 0;
+  answers.forEach(function(ai,qi){
+    if(ai==null) return;
+    var opt = QUESTIONS[qi].opts[ai]; if(!opt) return;
+    opt.e.forEach(function(el){ sc[el]+=1; total+=1; });
+  });
+  var ranked = ELS.slice().sort(function(a,b){
+    return sc[b]-sc[a] || ELS.indexOf(a)-ELS.indexOf(b);
+  });
+  return {scores:sc, total:total, main:ranked[0], sec:ranked[1], ranked:ranked};
+}
+
+/* 从答题中提取生活方式标签 */
+function deriveProfile(answers){
+  var p = {scene:null,pace:null,career:null};
+  answers.forEach(function(ai,qi){
+    if(ai==null) return;
+    var opt = QUESTIONS[qi].opts[ai]; if(!opt) return;
+    if(opt.scene) p.scene = opt.scene;
+    if(opt.pace)  p.pace  = opt.pace;
+    if(opt.career)p.career= opt.career;
+  });
+  return p;
+}
+
+/* 单城打分：五行契合 / 节奏 / 场景 / 发展方向，可解释加权 */
+function scoreCity(c,u){
+  var el=0;
+  if(c.el===u.main) el=40;
+  else if(c.el===u.sec) el=26;
+  else if(SHENG[c.el]===u.main) el=20;       /* 城市生你：如水城养木格 */
+  else if(SHENG[u.main]===c.el) el=16;       /* 你生城市：能量有出口 */
+  else if(KE[c.el]===u.main) el=10;          /* 城市克你：磨刀式成长 */
+  else el=13;                                /* 你克城市：你主导节奏 */
+  var pace=5;
+  if(c.pace===(u.pace||"flexible")) pace=20;
+  else{
+    var m=c.pace+"|"+(u.pace||"");
+    if(["fast|flexible","flexible|fast","slow|flexible","flexible|slow"].indexOf(m)>=0) pace=12;
+    else if(["structured|slow","slow|structured"].indexOf(m)>=0) pace=10;
+  }
+  var scene=5;
+  if(u.scene && c.scenes.indexOf(u.scene)>=0) scene=24;
+  else if(u.scene && SCENE_MATES[u.scene] && c.scenes.some(function(s){return SCENE_MATES[u.scene].indexOf(s)>=0;})) scene=12;
+  var car=6;
+  if(u.career && c.careers.indexOf(u.career)>=0) car=16;
+  var total=el+pace+scene+car;
+  var match=Math.round(52+total*0.45);
+  if(match>97)match=97; if(match<52)match=52;
+  return {total:total,match:match,parts:{el:el,pace:pace,scene:scene,car:car}};
+}
+
+function rankCities(u){
+  return CITIES.map(function(c,i){
+    var s=scoreCity(c,u);
+    return {city:c,idx:i,score:s.total,match:s.match,parts:s.parts};
+  }).sort(function(a,b){ return b.score-a.score || a.idx-b.idx; });
+}
+
+/* 主次五行关系文案 */
+function relationOf(main,sec){
+  if(SHENG[main]===sec) return {type:"sheng",good:true,label:main+" 生 "+sec,
+    h:"你的"+main+"格，自然滋养"+sec+"格",
+    p:"能量从主格顺流到次格——你做事有源源不断的后劲，兴趣和行动力互相供血。要注意的只是别把主格烧干：会休息的人才能一直生长。"};
+  if(SHENG[sec]===main) return {type:"sheng",good:true,label:sec+" 生 "+main,
+    h:"你的"+sec+"格，默默滋养"+main+"格",
+    p:"次格是暗地里的补给线——你的底气和恢复力比表现出来的更强。别只顾着输出，记得回头照顾那条给你供能的河。"};
+  if(KE[main]===sec) return {type:"ke",good:false,label:main+" 克 "+sec,
+    h:"你的"+main+"格，时常克制"+sec+"格",
+    p:"主格会时不时压住次格——想冲的劲和想歇的心偶尔打架。这不是内耗，是内部管理问题：主动给次格留固定时间，比如每周放空半天，两格就都服气了。"};
+  return {type:"ke",good:false,label:sec+" 克 "+main,
+    h:"你的"+sec+"格，偶尔踩住"+main+"格的刹车",
+    p:"每次想全速冲刺时，总有一根缰绳拉住你——那其实是次格在履行制衡职责。大事决策前它反而帮你避开冲动，学会跟刹车商量油门，你就赢了。"};
+}
+
+/* ================================================================
+   五行城市命书 · 插画层（全部内嵌 SVG，无外部资源）
+   ================================================================ */
+var _uid = 0;
+function uid(p){ _uid++; return (p||"u")+_uid; }
+
+/* ---------- 通用构件 ---------- */
+function fRoof(x,y,w,h,c){ /* 飞檐屋顶剪影 */
+  var e=w*0.16;
+  return '<path d="M '+(x-w/2)+' '+y+' Q '+(x-w/2+w*0.07)+' '+(y-3)+' '+(x-w/2+e)+' '+(y-9)+
+  ' L '+(x-w*0.16)+' '+(y-h)+' L '+(x+w*0.16)+' '+(y-h)+
+  ' L '+(x+w/2-e)+' '+(y-9)+' Q '+(x+w/2-w*0.07)+' '+(y-3)+' '+(x+w/2)+' '+y+
+  ' Q '+x+' '+(y-h*0.62)+' '+(x-w/2)+' '+y+' Z" fill="'+c+'"/>';
+}
+function fPavilion(x,gy,s,c,rc){ /* 亭子 */
+  var g='<g>';
+  g+='<rect x="'+(x-22*s)+'" y="'+(gy-16*s)+'" width="'+(44*s)+'" height="'+(16*s)+'" fill="'+c+'"/>';
+  g+='<path d="M '+(x-18*s)+' '+(gy-16*s)+' V '+(gy-34*s)+' M '+(x+18*s)+' '+(gy-16*s)+' V '+(gy-34*s)+' M '+(x)+' '+(gy-16*s)+' V '+(gy-34*s)+'" stroke="'+c+'" stroke-width="'+(2.2*s)+'"/>';
+  g+=fRoof(x,gy-34*s,52*s,20*s,rc);
+  g+='<path d="M '+x+' '+(gy-54*s)+' V '+(gy-60*s)+'" stroke="'+rc+'" stroke-width="'+(2*s)+'"/><circle cx="'+x+'" cy="'+(gy-62*s)+'" r="'+(2.4*s)+'" fill="'+rc+'"/>';
+  return g+'</g>';
+}
+function fPagoda(x,gy,tiers,s,w,c,rc,fin){ /* 多层宝塔 */
+  var g='<g>', y=gy, tw=w;
+  for(var i=0;i<tiers;i++){
+    var th=(i===0?26:18)*s, ww=tw*s;
+    g+='<rect x="'+(x-ww/2+4*s)+'" y="'+(y-th)+'" width="'+(ww-8*s)+'" height="'+th+'" fill="'+c+'"/>';
+    g+=fRoof(x,y-th,ww+12*s,12*s,rc);
+    y=y-th-11*s; tw=tw*0.86;
+  }
+  g+='<path d="M '+x+' '+y+' V '+(y-9*s)+'" stroke="'+rc+'" stroke-width="'+(1.8*s)+'"/>';
+  if(fin) g+='<circle cx="'+x+'" cy="'+(y-11*s)+'" r="'+(3*s)+'" fill="'+fin+'"/>';
+  return g+'</g>';
+}
+function fTree(x,gy,r,c,tc){
+  return '<g><rect x="'+(x-2)+'" y="'+(gy-r*0.9)+'" width="4" height="'+(r*0.9)+'" fill="'+(tc||'#8a7a5e')+'"/>'+
+  '<circle cx="'+(x-r*0.45)+'" cy="'+(gy-r*1.05)+'" r="'+(r*0.62)+'" fill="'+c+'"/>'+
+  '<circle cx="'+(x+r*0.4)+'" cy="'+(gy-r*1.2)+'" r="'+(r*0.7)+'" fill="'+c+'"/>'+
+  '<circle cx="'+x+'" cy="'+(gy-r*1.55)+'" r="'+(r*0.58)+'" fill="'+c+'"/></g>';
+}
+function fPine(x,gy,s,c){
+  return '<g><rect x="'+(x-1.5*s)+'" y="'+(gy-14*s)+'" width="'+(3*s)+'" height="'+(14*s)+'" fill="#7a6a52"/>'+
+  '<path d="M '+(x-9*s)+' '+(gy-8*s)+' L '+x+' '+(gy-24*s)+' L '+(x+9*s)+' '+(gy-8*s)+' Z" fill="'+c+'"/>'+
+  '<path d="M '+(x-7*s)+' '+(gy-16*s)+' L '+x+' '+(gy-30*s)+' L '+(x+7*s)+' '+(gy-16*s)+' Z" fill="'+c+'"/></g>';
+}
+function fPalm(x,gy,s){
+  var g='<g><path d="M '+x+' '+gy+' C '+(x-3*s)+' '+(gy-14*s)+' '+(x+2*s)+' '+(gy-22*s)+' '+(x-1*s)+' '+(gy-28*s)+'" stroke="#8a7a5e" stroke-width="'+(3*s)+'" fill="none"/>';
+  var tx=x-1*s, ty=gy-28*s;
+  g+='<path d="M '+tx+' '+ty+' Q '+(tx-14*s)+' '+(ty-8*s)+' '+(tx-20*s)+' '+(ty-2*s)+' M '+tx+' '+ty+' Q '+(tx-10*s)+' '+(ty-14*s)+' '+(tx-16*s)+' '+(ty-16*s)+' M '+tx+' '+ty+' Q '+(tx+6*s)+' '+(ty-14*s)+' '+(tx+12*s)+' '+(ty-16*s)+' M '+tx+' '+ty+' Q '+(tx+14*s)+' '+(ty-6*s)+' '+(tx+20*s)+' '+(ty-1*s)+' M '+tx+' '+ty+' Q '+(tx-2*s)+' '+(ty-12*s)+' '+(tx+2*s)+' '+(ty-18*s)+'" stroke="#5c7a58" stroke-width="'+(2*s)+'" fill="none"/></g>';
+  return g;
+}
+function fWillow(x,gy,s,c){
+  var g='<g><path d="M '+x+' '+gy+' C '+(x+3*s)+' '+(gy-12*s)+' '+(x-2*s)+' '+(gy-18*s)+' '+(x+1*s)+' '+(gy-24*s)+'" stroke="#8a7a5e" stroke-width="'+(2.6*s)+'" fill="none"/>';
+  var tx=x+1*s, ty=gy-24*s;
+  g+='<ellipse cx="'+tx+'" cy="'+ty+'" rx="'+(12*s)+'" ry="'+(8*s)+'" fill="'+c+'"/>';
+  for(var i=-2;i<=2;i++) g+='<path d="M '+(tx+i*5*s)+' '+(ty+4*s)+' q '+(i)+' '+(10*s)+' '+(i*1.6*s)+' '+(16*s)+'" stroke="'+c+'" stroke-width="'+(1.6*s)+'" fill="none"/>';
+  return g+'</g>';
+}
+function fBamboo(x,gy,s){
+  var g='<g>';
+  [[0,1],[8,0.9],[-7,0.85]].forEach(function(b){
+    var bx=x+b[0]*s, k=b[1];
+    g+='<path d="M '+bx+' '+gy+' V '+(gy-46*s*k)+'" stroke="#7a9b6d" stroke-width="'+(3*s)+'"/>';
+    g+='<path d="M '+bx+' '+(gy-16*s*k)+' l '+(9*s)+' '+(5*s)+' M '+bx+' '+(gy-26*s*k)+' l '+(-9*s)+' '+(4*s)+' M '+bx+' '+(gy-36*s*k)+' l '+(8*s)+' '+(4*s)+'" stroke="#7a9b6d" stroke-width="'+(1.8*s)+'"/>';
+  });
+  return g+'</g>';
+}
+function fBoat(x,y,s,c){
+  return '<g><path d="M '+(x-16*s)+' '+y+' Q '+x+' '+(y+7*s)+' '+(x+16*s)+' '+y+' L '+(x+11*s)+' '+(y-4*s)+' L '+(x-11*s)+' '+(y-4*s)+' Z" fill="'+(c||'#46586a')+'"/>'+
+  '<path d="M '+x+' '+(y-4*s)+' V '+(y-18*s)+'" stroke="'+(c||'#46586a')+'" stroke-width="'+(1.4*s)+'"/>'+
+  '<path d="M '+x+' '+(y-17*s)+' L '+(x+10*s)+' '+(y-6*s)+' L '+x+' '+(y-6*s)+' Z" fill="#f2ede0"/></g>';
+}
+function fSail(x,y,s,c){
+  return '<g><path d="M '+(x-18*s)+' '+y+' Q '+x+' '+(y+6*s)+' '+(x+18*s)+' '+y+' L '+(x+12*s)+' '+(y-3*s)+' L '+(x-12*s)+' '+(y-3*s)+' Z" fill="'+(c||'#8a7a5e')+'"/>'+
+  '<path d="M '+x+' '+(y-3*s)+' L '+x+' '+(y-26*s)+' L '+(x+14*s)+' '+(y-5*s)+' Z" fill="#f6f4ec"/><path d="M '+(x-2*s)+' '+(y-4*s)+' L '+(x-2*s)+' '+(y-20*s)+' L '+(x-12*s)+' '+(y-5*s)+' Z" fill="#efe8d6"/></g>';
+}
+function fGull(x,y,s){ return '<path d="M '+(x-8*s)+' '+y+' Q '+(x-3*s)+' '+(y-5*s)+' '+x+' '+y+' Q '+(x+3*s)+' '+(y-5*s)+' '+(x+8*s)+' '+y+'" stroke="#e8e2d2" stroke-width="'+(1.6*s)+'" fill="none"/>'; }
+function fWave(x,y,w,c){
+  var d='M '+(x-w/2)+' '+y+' q '+(w/8)+' -4 '+(w/4)+' 0 t '+(w/4)+' 0 t '+(w/4)+' 0';
+  return '<path d="'+d+'" stroke="'+c+'" stroke-width="1.6" fill="none" opacity=".7"/>';
+}
+function fBld(x,gy,w,h,c,win){
+  var g='<rect x="'+x+'" y="'+(gy-h)+'" width="'+w+'" height="'+h+'" fill="'+c+'" rx="1.5"/>';
+  if(win&&h>36&&w>20){ for(var wy=gy-h+10;wy<gy-10;wy+=13){ for(var wx=x+6;wx<x+w-7;wx+=11){ g+='<rect x="'+wx+'" y="'+wy+'" width="3.6" height="5" fill="#f2ede0" opacity=".55"/>'; } } }
+  return g;
+}
+function fMount(pts,c,op){ return '<path d="M '+pts.join(' L ')+' Z" fill="'+c+'"'+(op?' opacity="'+op+'"':'')+'/>'; }
+function fFerris(x,cy,r,c){
+  var g='<g><path d="M '+(x-26)+' '+(cy+r+42)+' L '+x+' '+cy+' L '+(x+26)+' '+(cy+r+42)+'" stroke="'+c+'" stroke-width="3" fill="none"/>';
+  g+='<circle cx="'+x+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+c+'" stroke-width="2.4"/>';
+  for(var i=0;i<12;i++){ var a=i*Math.PI/6; g+='<path d="M '+x+' '+cy+' L '+(x+r*Math.cos(a))+' '+(cy+r*Math.sin(a))+'" stroke="'+c+'" stroke-width="1" opacity=".65"/>'; g+='<circle cx="'+(x+r*Math.cos(a))+'" cy="'+(cy+r*Math.sin(a))+'" r="3" fill="'+c+'"/>'; }
+  g+='<circle cx="'+x+'" cy="'+cy+'" r="4.5" fill="'+c+'"/></g>';
+  return g;
+}
+function fCrane(x,gy,s,c){
+  var g='<g>';
+  g+='<path d="M '+(x-18*s)+' '+gy+' V '+(gy-52*s)+' M '+(x+14*s)+' '+gy+' V '+(gy-52*s)+' M '+(x-18*s)+' '+(gy-52*s)+' H '+(x+14*s)+'" stroke="'+c+'" stroke-width="'+(3*s)+'" fill="none"/>';
+  g+='<path d="M '+(x-18*s)+' '+(gy-52*s)+' H '+(x+52*s)+' M '+(x-2*s)+' '+(gy-72*s)+' L '+(x+44*s)+' '+(gy-52*s)+' M '+(x-2*s)+' '+(gy-72*s)+' V '+(gy-52*s)+'" stroke="'+c+'" stroke-width="'+(2*s)+'" fill="none"/>';
+  g+='<path d="M '+(x+34*s)+' '+(gy-52*s)+' V '+(gy-36*s)+' M '+(x+44*s)+' '+(gy-52*s)+' V '+(gy-36*s)+'" stroke="'+c+'" stroke-width="'+(2*s)+'"/>';
+  return g+'</g>';
+}
+function fArch(x,y,w,c){ /* 石拱桥 */
+  var h=26;
+  return '<g><path d="M '+(x-w/2)+' '+y+' H '+(x+w/2)+' V '+(y-14)+' H '+(x-w/2)+' Z" fill="'+c+'"/>'+
+  '<path d="M '+(x-w/2+12)+' '+y+' A '+(w/2-12)+' '+(h*0.62)+' 0 0 1 '+(x+w/2-12)+' '+y+' L '+(x+w/2-12)+' '+(y-14)+' A '+(w/2-12)+' '+(h*0.5)+' 0 0 0 '+(x-w/2+12)+' '+(y-14)+' Z" fill="#f6f1e6" opacity=".9"/></g>';
+}
+function fPanda(x,gy,s){
+  return '<g>'+
+  '<ellipse cx="'+x+'" cy="'+(gy-14*s)+'" rx="'+(20*s)+'" ry="'+(15*s)+'" fill="#f6f4ec" stroke="#5a5a52" stroke-width="1"/>'+
+  '<ellipse cx="'+(x-14*s)+'" cy="'+(gy-16*s)+'" rx="'+(6*s)+'" ry="'+(11*s)+'" fill="#3a3a32" transform="rotate(-18 '+x+' '+(gy-16*s)+')"/>'+
+  '<ellipse cx="'+(x+14*s)+'" cy="'+(gy-10*s)+'" rx="'+(6*s)+'" ry="'+(9*s)+'" fill="#3a3a32" transform="rotate(14 '+x+' '+(gy-10*s)+')"/>'+
+  '<circle cx="'+x+'" cy="'+(gy-34*s)+'" r="'+(13*s)+'" fill="#f6f4ec" stroke="#5a5a52" stroke-width="1"/>'+
+  '<circle cx="'+(x-9*s)+'" cy="'+(gy-41*s)+'" r="'+(4.5*s)+'" fill="#3a3a32"/><circle cx="'+(x+9*s)+'" cy="'+(gy-41*s)+'" r="'+(4.5*s)+'" fill="#3a3a32"/>'+
+  '<ellipse cx="'+(x-5*s)+'" cy="'+(gy-35*s)+'" rx="'+(3.4*s)+'" ry="'+(4.2*s)+'" fill="#3a3a32" transform="rotate(14 '+(x-5*s)+' '+(gy-35*s)+')"/>'+
+  '<ellipse cx="'+(x+5*s)+'" cy="'+(gy-35*s)+'" rx="'+(3.4*s)+'" ry="'+(4.2*s)+'" fill="#3a3a32" transform="rotate(-14 '+(x+5*s)+' '+(gy-35*s)+')"/>'+
+  '<ellipse cx="'+x+'" cy="'+(gy-29*s)+'" rx="'+(2.6*s)+'" ry="'+(1.8*s)+'" fill="#3a3a32"/>'+
+  '<path d="M '+(x+16*s)+' '+(gy-24*s)+' l '+(14*s)+' '+(-16*s)+' M '+(x+28*s)+' '+(gy-36*s)+' l '+(6*s)+' '+(2*s)+' M '+(x+30*s)+' '+(gy-41*s)+' l '+(6*s)+' '+(3*s)+'" stroke="#7a9b6d" stroke-width="'+(2.6*s)+'"/></g>';
+}
+function fLighthouse(x,gy,s){
+  return '<g><path d="M '+(x-9*s)+' '+gy+' L '+(x-5*s)+' '+(gy-46*s)+' H '+(x+5*s)+' L '+(x+9*s)+' '+gy+' Z" fill="#f2ede0" stroke="#b0a58e" stroke-width="1"/>'+
+  '<rect x="'+(x-7*s)+'" y="'+(gy-60*s)+'" width="'+(14*s)+'" height="'+(14*s)+'" fill="#b56a5f"/>'+
+  '<path d="M '+(x-8*s)+' '+(gy-60*s)+' L '+x+' '+(gy-70*s)+' L '+(x+8*s)+' '+(gy-60*s)+' Z" fill="#8a4a42"/>'+
+  '<circle cx="'+x+'" cy="'+(gy-53*s)+'" r="'+(3.2*s)+'" fill="#e8c86a"/></g>';
+}
+function fTrain(x,y,s){
+  var g='<g><path d="M '+(x-64*s)+' '+(y-14*s)+' L '+(x-64*s)+' '+(y-30*s)+' Q '+(x-30*s)+' '+(y-38*s)+' '+(x+6*s)+' '+(y-30*s)+' L '+(x+52*s)+' '+(y-27*s)+' Q '+(x+58*s)+' '+(y-25*s)+' '+(x+54*s)+' '+(y-18*s)+' L '+(x+40*s)+' '+(y-14*s)+' Z" fill="#f6f4ec" stroke="#8fa3ad" stroke-width="1.4"/>'+
+  '<path d="M '+(x-60*s)+' '+(y-24*s)+' H '+(x+48*s)+'" stroke="#3e5c7e" stroke-width="'+(2.6*s)+'"/>';
+  for(var i=0;i<6;i++) g+='<rect x="'+(x-56*s+i*17*s)+'" y="'+(y-26*s)+'" width="'+(7*s)+'" height="'+(5*s)+'" fill="#8fa3ad" opacity=".7"/>';
+  return g+'</g>';
+}
+
+/* ---------- 各城地标（返回地标层字符串） ---------- */
+var ART = {
+shanghai:function(){ var g='';
+  g+=fBld(30,340,66,52,'#d8c6a8',false);
+  g+='<path d="M 30 288 L 63 274 L 96 288 Z" fill="#c9b394"/>';
+  g+='<rect x="108" y="244" width="18" height="96" fill="#c9b394"/><path d="M 105 244 L 117 232 L 129 244 Z" fill="#8a7a5e"/><circle cx="117" cy="262" r="5.5" fill="#f2ede0" stroke="#8a7a5e" stroke-width="1.2"/><path d="M 117 262 V 258 M 117 262 L 120 264" stroke="#8a7a5e" stroke-width="1"/>';
+  g+=fBld(134,340,74,44,'#d8c6a8',false)+'<path d="M 134 296 L 171 284 L 208 296 Z" fill="#c9b394"/>';
+  g+=fBld(214,340,52,36,'#d8c6a8',false);
+  /* 上海中心与环球 */
+  g+='<path d="M 470 340 L 486 150 Q 495 142 500 152 L 512 340 Z" fill="#aebccb" opacity=".65"/><path d="M 530 340 L 542 190 L 562 190 L 576 340 Z" fill="#aebccb" opacity=".5"/><path d="M 560 190 L 552 178 L 572 178 L 562 190 Z" fill="#aebccb" opacity=".5"/>';
+  /* 东方明珠 */
+  g+='<g><path d="M 396 340 L 428 236 M 460 340 L 428 236 M 428 356 L 428 240" stroke="#7d92a3" stroke-width="5" fill="none"/>';
+  g+='<rect x="420" y="120" width="16" height="120" fill="#7d92a3"/>';
+  g+='<circle cx="428" cy="212" r="23" fill="#c98d85"/><circle cx="428" cy="152" r="16" fill="#c98d85"/><circle cx="428" cy="112" r="11" fill="#c98d85"/>';
+  g+='<path d="M 428 100 V 56" stroke="#7d92a3" stroke-width="3"/><circle cx="428" cy="52" r="3.4" fill="#c98d85"/>';
+  g+='<path d="M 405 208 Q 428 220 451 208 M 407 148 Q 428 158 449 148" stroke="#f2ede0" stroke-width="2" fill="none" opacity=".8"/></g>';
+  g+=fBoat(320,368,1.1);
+  return g; },
+beijing:function(){ var g='';
+  g+=fPine(150,338,2.2,'#5c7a58')+fPine(560,338,2.4,'#5c7a58')+fPine(600,338,1.8,'#6f8f6a');
+  g+='<rect x="252" y="318" width="216" height="12" fill="#d8c6a8"/><rect x="268" y="306" width="184" height="12" fill="#c9b394"/>';
+  g+='<rect x="296" y="268" width="128" height="40" fill="#a05252"/>';
+  g+='<path d="M 306 268 V 306 M 326 268 V 306 M 360 268 V 306 M 380 268 V 306 M 414 268 V 306" stroke="#7a3c3c" stroke-width="3"/>';
+  g+=fRoof(360,268,168,30,'#3e5c7e')+fRoof(360,246,132,26,'#3e5c7e')+fRoof(360,228,96,22,'#35507a');
+  g+='<path d="M 360 206 V 184" stroke="#3e5c7e" stroke-width="3"/><circle cx="360" cy="181" r="4.5" fill="#c9a06a"/>';
+  g+='<rect x="60" y="326" width="110" height="16" fill="#c9b394"/><rect x="552" y="326" width="110" height="16" fill="#c9b394"/>';
+  return g; },
+shenzhen:function(){ var g='';
+  g+='<rect x="268" y="128" width="46" height="212" fill="#8fa5b5"/><path d="M 268 128 Q 291 108 314 128 Z" fill="#8fa5b5"/>';
+  g+='<path d="M 352 340 L 372 84 L 392 84 L 412 340 Z" fill="#9fb2c0"/><path d="M 372 84 L 380 52 L 388 84 Z" fill="#8fa5b5"/>';
+  g+='<path d="M 376 300 H 388 M 374 240 H 390 M 372 180 H 392 M 371 130 H 393" stroke="#f2ede0" stroke-width="2" opacity=".7"/>';
+  g+=fBld(430,340,44,104,'#a9bcc9',false)+fBld(486,340,36,76,'#b3c2cd',false)+fBld(196,340,40,88,'#a9bcc9',false)+fBld(150,340,32,58,'#b3c2cd',false);
+  g+='<path d="M 60 332 Q 150 306 250 330 T 450 328 T 660 324" stroke="#b56a5f" stroke-width="9" fill="none" opacity=".9"/>';
+  g+=fPalm(120,352,1.6)+fPalm(640,350,1.9)+fPalm(600,354,1.3);
+  return g; },
+guangzhou:function(){ var g='';
+  g+='<ellipse cx="470" cy="292" rx="24" ry="42" fill="#aebccb" opacity=".6"/><ellipse cx="502" cy="300" rx="20" ry="34" fill="#aebccb" opacity=".5"/>';
+  g+=fBld(120,340,44,92,'#a9bcc9',false)+fBld(176,340,34,64,'#b3c2cd',false)+fBld(560,340,40,70,'#a9bcc9',false);
+  /* 广州塔 */
+  g+='<g><path d="M 352 344 C 362 302 368 246 373 206 C 375 196 385 196 387 206 C 392 246 398 302 408 344 Z" fill="#9aa7b5"/>';
+  g+='<path d="M 371 200 C 373 158 377 146 380 142 C 383 146 387 158 389 200 Z" fill="#9aa7b5"/>';
+  g+='<path d="M 380 142 V 96" stroke="#9aa7b5" stroke-width="3"/><circle cx="380" cy="92" r="3.4" fill="#c15b54"/>';
+  g+='<path d="M 362 300 Q 380 306 398 300 M 366 258 Q 380 264 394 258 M 371 222 Q 380 226 389 222 M 374 180 Q 380 184 386 180" stroke="#f2ede0" stroke-width="1.6" fill="none" opacity=".85"/></g>';
+  /* 猎德大桥 */
+  g+='<path d="M 540 290 V 352 M 470 330 H 660" stroke="#8fa3ad" stroke-width="4" fill="none"/>';
+  g+='<path d="M 470 330 L 540 292 M 500 330 L 540 296 M 560 330 L 540 296 M 600 330 L 540 292 M 640 330 L 540 294" stroke="#8fa3ad" stroke-width="1.4" fill="none"/>';
+  return g; },
+hangzhou:function(){ var g='';
+  g+=fPine(120,258,1.8,'#6f8f6a');
+  /* 保俶塔 */
+  g+='<g><path d="M 96 268 L 118 240 L 138 268 Z" fill="#a9bcc9"/>';
+  g+='<rect x="113" y="168" width="9" height="72" fill="#b0a58e"/>';
+  g+='<path d="M 108 204 h 19 M 109 186 h 17 M 110 170 h 15" stroke="#8a7a5e" stroke-width="4"/>';
+  g+='<path d="M 117 168 V 152" stroke="#8a7a5e" stroke-width="2"/></g>';
+  /* 雷峰塔 */
+  g+='<g><path d="M 560 300 L 580 278 L 600 300 Z" fill="#8fada0"/>';
+  g+='<rect x="556" y="252" width="48" height="26" fill="#b0a58e"/>';
+  g+=fRoof(580,252,64,13,'#5a4a3a')+fRoof(580,238,56,12,'#5a4a3a')+fRoof(580,226,48,11,'#5a4a3a')+fRoof(580,215,40,10,'#5a4a3a')+fRoof(580,205,32,9,'#5a4a3a');
+  g+='<path d="M 580 196 V 186" stroke="#5a4a3a" stroke-width="2.4"/><circle cx="580" cy="183" r="3.4" fill="#c9a06a"/></g>';
+  g+=fArch(330,306,150,'#b0a58e');
+  g+=fPavilion(330,290,0.8,'#a05252','#46586a');
+  g+=fWillow(240,318,1.5,'#7a9b6d')+fWillow(470,320,1.7,'#7a9b6d');
+  g+=fBoat(420,352,1.1,'#46586a');
+  g+='<path d="M 500 368 V 358 M 496 358 h 8" stroke="#46586a" stroke-width="3"/><path d="M 512 374 V 364 M 508 364 h 8" stroke="#46586a" stroke-width="3"/><path d="M 524 380 V 370 M 520 370 h 8" stroke="#46586a" stroke-width="3"/>';
+  return g; },
+chengdu:function(){ var g='';
+  g+='<path d="M 60 340 L 220 118 L 282 168 L 352 96 L 430 162 L 512 128 L 660 340 Z" fill="#c5cdd4"/>';
+  g+='<path d="M 196 146 L 220 118 L 244 150 L 226 146 L 212 156 Z" fill="#f6f4ec"/>';
+  g+='<path d="M 328 126 L 352 96 L 378 130 L 358 124 L 344 136 Z" fill="#f6f4ec"/>';
+  g+='<path d="M 490 154 L 512 128 L 534 158 L 518 152 L 504 164 Z" fill="#f6f4ec"/>';
+  g+=fBld(286,340,32,142,'#8fa5b5',false)+fBld(330,340,38,168,'#7d92a3',false);
+  g+='<path d="M 292 320 H 312 M 336 310 H 360 M 294 280 H 312 M 338 270 H 364" stroke="#f2ede0" stroke-width="2" opacity=".6"/>';
+  g+='<path d="M 420 340 Q 480 292 554 300 L 566 340 Z" fill="#a9bcc9" opacity=".75"/>';
+  g+=fBamboo(100,352,1.5)+fBamboo(132,356,1.2);
+  g+=fPanda(600,352,1.15);
+  return g; },
+nanjing:function(){ var g='';
+  g+=fTree(120,342,44,'#6f8f6a')+fTree(616,342,50,'#6f8f6a')+fTree(560,344,30,'#7a9b6d');
+  /* 城门与城楼 */
+  g+='<rect x="200" y="292" width="320" height="50" fill="#b7a98e"/>';
+  for(var i=0;i<10;i++) g+='<rect x="'+(208+i*32)+'" y="284" width="16" height="9" fill="#b7a98e"/>';
+  g+='<path d="M 328 342 A 32 32 0 0 1 392 342 L 392 308 L 328 308 Z" fill="#5a4a3a"/>';
+  g+='<rect x="316" y="284" width="88" height="10" fill="#c9b394"/>';
+  g+='<rect x="328" y="238" width="64" height="46" fill="#a05252"/>';
+  g+='<rect x="342" y="248" width="10" height="26" fill="#f2ede0" opacity=".85"/><rect x="368" y="248" width="10" height="26" fill="#f2ede0" opacity=".85"/>';
+  g+=fRoof(360,238,104,22,'#46586a')+fRoof(360,220,74,18,'#46586a');
+  g+='<path d="M 360 202 V 190" stroke="#46586a" stroke-width="2.6"/>';
+  return g; },
+suzhou:function(){ var g='';
+  /* 水巷与白墙黛瓦 */
+  g+='<rect x="60" y="258" width="150" height="84" fill="#f2ede0" stroke="#d8cfba" stroke-width="1"/>';
+  g+='<path d="M 52 260 L 135 236 L 218 260 Z" fill="#46586a"/>';
+  g+='<path d="M 52 260 L 62 244 L 78 244 L 78 254 L 96 254 L 96 240 L 110 240 L 110 252 Z" fill="#46586a"/>';
+  for(var wy=272;wy<338;wy+=16) g+='<rect x="86" y="'+wy+'" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/>';
+  g+='<rect x="482" y="262" width="160" height="80" fill="#f2ede0" stroke="#d8cfba" stroke-width="1"/>';
+  g+='<path d="M 474 264 L 562 240 L 650 264 Z" fill="#46586a"/>';
+  g+='<path d="M 650 264 L 640 248 L 624 248 L 624 258 L 606 258 L 606 244 L 592 244 L 592 256 Z" fill="#46586a"/>';
+  g+='<rect x="540" y="286" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/><rect x="562" y="286" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/><rect x="551" y="304" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/>';
+  g+=fPavilion(660,300,0.9,'#a05252','#46586a');
+  g+=fArch(365,318,130,'#b0a58e');
+  g+=fBoat(365,382,1.0,'#46586a');
+  g+='<circle cx="96" cy="276" r="7" fill="#b56a5f"/><path d="M 96 283 V 296" stroke="#8a4a42" stroke-width="1.4"/><path d="M 92 286 Q 96 288 100 286" stroke="#c15b54" stroke-width="2" fill="none"/>';
+  return g; },
+wuhan:function(){ var g='';
+  /* 黄鹤楼 */
+  g+='<rect x="212" y="328" width="86" height="14" fill="#b0a58e"/>';
+  g+='<rect x="226" y="310" width="58" height="20" fill="#a05252"/><path d="M 234 312 V 328 M 250 312 V 328 M 262 312 V 328 M 276 312 V 328" stroke="#7a3c3c" stroke-width="2.6"/>';
+  g+=fRoof(250,310,84,15,'#c9a06a');
+  g+='<rect x="230" y="288" width="40" height="18" fill="#a05252"/><path d="M 238 290 V 304 M 250 290 V 304 M 262 290 V 304" stroke="#7a3c3c" stroke-width="2.4"/>';
+  g+=fRoof(250,288,70,13,'#c9a06a');
+  g+='<rect x="234" y="270" width="32" height="16" fill="#a05252"/>';
+  g+=fRoof(250,270,56,12,'#c9a06a');
+  g+='<rect x="238" y="254" width="24" height="14" fill="#a05252"/>';
+  g+=fRoof(250,254,42,10,'#c9a06a');
+  g+=fRoof(250,238,32,10,'#b58a4a');
+  g+='<path d="M 250 228 V 216" stroke="#b58a4a" stroke-width="2.4"/><circle cx="250" cy="213" r="3" fill="#c9a06a"/>';
+  /* 长江大桥 */
+  g+='<rect x="344" y="316" width="376" height="8" fill="#6e8398"/>';
+  g+='<path d="M 344 288 H 720 M 344 316 H 720" stroke="#6e8398" stroke-width="3"/>';
+  for(var i=0;i<9;i++) g+='<path d="M '+(356+i*40)+' 288 L '+(376+i*40)+' 316 M '+(376+i*40)+' 288 L '+(356+i*40)+' 316" stroke="#6e8398" stroke-width="1.2" opacity=".7"/>';
+  g+='<rect x="470" y="322" width="10" height="34" fill="#6e8398"/><rect x="610" y="322" width="10" height="34" fill="#6e8398"/>';
+  /* 龟山电视塔 */
+  g+='<path d="M 620 356 Q 660 300 700 356 Z" fill="#8fada0"/>';
+  g+='<rect x="655" y="262" width="9" height="52" fill="#8fa3ad"/><circle cx="659.5" cy="256" r="8" fill="#8fa3ad"/><path d="M 659.5 248 V 234" stroke="#8fa3ad" stroke-width="2.4"/>';
+  return g; },
+chongqing:function(){ var g='';
+  g+=fBld(180,300,36,76,'#8fa5b5',false)+fBld(224,300,42,102,'#7d92a3',false)+fBld(274,300,34,64,'#8fa5b5',false)+fBld(316,300,46,120,'#7d92a3',false)+fBld(368,300,34,88,'#8fa5b5',false);
+  g+='<ellipse cx="300" cy="308" rx="150" ry="16" fill="#f6f4ec" opacity=".4"/>';
+  g+=fBld(240,352,40,58,'#7d92a3',false)+fBld(288,352,34,72,'#8fa5b5',false)+fBld(330,352,44,50,'#7d92a3',false)+fBld(382,352,36,64,'#8fa5b5',false)+fBld(428,352,30,46,'#8fa5b5',false);
+  /* 轻轨穿楼 */
+  g+='<rect x="330" y="326" width="240" height="7" fill="#46586a"/>';
+  g+='<g><rect x="392" y="306" width="86" height="19" rx="8" fill="#f6f4ec" stroke="#8fa3ad" stroke-width="1.2"/><path d="M 402 312 H 466" stroke="#3e5c7e" stroke-width="2.6"/><circle cx="410" cy="325" r="3" fill="#46586a"/><circle cx="424" cy="325" r="3" fill="#46586a"/><circle cx="446" cy="325" r="3" fill="#46586a"/><circle cx="460" cy="325" r="3" fill="#46586a"/></g>';
+  /* 斜拉桥 */
+  g+='<path d="M 520 240 V 368" stroke="#8fa3ad" stroke-width="5"/>';
+  g+='<path d="M 460 340 H 700" stroke="#8fa3ad" stroke-width="4"/>';
+  g+='<path d="M 520 244 L 468 338 M 520 248 L 486 338 M 520 252 L 504 338 M 520 256 L 522 338 M 520 260 L 540 338 M 520 264 L 558 338 M 520 268 L 576 338 M 520 272 L 594 338 M 520 276 L 612 338 M 520 280 L 630 338 M 520 284 L 648 338 M 520 288 L 666 338" stroke="#8fa3ad" stroke-width="1.1" fill="none"/>';
+  return g; },
+tianjin:function(){ var g='';
+  /* 欧式洋楼 */
+  g+='<rect x="60" y="288" width="72" height="52" fill="#d8c6a8"/><path d="M 56 288 L 96 266 L 136 288 Z" fill="#8a7a5e"/><rect x="84" y="270" width="24" height="18" fill="#6f8f6a"/><circle cx="96" cy="240" r="12" fill="#6f8f6a"/><rect x="92" y="252" width="8" height="36" fill="#c9b394"/>';
+  g+='<rect x="152" y="300" width="60" height="40" fill="#d8c6a8"/><path d="M 148 300 L 182 282 L 216 300 Z" fill="#8a7a5e"/>';
+  g+='<circle cx="182" cy="266" r="9" fill="#b56a5f"/><rect x="178" y="274" width="8" height="28" fill="#c9b394"/>';
+  /* 天津之眼 */
+  g+=fFerris(430,232,54,'#b56a5f');
+  g+='<rect x="360" y="288" width="140" height="7" fill="#8a7a5e"/><path d="M 386 295 V 330 M 474 295 V 330" stroke="#8a7a5e" stroke-width="5"/>';
+  g+=fBld(540,300,44,60,'#c9b394',false)+fBld(594,300,36,44,'#d8c6a8',false);
+  g+='<path d="M 240 300 H 330 M 240 312 H 330" stroke="#8a7a5e" stroke-width="2.4"/>';
+  for(var i=0;i<4;i++) g+='<path d="M '+(250+i*22)+' 300 L '+(262+i*22)+' 312 M '+(262+i*22)+' 300 L '+(250+i*22)+' 312" stroke="#8a7a5e" stroke-width="1.2"/>';
+  return g; },
+qingdao:function(){ var g='';
+  /* 红屋顶群 */
+  var hs=[[190,296,24],[224,300,20],[254,292,22],[288,298,18],[318,290,24],[352,296,20],[210,272,20],[244,266,22],[280,270,18],[312,264,20],[344,270,16]];
+  hs.forEach(function(h){ g+='<rect x="'+h[0]+'" y="'+(h[1]-(h[2]*0.5))+'" width="'+(h[2]+6)+'" height="'+(h[2]*0.5)+'" fill="#f2ede0"/><path d="M '+(h[0]-3)+' '+(h[1]-h[2]*0.5)+' L '+(h[0]+h[2]/2+3)+' '+(h[1]-h[2]*0.92)+' L '+(h[0]+h[2]+9)+' '+(h[1]-h[2]*0.5)+' Z" fill="#b56a5f"/>'; });
+  /* 教堂 */
+  g+='<rect x="420" y="262" width="64" height="56" fill="#f2ede0" stroke="#d8cfba"/>';
+  g+='<path d="M 416 262 L 452 240 L 488 262 Z" fill="#b56a5f"/>';
+  g+='<rect x="432" y="208" width="11" height="112" fill="#f2ede0" stroke="#d8cfba"/><path d="M 428 210 L 437.5 186 L 447 210 Z" fill="#6f8f6a"/><path d="M 437.5 186 V 176" stroke="#6f8f6a" stroke-width="2"/>';
+  g+='<rect x="462" y="220" width="9" height="100" fill="#f2ede0" stroke="#d8cfba"/><path d="M 459 222 L 466.5 202 L 474 222 Z" fill="#6f8f6a"/>';
+  g+='<circle cx="452" cy="286" r="8" fill="none" stroke="#8a7a5e" stroke-width="1.4"/><path d="M 452 280 V 286 L 457 288" stroke="#8a7a5e" stroke-width="1.4" fill="none"/>';
+  /* 栈桥 */
+  g+='<rect x="240" y="336" width="180" height="7" fill="#b0a58e"/>';
+  g+='<path d="M 256 343 V 366 M 300 343 V 366 M 344 343 V 366 M 388 343 V 366" stroke="#b0a58e" stroke-width="4"/>';
+  g+=fPavilion(428,338,0.95,'#a05252','#46586a');
+  g+=fSail(580,388,1.15);
+  g+=fGull(540,320,1.1)+fGull(576,300,0.9)+fGull(620,326,1.2);
+  return g; },
+xian:function(){ var g='';
+  /* 城墙 */
+  g+='<rect x="60" y="300" width="600" height="42" fill="#b7a98e"/>';
+  for(var i=0;i<19;i++) g+='<rect x="'+(68+i*31)+'" y="292" width="15" height="9" fill="#b7a98e"/>';
+  g+='<path d="M 322 342 A 34 34 0 0 1 386 342 L 386 312 L 322 312 Z" fill="#5a4a3a"/>';
+  /* 大雁塔 */
+  g+=fPagoda(540,300,6,1.0,46,'#d8c6a8','#8a7a5e','#c9a06a');
+  /* 钟楼 */
+  g+='<g><rect x="150" y="316" width="60" height="26" fill="#a05252"/><path d="M 162 318 V 340 M 180 318 V 340 M 198 318 V 340" stroke="#7a3c3c" stroke-width="2.6"/>';
+  g+=fRoof(180,316,80,16,'#46586a')+fRoof(180,300,58,14,'#46586a');
+  g+='<path d="M 180 286 V 276" stroke="#46586a" stroke-width="2.4"/></g>';
+  g+=fPine(96,296,2.0,'#5c7a58')+fPine(440,298,1.8,'#5c7a58')+fPine(660,298,2.2,'#5c7a58');
+  return g; },
+changsha:function(){ var g='';
+  g+=fMount(['-10,342','90,232','200,252','288,342'],'#7a9b6d');
+  g+=fMount(['40,342','130,262','230,278','300,342'],'#6f8f6a','.85');
+  g+=fPavilion(140,290,0.85,'#a05252','#46586a');
+  /* 橘子洲 */
+  g+='<ellipse cx="392" cy="330" rx="16" ry="66" fill="#7a9b6d"/>';
+  g+='<circle cx="392" cy="288" r="5" fill="#5c7a58"/><circle cx="386" cy="304" r="4" fill="#5c7a58"/><circle cx="398" cy="318" r="4" fill="#5c7a58"/>';
+  /* 湘江 */
+  g+=fBld(470,336,40,96,'#8fa5b5',false)+fBld(518,336,34,120,'#7d92a3',false);
+  g+='<rect x="474" y="262" width="32" height="10" fill="#f2ede0" opacity=".7"/>';
+  g+=fFerris(632,252,44,'#c15b54');
+  return g; },
+zhengzhou:function(){ var g='';
+  g+=fBld(470,340,44,86,'#a9bcc9',false)+fBld(524,340,36,60,'#b3c2cd',false)+fBld(160,340,40,64,'#a9bcc9',false);
+  /* 二七塔 */
+  g+='<g><rect x="238" y="302" width="44" height="12" fill="#b0a58e"/>';
+  g+='<rect x="248" y="234" width="24" height="70" fill="#d8c6a8"/>';
+  g+=fRoof(260,302,48,12,'#46586a')+fRoof(260,234,40,11,'#46586a');
+  g+='<rect x="253" y="186" width="14" height="50" fill="#d8c6a8"/>';
+  g+=fRoof(260,186,30,10,'#46586a');
+  g+='<path d="M 260 176 V 164" stroke="#46586a" stroke-width="2.4"/><circle cx="260" cy="160" r="4" fill="#c15b54"/>';
+  g+='<circle cx="260" cy="266" r="5.5" fill="#f2ede0" stroke="#8a7a5e" stroke-width="1.2"/></g>';
+  /* 郑州东站 */
+  g+='<path d="M 420 342 C 480 244 610 244 668 342 Z" fill="#9fb2c0"/>';
+  g+='<path d="M 442 330 C 492 262 596 262 646 330 M 466 316 C 504 272 584 272 622 316" stroke="#f2ede0" stroke-width="2" fill="none" opacity=".6"/>';
+  /* 高铁 */
+  g+=fTrain(400,392,1.0);
+  g+='<path d="M 300 396 H 700" stroke="#8fa3ad" stroke-width="2.4"/><path d="M 300 392 H 700" stroke="#8fa3ad" stroke-width="1.2" opacity=".6"/>';
+  return g; },
+hefei:function(){ var g='';
+  /* 科学岛 */
+  g+='<ellipse cx="150" cy="318" rx="60" ry="16" fill="#7a9b6d"/><circle cx="126" cy="308" r="10" fill="#5c7a58"/><circle cx="158" cy="304" r="12" fill="#6f8f6a"/><circle cx="184" cy="310" r="8" fill="#5c7a58"/>';
+  /* 天鹅 */
+  g+='<path d="M 96 340 Q 92 328 100 324 Q 106 330 104 340 Z" fill="#f6f4ec" stroke="#b0a58e" stroke-width="1"/><path d="M 100 324 Q 104 316 112 318 Q 108 324 104 326 Z" fill="#f6f4ec" stroke="#b0a58e" stroke-width="1"/>';
+  g+='<path d="M 132 344 Q 128 332 136 328 Q 142 334 140 344 Z" fill="#f6f4ec" stroke="#b0a58e" stroke-width="1"/>';
+  /* 天际线与广电中心 */
+  g+=fBld(380,340,38,104,'#8fa5b5',false)+fBld(428,340,32,80,'#7d92a3',false);
+  g+='<rect x="512" y="256" width="12" height="84" fill="#8fa3ad"/><circle cx="518" cy="240" r="17" fill="none" stroke="#8fa3ad" stroke-width="9"/>';
+  g+=fBld(560,340,34,62,'#8fa5b5',false)+fBld(602,340,44,96,'#7d92a3',false);
+  g+=fTree(350,344,26,'#6f8f6a')+fTree(672,344,30,'#6f8f6a');
+  return g; },
+ningbo:function(){ var g='';
+  g+=fCrane(180,338,1.25,'#b56a5f')+fCrane(292,338,1.0,'#8fa3ad');
+  var cs=[[96,326,14,'#c15b54'],[112,326,14,'#c9a06a'],[128,326,14,'#7a9b6d'],[104,312,14,'#8fa3ad'],[120,312,14,'#c9a06a'],[136,312,14,'#b56a5f']];
+  cs.forEach(function(c){ g+='<rect x="'+c[0]+'" y="'+c[1]+'" width="'+c[2]+'" height="'+c[2]+'" fill="'+c[3]+'"/>'; });
+  /* 老外滩 */
+  g+='<rect x="440" y="286" width="58" height="52" fill="#d8c6a8"/><path d="M 436 286 L 469 264 L 502 286 Z" fill="#8a7a5e"/>';
+  g+='<rect x="458" y="262" width="22" height="24" fill="#c9b394"/><circle cx="469" cy="238" r="12" fill="#6f8f6a"/><rect x="465" y="250" width="8" height="12" fill="#6f8f6a"/>';
+  g+='<circle cx="469" cy="270" r="6" fill="#f2ede0" stroke="#8a7a5e" stroke-width="1.2"/><path d="M 469 266 V 270 L 472 271" stroke="#8a7a5e" stroke-width="1" fill="none"/>';
+  g+=fBld(516,306,44,32,'#d8c6a8',false)+fBld(570,300,52,38,'#c9b394',false);
+  /* 货轮 */
+  g+='<g><path d="M 540 372 L 556 366 H 640 L 652 372 L 646 384 H 548 Z" fill="#6e8398"/>';
+  g+='<rect x="560" y="356" width="18" height="10" fill="#c15b54"/><rect x="582" y="356" width="18" height="10" fill="#c9a06a"/><rect x="604" y="356" width="18" height="10" fill="#7a9b6d"/><rect x="570" y="346" width="18" height="10" fill="#8fa3ad"/><rect x="592" y="346" width="18" height="10" fill="#b56a5f"/>';
+  g+='<path d="M 628 366 V 344 L 646 366 Z" fill="#f2ede0"/></g>';
+  return g; },
+wuxi:function(){ var g='';
+  g+=fSail(236,352,1.2)+fSail(310,368,0.95)+fSail(382,354,1.35);
+  /* 鼋头渚 */
+  g+='<path d="M 540 372 L 560 336 L 588 330 L 640 344 L 690 380 Z" fill="#8fada0"/>';
+  g+=fLighthouse(614,344,1.05);
+  g+=fTree(566,336,20,'#6f8f6a')+fTree(654,348,22,'#7a9b6d');
+  /* 樱花 */
+  g+='<path d="M 700 96 C 660 130 648 168 640 210 M 700 96 C 668 140 664 176 664 206" stroke="#8a7a5e" stroke-width="4" fill="none"/>';
+  var bl=[[640,212],[654,196],[664,208],[676,186],[690,176],[648,182]];
+  bl.forEach(function(b){ g+='<circle cx="'+b[0]+'" cy="'+b[1]+'" r="11" fill="#d9a7b8" opacity=".85"/><circle cx="'+(b[0]+6)+'" cy="'+(b[1]-5)+'" r="6" fill="#e4bccb" opacity=".9"/>'; });
+  return g; },
+xiamen:function(){ var g='';
+  /* 双子塔 */
+  g+='<path d="M 408 340 C 408 190 428 152 448 138 L 442 340 Z" fill="#9fb2c0"/>';
+  g+='<path d="M 452 340 C 452 210 470 172 490 158 L 486 340 Z" fill="#8fa5b5"/>';
+  g+='<path d="M 418 300 H 442 M 462 310 H 484" stroke="#f2ede0" stroke-width="2" opacity=".6"/>';
+  /* 鼓浪屿 */
+  g+='<path d="M 560 340 Q 620 268 706 340 Z" fill="#7a9b6d"/>';
+  var rh=[[584,300],[606,290],[628,296],[650,306],[672,314]];
+  rh.forEach(function(h){ g+='<rect x="'+h[0]+'" y="'+h[1]+'" width="16" height="12" fill="#f2ede0"/><path d="M '+(h[0]-2)+' '+h[1]+' L '+(h[0]+8)+' '+(h[1]-9)+' L '+(h[0]+18)+' '+h[1]+' Z" fill="#b56a5f"/>'; });
+  g+=fPalm(120,346,1.7)+fPalm(90,350,1.2);
+  g+=fBoat(300,372,1.1,'#46586a');
+  g+=fGull(360,300,1.0)+fGull(396,282,0.8);
+  return g; },
+kunming:function(){ var g='';
+  /* 西山睡美人 */
+  g+='<path d="M 340 342 C 400 300 448 268 492 254 C 520 246 544 214 574 204 C 606 194 660 226 720 262 L 720 342 Z" fill="#8fada0"/>';
+  g+='<path d="M 340 342 C 408 308 460 286 520 274 C 560 266 610 258 668 290 L 720 316 L 720 342 Z" fill="#7a9b6d" opacity=".9"/>';
+  /* 海鸥 */
+  g+=fGull(140,250,1.3)+fGull(190,226,1.0)+fGull(236,252,1.2)+fGull(96,286,1.1)+fGull(280,232,0.9)+fGull(330,262,1.0);
+  /* 花田 */
+  var fl=[[70,352,'#c15b54'],[96,358,'#d9a7b8'],[122,352,'#c15b54'],[150,360,'#e4bccb'],[176,354,'#c15b54'],[204,362,'#d9a7b8']];
+  fl.forEach(function(f){ g+='<path d="M '+f[0]+' '+f[1]+' V '+(f[1]-14)+'" stroke="#5c7a58" stroke-width="1.8"/><circle cx="'+f[0]+'" cy="'+(f[1]-18)+'" r="5.5" fill="'+f[2]+'"/><circle cx="'+(f[0]-5)+'" cy="'+(f[1]-13)+'" r="4" fill="'+f[2]+'" opacity=".85"/><circle cx="'+(f[0]+5)+'" cy="'+(f[1]-13)+'" r="4" fill="'+f[2]+'" opacity=".85"/>'; });
+  g+=fSail(420,372,0.9);
+  return g; },
+jinan:function(){ var g='';
+  g+=fMount(['-10,300','120,212','260,300'],'#a9bcc9','.7');
+  /* 超然楼 */
+  g+='<g><rect x="540" y="316" width="52" height="24" fill="#a05252"/><path d="M 550 318 V 338 M 566 318 V 338 M 582 318 V 338" stroke="#7a3c3c" stroke-width="2.6"/>';
+  g+=fRoof(566,316,72,15,'#46586a');
+  g+='<rect x="550" y="286" width="32" height="30" fill="#a05252"/>';
+  g+=fRoof(566,286,60,13,'#46586a');
+  g+='<rect x="554" y="262" width="24" height="24" fill="#a05252"/>';
+  g+=fRoof(566,262,48,12,'#46586a');
+  g+=fRoof(566,238,38,12,'#3e5c7e');
+  g+='<path d="M 566 226 V 214" stroke="#3e5c7e" stroke-width="2.4"/></g>';
+  /* 趵突泉 */
+  g+='<ellipse cx="170" cy="346" rx="98" ry="24" fill="#a8c3cf"/>';
+  g+='<path d="M 140 342 q 8 -12 16 0 q 8 -12 16 0 q 8 -12 16 0" stroke="#f2ede0" stroke-width="3" fill="none"/>';
+  g+='<path d="M 196 346 q 7 -10 14 0 q 7 -10 14 0" stroke="#f2ede0" stroke-width="2.4" fill="none" opacity=".8"/>';
+  g+='<path d="M 118 348 q 6 -9 12 0 q 6 -9 12 0" stroke="#f2ede0" stroke-width="2.2" fill="none" opacity=".7"/>';
+  g+=fPavilion(170,318,0.8,'#a05252','#46586a');
+  g+=fWillow(80,346,1.4,'#7a9b6d')+fWillow(280,346,1.6,'#7a9b6d');
+  return g; },
+fuzhou:function(){ var g='';
+  /* 榕树 */
+  g+='<g><path d="M 92 344 C 96 318 84 300 96 282 M 100 344 C 106 314 118 300 110 284" stroke="#8a7a5e" stroke-width="7" fill="none"/>';
+  g+='<path d="M 96 320 q -14 8 -20 24 M 104 310 q 16 6 22 22" stroke="#a8996e" stroke-width="1.6" fill="none"/>';
+  g+='<circle cx="96" cy="258" r="44" fill="#6f8f6a"/><circle cx="60" cy="282" r="30" fill="#7a9b6d"/><circle cx="134" cy="280" r="32" fill="#7a9b6d"/><circle cx="102" cy="296" r="26" fill="#5c7a58" opacity=".8"/></g>';
+  /* 白塔与乌塔 */
+  g+=fPagoda(438,336,6,0.95,40,'#f2ede0','#8a7a5e','#c9a06a');
+  g+=fPagoda(340,340,5,0.8,34,'#5a5a52','#4a4a44',null);
+  /* 三坊七巷 */
+  g+='<rect x="500" y="300" width="52" height="40" fill="#f2ede0" stroke="#d8cfba"/><path d="M 496 302 L 526 288 L 556 302 Z" fill="#46586a"/>';
+  g+='<rect x="562" y="306" width="48" height="34" fill="#f2ede0" stroke="#d8cfba"/><path d="M 558 308 L 586 294 L 614 308 Z" fill="#46586a"/>';
+  g+='<rect x="516" y="312" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/><rect x="576" y="318" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/>';
+  return g; }
+};
+
+/* ---------- 城市画布配置（天空/远山/水/楼群 → 与地标层组合） ---------- */
+var ARTCFG = {
+  shanghai:{sky:["#dfe7e2","#f3ecdc"],water:{y:348,c:"#b9cfd8"},bld:[]},
+  beijing:{sky:["#e8e3d2","#f6f0df"],mounts:[["-10,306 140,236 300,306","#c5bda8",".6"]],water:null,bld:[]},
+  shenzhen:{sky:["#d8e4e6","#f3ecdc"],mounts:[["-10,300 90,240 200,300","#b8c8c2",".5"]],water:{y:368,c:"#b9cfd8"},bld:[]},
+  guangzhou:{sky:["#e4e0d0","#f6efdc"],mounts:[["420,306 560,244 720,306","#c5bda8",".55"]],water:{y:352,c:"#b9cfd8"},bld:[]},
+  hangzhou:{sky:["#dde7e0","#f2ecdb"],mounts:[["-10,282 100,218 220,282","#a9c0b3",".6"],["140,282 300,232 460,282","#8fada0",".5"]],water:{y:268,c:"#b9cfd8"},bld:[]},
+  chengdu:{sky:["#e6e6da","#f6efdd"],water:null,bld:[]},
+  nanjing:{sky:["#e2e4d8","#f4eedd"],mounts:[["360,286 520,234 680,286","#b0bfc4",".55"]],water:{y:352,c:"#c5d8de"},bld:[]},
+  suzhou:{sky:["#e0e6da","#f2ecd9"],mounts:[["-10,268 110,224 240,268","#a9c0b3",".5"]],water:{y:322,c:"#b9cfd8"},bld:[]},
+  wuhan:{sky:["#dde3e2","#f3ecda"],mounts:[["-10,300 120,238 260,300","#b0bfc4",".5"]],water:{y:356,c:"#b9cfd8"},bld:[]},
+  chongqing:{sky:["#e2ded0","#f4ecda"],mounts:[["-10,306 100,240 220,306","#b8c0b0",".5"],["480,306 600,246 720,306","#b8c0b0",".45"]],water:{y:372,c:"#a8c3cf"},bld:[]},
+  tianjin:{sky:["#e0e2d8","#f2ecda"],mounts:[["-10,296 120,244 250,296","#b0bfc4",".5"]],water:{y:330,c:"#b9cfd8"},bld:[]},
+  qingdao:{sky:["#d5e2e6","#eef0e2"],water:{y:312,c:"#a8c3cf"},bld:[]},
+  xian:{sky:["#e8e0ce","#f6eeda"],mounts:[["-10,290 140,228 300,290","#c5b8a0",".55"]],water:null,bld:[]},
+  changsha:{sky:["#dfe4dc","#f2ecda"],water:{y:346,c:"#b9cfd8"},bld:[]},
+  zhengzhou:{sky:["#e4e2d4","#f5eedc"],mounts:[["-10,296 110,246 230,296","#c0bba8",".5"]],water:null,bld:[]},
+  hefei:{sky:["#e0e6e0","#f2ecd9"],water:{y:326,c:"#b9cfd8"},bld:[]},
+  ningbo:{sky:["#e2e4da","#f4ecda"],water:{y:338,c:"#b9cfd8"},bld:[]},
+  wuxi:{sky:["#dde7e2","#f2ecdb"],mounts:[["-10,286 120,230 250,286","#a9c0b3",".55"]],water:{y:316,c:"#b9cfd8"},bld:[]},
+  xiamen:{sky:["#d8e4e4","#eef0e0"],water:{y:340,c:"#a8c3cf"},bld:[]},
+  kunming:{sky:["#dce6dc","#f4eedd"],water:{y:342,c:"#b9cfd8"},bld:[]},
+  jinan:{sky:["#e2e2d6","#f4ecda"],water:{y:346,c:"#b9cfd8"},bld:[]},
+  fuzhou:{sky:["#e0e2d6","#f4ecda"],mounts:[["-10,290 140,248 290,290","#b0bfc4",".45"]],water:{y:352,c:"#b9cfd8"},bld:[]}
+};
+
+function cityArt(id){
+  var cfg = ARTCFG[id] || {sky:["#e2e2d6","#f4ecda"],water:null,bld:[]};
+  var g = uid("sky");
+  var s = '<svg viewBox="0 0 720 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img">';
+  s += '<defs><linearGradient id="'+g+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+cfg.sky[0]+'"/><stop offset="1" stop-color="'+cfg.sky[1]+'"/></linearGradient></defs>';
+  s += '<rect width="720" height="420" fill="url(#'+g+')"/>';
+  s += '<circle cx="600" cy="86" r="30" fill="#e8c86a" opacity=".5"/>';
+  (cfg.mounts||[]).forEach(function(m){ s += fMount(m[0].split(" "),m[1],m[2]); });
+  if(cfg.water){
+    s += '<rect x="0" y="'+cfg.water.y+'" width="720" height="'+(420-cfg.water.y)+'" fill="'+cfg.water.c+'"/>';
+    s += fWave(200,cfg.water.y+18,180,'#8fa3ad')+fWave(480,cfg.water.y+34,200,'#8fa3ad')+fWave(320,cfg.water.y+56,160,'#8fa3ad');
+  } else {
+    s += '<rect x="0" y="336" width="720" height="84" fill="#d8cfba" opacity=".38"/>';
+  }
+  s += (ART[id]?ART[id]():'');
+  s += '<rect width="720" height="420" fill="#f6f1e6" opacity=".06"/>';
+  return s+'</svg>';
+}
+
+/* ---------- 序章群像 ---------- */
+function introArt(){
+  var g = uid("sky");
+  var s = '<svg viewBox="0 0 720 560" xmlns="http://www.w3.org/2000/svg" role="img">';
+  s += '<defs><linearGradient id="'+g+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dde5dd"/><stop offset=".7" stop-color="#f2ecdb"/><stop offset="1" stop-color="#f6f1e6"/></linearGradient></defs>';
+  s += '<rect width="720" height="560" fill="url(#'+g+')"/>';
+  s += '<circle cx="562" cy="96" r="38" fill="#e8c86a" opacity=".55"/>';
+  s += fMount("-10,330 150,190 320,330".split(" "),"#c5bda8",".55");
+  s += fMount("340,330 520,196 700,330".split(" "),"#b0bfc4",".5");
+  /* 远层水彩晕 */
+  s += '<ellipse cx="200" cy="300" rx="150" ry="40" fill="#c5bda8" opacity=".3"/><ellipse cx="540" cy="310" rx="160" ry="44" fill="#b0bfc4" opacity=".28"/>';
+  /* 天坛（左）*/
+  s += '<g transform="translate(-24,64) scale(.78)">'+ART.beijing()+'</g>';
+  /* 黄鹤楼（左二）*/
+  s += '<g transform="translate(176,72) scale(.62)">'+ART.wuhan()+'</g>';
+  /* 东方明珠（中）*/
+  s += '<g transform="translate(58,120) scale(.9)">'+ART.shanghai()+'</g>';
+  /* 广州塔（右二）*/
+  s += '<g transform="translate(236,132) scale(.68)">'+ART.guangzhou()+'</g>';
+  /* 雷峰塔（右）*/
+  s += '<g transform="translate(268,150) scale(.8)">'+ART.hangzhou()+'</g>';
+  /* 前景水巷 */
+  s += '<g transform="translate(0,64)">'+ART.suzhou()+'</g>';
+  s += fBoat(140,508,1.2,'#46586a')+fBoat(600,516,1.0,'#46586a');
+  s += fGull(520,180,1.2)+fGull(560,158,0.9)+fGull(480,150,1.0);
+  s += '<rect width="720" height="560" fill="#f6f1e6" opacity=".05"/>';
+  return s+'</svg>';
+}
+
+/* ---------- 五行元素线描图标 ---------- */
+function elIcon(el){
+  var c = EL_INFO[el].color;
+  var st = 'stroke="'+c+'" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+  var body = {
+    "木":'<path d="M22 39 V15" '+st+'/><path d="M22 29 C 22 23, 15 22, 11 15" '+st+'/><path d="M22 22 C 22 16, 29 16, 33 10" '+st+'/><circle cx="10" cy="12" r="4.2" '+st+'/><circle cx="34" cy="8" r="4.2" '+st+'/>' +
+      '<circle cx="10" cy="12" r="1.6" fill="'+c+'"/><circle cx="34" cy="8" r="1.6" fill="'+c+'"/>',
+    "火":'<path d="M22 5 C 29 14, 34 20, 34 27 A 12 12.5 0 1 1 10 27 C 10 20, 15 14, 22 5 Z" '+st+'/><path d="M22 21 C 25 25, 27 27, 27 30 A 5 5.5 0 1 1 17 30 C 17 27, 19 25, 22 21 Z" '+st+'/>' +
+      '<circle cx="22" cy="30" r="1.6" fill="'+c+'"/>',
+    "土":'<path d="M6 36 H38" '+st+'/><path d="M11 29 H33" '+st+'/><path d="M16 22 H28" '+st+'/><path d="M20 15 H24" '+st+'/><path d="M9 36 L 12 29 M 35 36 L 32 29 M 15 29 L 17 22 M 29 29 L 27 22" '+st+'/>',
+    "金":'<path d="M8 29 Q 8 21, 16 21 Q 22 13, 28 21 Q 36 21, 36 29 Q 30 34, 22 34 Q 14 34, 8 29 Z" '+st+'/><path d="M16 21 Q 22 17, 28 21" '+st+'/><path d="M15 27 H 29" '+st+'/>' +
+      '<circle cx="22" cy="7" r="2" fill="'+c+'"/><path d="M22 9 V 13" '+st+'/>',
+    "水":'<path d="M6 17 Q 13 9, 20 17 T 34 17" '+st+'/><path d="M6 27 Q 13 19, 20 27 T 34 27" '+st+'/><path d="M10 37 Q 16 30, 22 37 T 34 37" '+st+'/>'
+  };
+  return '<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">'+body[el]+'</svg>';
+}
+
+/* ---------- 生成仪式 SVG ---------- */
+function ceremonyArt(){
+  var cx=170, cy=170, R=112;
+  var pos={}; ELS.forEach(function(el,i){
+    var ang=-Math.PI/2 + i*2*Math.PI/5; /* 木顶起顺时针 */
+    pos[el]=[cx+R*Math.cos(ang), cy+R*Math.sin(ang)];
+  });
+  var s='<svg viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">';
+  s+='<defs><style>'+
+    '.cnode{opacity:0;animation:cnIn .5s ease forwards}'+
+    '.cline{stroke-dasharray:600;stroke-dashoffset:600;animation:clDraw 1.6s ease forwards}'+
+    '.cstar{opacity:0;animation:csIn .8s ease 1.2s forwards}'+
+    '.cspin{transform-origin:170px 170px;animation:cSpin 26s linear infinite}'+
+    '@keyframes cnIn{to{opacity:1}}@keyframes csIn{to{opacity:.4}}'+
+    '@keyframes clDraw{to{stroke-dashoffset:0}}@keyframes cSpin{to{transform:rotate(360deg)}}'+
+  '</style></defs>';
+  s+='<circle cx="170" cy="170" r="150" fill="#f6f1e6" opacity=".4"/><circle cx="170" cy="170" r="150" fill="none" stroke="#d8cfba" stroke-width="1"/>';
+  /* 相生五边形 */
+  ELS.forEach(function(el,i){
+    var n=SHENG[el], a=pos[el], b=pos[n];
+    s+='<path class="cline" d="M '+a[0]+' '+a[1]+' L '+b[0]+' '+b[1]+'" stroke="'+EL_INFO[n].color+'" stroke-width="2" fill="none" opacity=".75" style="animation-delay:'+(i*0.22)+'s"/>';
+  });
+  /* 相克五角星 */
+  ELS.forEach(function(el,i){
+    var n=KE[el], a=pos[el], b=pos[n];
+    s+='<path class="cstar" d="M '+a[0]+' '+a[1]+' L '+b[0]+' '+b[1]+'" stroke="#c15b54" stroke-width="1" stroke-dasharray="3 4" fill="none"/>';
+  });
+  /* 中心旋转星 */
+  s+='<g class="cspin"><path d="M 170 128 L 181 162 L 216 162 L 188 183 L 199 217 L 170 196 L 141 217 L 152 183 L 124 162 L 159 162 Z" fill="none" stroke="#c9a06a" stroke-width="1.2" opacity=".5"/></g>';
+  ELS.forEach(function(el,i){
+    var p=pos[el], c=EL_INFO[el].color;
+    s+='<g class="cnode" style="animation-delay:'+(0.3+i*0.18)+'s"><circle cx="'+p[0]+'" cy="'+p[1]+'" r="25" fill="#f6f1e6" stroke="'+c+'" stroke-width="2"/>'+
+    '<text x="'+p[0]+'" y="'+(p[1]+7)+'" text-anchor="middle" font-size="20" font-family="serif" font-weight="700" fill="'+c+'">'+el+'</text></g>';
+  });
+  s+='<circle cx="170" cy="170" r="5" fill="#c9a06a"/>';
+  return s+'</svg>';
+}
+
+/* ---------- 相生相克解读图（主次两格） ---------- */
+function sxArt(main,sec,rel){
+  var c1=EL_INFO[main].color, c2=EL_INFO[sec].color;
+  var lc = rel.good ? '#7a9b6d' : '#c15b54';
+  var s='<svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">';
+  s+='<rect x="10" y="10" width="280" height="170" rx="10" fill="#f6f1e6" opacity=".5" stroke="#d8cfba"/>';
+  s+='<circle cx="72" cy="95" r="40" fill="#fbf8ef" stroke="'+c1+'" stroke-width="2.4"/>';
+  s+='<text x="72" y="106" text-anchor="middle" font-size="34" font-family="serif" font-weight="700" fill="'+c1+'">'+main+'</text>';
+  s+='<text x="72" y="152" text-anchor="middle" font-size="11" fill="#7d92a3" font-family="sans-serif">主格 · '+EL_INFO[main].tag+'</text>';
+  s+='<circle cx="228" cy="95" r="40" fill="#fbf8ef" stroke="'+c2+'" stroke-width="2.4"/>';
+  s+='<text x="228" y="106" text-anchor="middle" font-size="34" font-family="serif" font-weight="700" fill="'+c2+'">'+sec+'</text>';
+  s+='<text x="228" y="152" text-anchor="middle" font-size="11" fill="#7d92a3" font-family="sans-serif">次格 · '+EL_INFO[sec].tag+'</text>';
+  s+='<path d="M 118 95 H 176" stroke="'+lc+'" stroke-width="2"/>';
+  s+='<path d="M 176 95 L 166 90 V 100 Z" fill="'+lc+'"/>';
+  if(!rel.good) s+='<path d="M 118 95 l 10 -5 v 10 Z" fill="'+lc+'"/>';
+  s+='<circle cx="150" cy="78" r="14" fill="'+lc+'"/>';
+  s+='<text x="150" y="83" text-anchor="middle" font-size="13" font-weight="700" font-family="serif" fill="#f9f2e4">'+(rel.good?'生':'克')+'</text>';
+  return s+'</svg>';
+}
+
+/* ---------- 图鉴五角图 ---------- */
+function wikiArt(){
+  var cx=120, cy=112, R=78;
+  var pos={}; ELS.forEach(function(el,i){
+    var ang=-Math.PI/2 + i*2*Math.PI/5;
+    pos[el]=[cx+R*Math.cos(ang), cy+R*Math.sin(ang)];
+  });
+  var s='<svg viewBox="0 0 240 224" xmlns="http://www.w3.org/2000/svg">';
+  ELS.forEach(function(el){
+    var n=SHENG[el], a=pos[el], b=pos[n];
+    s+='<path d="M '+a[0]+' '+a[1]+' L '+b[0]+' '+b[1]+'" stroke="#7a9b6d" stroke-width="1.6" fill="none" opacity=".65"/>';
+  });
+  ELS.forEach(function(el){
+    var n=KE[el], a=pos[el], b=pos[n];
+    s+='<path d="M '+a[0]+' '+a[1]+' L '+b[0]+' '+b[1]+'" stroke="#c15b54" stroke-width="1" stroke-dasharray="2.5 4" fill="none" opacity=".6"/>';
+  });
+  ELS.forEach(function(el){
+    var p=pos[el], c=EL_INFO[el].color;
+    s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="15" fill="#f6f1e6" stroke="'+c+'" stroke-width="1.6"/>';
+    s+='<text x="'+p[0]+'" y="'+(p[1]+5)+'" text-anchor="middle" font-size="13" font-family="serif" font-weight="700" fill="'+c+'">'+el+'</text>';
+  });
+  s+='<circle cx="120" cy="112" r="3" fill="#c9a06a"/>';
+  s+='<text x="60" y="216" font-size="10" fill="#7a9b6d" font-family="sans-serif">— 相生</text>';
+  s+='<text x="150" y="216" font-size="10" fill="#c15b54" font-family="sans-serif">- - 相克</text>';
+  return s+'</svg>';
+}
+
+
+/* ================================================================
+   五行城市命书 · 交互与渲染层
+   ================================================================ */
+function $(id){ return document.getElementById(id); }
+var state = {
+  answers: [], qi: 0,
+  result: null, profile: null, ranked: null,
+  originalTop: null, currentCity: null
+};
+for(var _i=0;_i<QUESTIONS.length;_i++) state.answers.push(null);
+
+var toastTimer=null;
+function toast(msg){
+  var t=$('toast'); if(!t) return;
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove('show'); },2400);
+}
+function pad2(n){ return (n<10?'0':'')+n; }
+function hashOf(arr){
+  var s=arr.join('-'), h=5381;
+  for(var i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))|0; }
+  return Math.abs(h)+0x100000;
+}
+function showScreen(id){
+  Array.prototype.forEach.call(document.querySelectorAll('.screen'),function(s){ s.classList.remove('active'); });
+  $(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function cityById(id){
+  var f=null; CITIES.forEach(function(c){ if(c.id===id) f=c; }); return f;
+}
+function fillTpl(t,r){ return t.replace(/\{main\}/g,r.main).replace(/\{sec\}/g,r.sec); }
+
+/* ---------- 序章 ---------- */
+function renderIntro(){
+  $('intro-art').innerHTML=introArt();
+  var html='';
+  ELS.forEach(function(el){
+    var info=EL_INFO[el];
+    html+='<div class="ele-card" style="border-top:3px solid '+info.color+'">'+elIcon(el)+
+      '<span class="e-name" style="color:'+info.color+'">'+el+' · '+info.tag+'</span>'+
+      '<span class="e-tag">'+info.sub+'</span><span class="e-desc">'+info.desc+'</span></div>';
+  });
+  $('ele-grid').innerHTML=html;
+}
+function startQuiz(){ state.qi=0; renderQuestion(); showScreen('s-quiz'); }
+
+/* ---------- 问答 ---------- */
+function renderQuestion(){
+  var q=QUESTIONS[state.qi];
+  $('q-num').textContent=pad2(state.qi+1)+' / '+pad2(QUESTIONS.length);
+  $('q-bar-fill').style.width=(state.qi/QUESTIONS.length*100)+'%';
+  $('q-tag').textContent=q.tag;
+  var box=$('q-box');
+  box.classList.remove('fade-swap'); void box.offsetWidth; box.classList.add('fade-swap');
+  $('q-text').textContent=(state.qi+1)+'. '+q.q;
+  var opts='';
+  q.opts.forEach(function(o,i){
+    var info=EL_INFO[o.e[0]];
+    opts+='<button type="button" class="opt'+(state.answers[state.qi]===i?' sel':'')+'" data-i="'+i+
+    '" style="--el-c:'+info.color+';--el-bg:'+info.bg+'">'+
+    '<span class="opt-key">'+String.fromCharCode(65+i)+'</span><span>'+o.t+'</span><span class="opt-dot"></span></button>';
+  });
+  $('q-opts').innerHTML=opts;
+  Array.prototype.forEach.call($('q-opts').children,function(btn){
+    btn.addEventListener('click',function(){ selectOpt(parseInt(btn.getAttribute('data-i'),10)); });
+  });
+  $('btn-prev').disabled = state.qi===0;
+  var last = state.qi===QUESTIONS.length-1;
+  $('btn-next').textContent = last ? '✦ 生成我的城市命书' : '下一题 →';
+  $('btn-next').disabled = state.answers[state.qi]==null;
+}
+function selectOpt(i){
+  state.answers[state.qi]=i;
+  Array.prototype.forEach.call($('q-opts').children,function(b,j){ b.classList.toggle('sel', j===i); });
+  $('btn-next').disabled=false;
+}
+function submitQuiz(){
+  state.result=computeScores(state.answers);
+  state.profile=deriveProfile(state.answers);
+  state.ranked=rankCities({main:state.result.main,sec:state.result.sec,scene:state.profile.scene,pace:state.profile.pace,career:state.profile.career});
+  state.originalTop=state.ranked[0].city.id;
+  state.currentCity=state.originalTop;
+  runCeremony();
+}
+
+/* ---------- 生成仪式 ---------- */
+var cerTimers=[];
+function runCeremony(){
+  showScreen('s-ceremony');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced){ finishCeremony(); return; }
+  $('cer-art').innerHTML=ceremonyArt();
+  var texts=['正在整理你的精神状态……','正在推演五行之间的关系……','正在寻找与你更合拍的城市……','命书已成 · '+state.ranked[0].city.name];
+  var t=$('cer-text'); t.textContent=texts[0]; t.style.opacity=1;
+  cerTimers.forEach(clearTimeout); cerTimers=[];
+  [600,1200,1800].forEach(function(ms,idx){
+    cerTimers.push(setTimeout(function(){
+      t.style.opacity=0;
+      setTimeout(function(){ t.textContent=texts[idx+1]; t.style.opacity=1; },200);
+    },ms));
+  });
+  cerTimers.push(setTimeout(finishCeremony,2500));
+}
+function finishCeremony(){
+  cerTimers.forEach(clearTimeout); cerTimers=[];
+  renderResult();
+  showScreen('s-result');
+}
+
+/* ---------- 结果渲染 ---------- */
+function renderResult(){
+  var r=state.result, info=EL_INFO[r.main], combo=comboOf(r.main,r.sec);
+  var no='No.WX-'+hashOf(state.answers).toString(36).toUpperCase().slice(0,6);
+  $('report-no').textContent='命书档案 '+no+' · '+new Date().toLocaleDateString('zh-CN');
+  var seal=$('r-seal');
+  seal.style.background=info.color;
+  seal.querySelector('.s-el').textContent=r.main;
+  $('r-title').textContent='「'+info.title+'」';
+  $('r-combo').innerHTML='主格 <b style="color:'+EL_INFO[r.main].color+'">'+r.main+' · '+EL_INFO[r.main].tag+'</b>&ensp;×&ensp;次格 <b style="color:'+EL_INFO[r.sec].color+'">'+r.sec+' · '+EL_INFO[r.sec].tag+'</b>&ensp;——&ensp;'+combo.n;
+  $('r-line').textContent=combo.l;
+  renderCityView(state.currentCity);
+  renderBars();
+  renderSx();
+  renderAlts();
+}
+function entryOf(id){
+  var f=null; state.ranked.forEach(function(e){ if(e.city.id===id) f=e; }); return f;
+}
+function renderCityView(id){
+  var entry=entryOf(id), c=entry.city, r=state.result;
+  $('r-city-kicker').textContent='主荐城市 · '+c.tagline;
+  $('r-city-name').textContent=c.name;
+  $('r-city-en').textContent=c.en+' · 城市五行属「'+c.el+'」';
+  $('r-match-num').textContent=entry.match;
+  $('r-parts').innerHTML='<span>五行契合 '+entry.parts.el+'/40</span><span>生活节奏 '+entry.parts.pace+'/20</span><span>场景偏好 '+entry.parts.scene+'/24</span><span>发展方向 '+entry.parts.car+'/16</span>';
+  $('r-reasons').innerHTML=c.why.map(function(t,i){
+    return '<div class="rs-item"><span class="rs-no">'+String.fromCharCode(65+i)+'</span><span>'+fillTpl(t,r)+'</span></div>';
+  }).join('');
+  var keNote='';
+  if(KE[c.el]===r.main) keNote='<br>五行上「'+c.el+'」克你的「'+r.main+'」——这座城市对你更像磨刀石，会逼你成长，但摩擦要主动管理。';
+  else if(KE[r.main]===c.el) keNote='<br>你的「'+r.main+'」克这座城的「'+c.el+'」——主动权在你手里，但别把城市节奏全按自己的来。';
+  $('r-remind').innerHTML='<b>现实提醒：</b>'+c.remind+keNote;
+  $('r-city-art').innerHTML=cityArt(c.id)+'<figcaption class="art-cap">'+c.name+' · '+c.en+'</figcaption>';
+  $('btn-back-main').hidden = (id===state.originalTop);
+  renderAdvice(id);
+}
+function renderBars(){
+  var r=state.result;
+  var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
+  var html='';
+  ELS.forEach(function(el){
+    var pct=Math.round(r.scores[el]/sum*100);
+    html+='<div class="bar-row"><span class="b-name" style="color:'+EL_INFO[el].color+'">'+el+'<small>'+EL_INFO[el].tag+' '+r.scores[el]+'点</small></span>'+
+    '<div class="bar-track"><i class="bar-fill" style="background:'+EL_INFO[el].color+';width:0" data-w="'+pct+'"></i></div>'+
+    '<span class="b-pct">'+pct+'%</span></div>';
+  });
+  $('r-bars').innerHTML=html;
+  setTimeout(function(){
+    Array.prototype.forEach.call(document.querySelectorAll('#r-bars .bar-fill'),function(b){ b.style.width=b.getAttribute('data-w')+'%'; });
+  },100);
+}
+function renderSx(){
+  var r=state.result, rel=relationOf(r.main,r.sec);
+  $('r-sx-art').innerHTML=sxArt(r.main,r.sec,rel);
+  $('r-sx-text').innerHTML='<h4><span class="sx-tag '+(rel.good?'sx-good':'sx-warn')+'">'+rel.label+'</span>'+
+    (rel.good?'相生 · 互相滋养':'相克 · 互相制衡')+'</h4>'+
+    '<p class="sx-p" style="margin-top:12px">'+rel.h+'</p><p class="sx-p">'+rel.p+'</p>';
+}
+function renderAlts(){
+  var others=state.ranked.filter(function(e){ return e.city.id!==state.currentCity; }).slice(0,2);
+  var html='';
+  others.forEach(function(e){
+    var c=e.city;
+    html+='<div class="alt-card"><div class="alt-art">'+cityArt(c.id)+'</div><div class="alt-body">'+
+    '<div class="alt-top"><span class="alt-name">'+c.name+'</span><span class="alt-match">匹配指数 '+e.match+'</span></div>'+
+    '<p class="alt-why">'+fillTpl(c.why[0],state.result)+'</p>'+
+    '<p class="alt-remind">'+c.remind+'</p>'+
+    '<button type="button" class="alt-btn" data-id="'+c.id+'">查看这座城市 →</button></div></div>';
+  });
+  $('r-alt').innerHTML=html;
+  Array.prototype.forEach.call($('r-alt').querySelectorAll('.alt-btn'),function(b){
+    b.addEventListener('click',function(){ switchCity(b.getAttribute('data-id')); });
+  });
+}
+function renderAdvice(id){
+  var c=cityById(id||state.currentCity);
+  $('r-advice').innerHTML=
+    '<div class="adv-item"><h4>◆ 产业方向</h4><p>'+c.industries+'</p></div>'+
+    '<div class="adv-item"><h4>◆ 生活节奏</h4><p>'+c.lifeNote+'</p></div>'+
+    '<div class="adv-item"><h4>◆ 住房与通勤</h4><p>'+c.houseNote+'</p></div>';
+}
+function switchCity(id){
+  state.currentCity=id;
+  renderCityView(id);
+  renderAlts();
+  var head=$('report-head');
+  window.scrollTo({top: head.getBoundingClientRect().top+window.scrollY-16, behavior:'smooth'});
+  toast('已切换至 '+cityById(id).name+'（原测试结果已保留）');
+}
+
+/* ---------- 复制结果 ---------- */
+function buildResultText(){
+  var r=state.result, entry=entryOf(state.currentCity), c=entry.city;
+  var alts=state.ranked.filter(function(e){ return e.city.id!==state.currentCity; }).slice(0,2);
+  var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
+  var lines=[];
+  lines.push('【五行城市命书】');
+  lines.push('我的人格称号：'+EL_INFO[r.main].title+'（'+r.main+'·'+EL_INFO[r.main].tag+' × '+r.sec+'·'+EL_INFO[r.sec].tag+'）');
+  lines.push('五行分布：'+ELS.map(function(e){ return e+' '+Math.round(r.scores[e]/sum*100)+'%'; }).join(' ｜ '));
+  lines.push('主推荐城市：'+c.name+'（匹配指数 '+entry.match+'）');
+  c.why.forEach(function(t,i){ lines.push((i+1)+'. '+fillTpl(t,r)); });
+  lines.push('现实提醒：'+c.remind);
+  lines.push('备选城市：'+alts.map(function(a){ return a.city.name+'（'+a.match+'）'; }).join('、'));
+  lines.push('——————————');
+  lines.push('测测你的下一站藏在哪座城（趣味测试 · 五行属性为创意设定）');
+  return lines.join('\n');
+}
+function copyResult(){
+  var txt=buildResultText();
+  function ok(){ toast('测试结果已复制，去粘贴分享吧'); }
+  function fallback(){
+    var ta=document.createElement('textarea');
+    ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); ok(); }catch(e){ toast('复制失败，请手动选取文本'); }
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok,fallback); }
+  else fallback();
+}
+
+/* ---------- 分享卡片（Canvas 1080×1350） ---------- */
+function svgToImage(svgStr){
+  return new Promise(function(res,rej){
+    var img=new Image();
+    img.onload=function(){ res(img); };
+    img.onerror=function(){ rej(new Error('svg load fail')); };
+    img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgStr);
+  });
+}
+function rr(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+function shareCard(){
+  toast('正在生成分享卡片……');
+  var r=state.result, entry=entryOf(state.currentCity), c=entry.city;
+  var W=1080,H=1350;
+  var cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  var ctx=cv.getContext('2d');
+  /* 纸底 */
+  ctx.fillStyle='#f6f1e6'; ctx.fillRect(0,0,W,H);
+  var grd=ctx.createLinearGradient(0,0,0,H);
+  grd.addColorStop(0,'rgba(201,160,106,.12)'); grd.addColorStop(1,'rgba(62,92,126,.07)');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,W,H);
+  ctx.textAlign='center';
+  /* 边框 */
+  ctx.strokeStyle='#c6b99c'; ctx.lineWidth=3; ctx.strokeRect(36,36,W-72,H-72);
+  ctx.strokeStyle='#d8cfba'; ctx.lineWidth=1; ctx.strokeRect(48,48,W-96,H-96);
+  /* 头部 */
+  ctx.fillStyle='#7d92a3'; ctx.font='600 25px sans-serif';
+  ctx.fillText('Y O U R   E L E M E N T A L   C I T Y   R E P O R T',W/2,108);
+  ctx.fillStyle='#24425c'; ctx.font='bold 78px serif';
+  ctx.fillText('五行城市命书',W/2,196);
+  /* 主格印章 */
+  var sc=EL_INFO[r.main].color;
+  ctx.fillStyle=sc; rr(ctx,874,66,122,122,14); ctx.fill();
+  ctx.strokeStyle='rgba(249,242,228,.6)'; ctx.lineWidth=1.5; rr(ctx,882,74,106,106,9); ctx.stroke();
+  ctx.fillStyle='#f9f2e4'; ctx.font='bold 58px serif'; ctx.fillText(r.main,935,146);
+  ctx.font='600 19px sans-serif'; ctx.fillText('主格 · '+EL_INFO[r.main].tag,935,170);
+  /* 称号 */
+  ctx.fillStyle='#24425c'; ctx.font='bold 44px serif';
+  ctx.fillText('「'+EL_INFO[r.main].title+'」',W/2,272);
+  ctx.fillStyle='#43607b'; ctx.font='28px serif';
+  ctx.fillText(r.main+'·'+EL_INFO[r.main].tag+' × '+r.sec+'·'+EL_INFO[r.sec].tag+' —— '+comboOf(r.main,r.sec).n,W/2,322);
+  /* 城市插画 */
+  svgToImage(cityArt(c.id)).then(function(img){
+    var iw=800, ih=Math.round(iw*420/720), ax=(W-iw)/2, ay=360;
+    ctx.save(); ctx.shadowColor='rgba(70,58,32,.22)'; ctx.shadowBlur=22; ctx.shadowOffsetY=8;
+    rr(ctx,ax,ay,iw,ih,14); ctx.fillStyle='#fbf8ef'; ctx.fill(); ctx.restore();
+    ctx.save(); rr(ctx,ax,ay,iw,ih,14); ctx.clip(); ctx.drawImage(img,ax,ay,iw,ih); ctx.restore();
+    ctx.strokeStyle='#d8cfba'; ctx.lineWidth=1.5; rr(ctx,ax,ay,iw,ih,14); ctx.stroke();
+    /* 城市信息 */
+    ctx.fillStyle='#b3502e'; ctx.font='600 25px sans-serif';
+    ctx.fillText('主 荐 城 市 · 匹 配 指 数 '+entry.match,W/2,ay+ih+64);
+    ctx.fillStyle='#24425c'; ctx.font='bold 88px serif';
+    ctx.fillText(c.name,W/2,ay+ih+168);
+    ctx.fillStyle='#7d92a3'; ctx.font='24px sans-serif';
+    ctx.fillText(c.en+' · 城市五行属「'+c.el+'」 · '+c.tagline,W/2,ay+ih+212);
+    /* 五行能量条 */
+    var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
+    var by=ay+ih+268, rowH=40;
+    ELS.forEach(function(el,i){
+      var pct=Math.round(r.scores[el]/sum*100), y=by+i*rowH;
+      ctx.textAlign='left';
+      ctx.fillStyle=EL_INFO[el].color; ctx.font='bold 28px serif';
+      ctx.fillText(el,150,y+22);
+      ctx.fillStyle='#e7ddc6'; rr(ctx,206,y+5,600,18,9); ctx.fill();
+      ctx.fillStyle=EL_INFO[el].color; rr(ctx,206,y+5,Math.max(24,600*pct/100),18,9); ctx.fill();
+      ctx.fillStyle='#43607b'; ctx.font='600 22px sans-serif';
+      ctx.fillText(pct+'%',830,y+24);
+      ctx.textAlign='center';
+    });
+    /* 底部 */
+    ctx.fillStyle='#7d92a3'; ctx.font='22px sans-serif';
+    ctx.fillText('趣味测试 · 五行城市属性为创意设定 · 实际迁居请综合判断',W/2,H-76);
+    var a=document.createElement('a');
+    a.download='五行城市命书_'+c.name+'.png';
+    a.href=cv.toDataURL('image/png');
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('分享卡片已生成并开始下载');
+  }).catch(function(){ toast('卡片生成失败，请重试'); });
+}
+
+/* ---------- 初始化 ---------- */
+function init(){
+  renderIntro();
+  $('wiki-art').innerHTML=wikiArt();
+  $('btn-start').addEventListener('click',startQuiz);
+  $('btn-prev').addEventListener('click',function(){
+    if(state.qi>0){ state.qi--; renderQuestion(); }
+  });
+  $('btn-next').addEventListener('click',function(){
+    if(state.answers[state.qi]==null) return;
+    if(state.qi===QUESTIONS.length-1) submitQuiz();
+    else { state.qi++; renderQuestion(); }
+  });
+  $('btn-exit').addEventListener('click',function(){
+    if(confirm('确定退出测试吗？已答的题目会保留。')) showScreen('s-intro');
+  });
+  $('btn-skip').addEventListener('click',finishCeremony);
+  $('btn-back-main').addEventListener('click',function(){ switchCity(state.originalTop); });
+  $('btn-view-alt').addEventListener('click',function(){
+    var el=$('r-alt'), blk=el.closest?el.closest('.r-block'):null;
+    if(blk&&blk.scrollIntoView) blk.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  $('btn-copy').addEventListener('click',copyResult);
+  $('btn-share').addEventListener('click',shareCard);
+  $('btn-retest').addEventListener('click',function(){
+    for(var i=0;i<state.answers.length;i++) state.answers[i]=null;
+    state.qi=0; renderQuestion(); showScreen('s-quiz');
+    toast('已清空答案，重新开始');
+  });
+}
+if(typeof document!=='undefined'){
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+}
+if(typeof module!=='undefined'&&module.exports){
+  module.exports={ELS:ELS,EL_INFO:EL_INFO,SHENG:SHENG,KE:KE,QUESTIONS:QUESTIONS,CITIES:CITIES,
+    computeScores:computeScores,deriveProfile:deriveProfile,scoreCity:scoreCity,rankCities:rankCities,
+    relationOf:relationOf,comboOf:comboOf,cityArt:cityArt,introArt:introArt,wikiArt:wikiArt,ceremonyArt:ceremonyArt};
+}
+</script>
+</body>
+</html>
