@@ -300,6 +300,8 @@ details.wiki[open] summary::after{content:'收 起'}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   html{scroll-behavior:auto}
 }
+/* 键盘可达性：清晰焦点样式 */
+button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -1829,6 +1831,19 @@ function init(){
     if(blk&&blk.scrollIntoView) blk.scrollIntoView({behavior:'smooth',block:'start'});
   });
   $('btn-copy').addEventListener('click',copyResult);
+  /* 键盘操作：数字键 1-4 快选选项，←→ 翻题（仅问答屏生效） */
+  document.addEventListener('keydown',function(e){
+    var quiz=$('s-quiz');
+    if(!quiz||!quiz.classList.contains('active')) return;
+    if(e.key>='1'&&e.key<='4'){
+      var i=parseInt(e.key,10)-1;
+      if($('q-opts').children[i]) selectOpt(i);
+    }else if(e.key==='ArrowLeft'&&state.qi>0){
+      state.qi--; renderQuestion();
+    }else if(e.key==='ArrowRight'&&$('btn-next').disabled===false){
+      $('btn-next').click();
+    }
+  });
   $('btn-share').addEventListener('click',shareCard);
   $('btn-retest').addEventListener('click',function(){
     for(var i=0;i<state.answers.length;i++) state.answers[i]=null;
