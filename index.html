@@ -78,34 +78,36 @@ h1,h2,h3,h4{font-weight:700;letter-spacing:.02em}
 .hairline{height:1px;background:linear-gradient(90deg,transparent,var(--line-2),transparent);border:none}
 
 /* ================= 序章 ================= */
-#s-intro{padding:52px 0 70px}
-.intro-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
-.intro-title h1{font-size:clamp(30px,4.6vw,46px);line-height:1.32;letter-spacing:.04em}
+#s-intro{padding:66px 0 88px}
+#s-intro .wrap{max-width:1180px}
+.intro-grid{display:grid;grid-template-columns:1fr 1.08fr;gap:56px;align-items:center}
+.intro-title h1{font-size:clamp(37px,5.8vw,60px);line-height:1.28;letter-spacing:.04em}
 .intro-title h1 em{font-style:normal;color:var(--seal)}
-.intro-sub{margin-top:18px;font-size:15.5px;color:var(--ink-2);max-width:30em}
+.intro-sub{margin-top:24px;font-size:18.5px;line-height:1.75;color:var(--ink-2);max-width:26em}
 .intro-en{font-family:var(--sans);font-size:11px;letter-spacing:.3em;color:var(--ink-3);margin-top:14px;text-transform:uppercase}
-.intro-cta{margin-top:34px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.intro-note{font-size:12.5px;color:var(--ink-3)}
+.intro-cta{margin-top:42px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.intro-cta .btn{font-size:18px;min-height:58px;padding:14px 42px}
+.intro-note{font-size:14px;color:var(--ink-3)}
 #intro-art{width:100%}
 #intro-art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 18px rgba(70,58,32,.10))}
-#intro-art img.intro-photo{width:100%;height:auto;display:block;border-radius:6px;border:1px solid rgba(70,58,32,.30);box-shadow:0 10px 30px rgba(20,32,48,.28)}
-.ele-sec{margin-top:58px}
-.ele-sec h3{font-size:19px;letter-spacing:.2em;text-indent:.2em;color:var(--ink);display:flex;align-items:center;gap:14px}
+#intro-art img.intro-photo{width:100%;height:auto;display:block;border-radius:8px;border:1px solid rgba(70,58,32,.30);box-shadow:0 14px 40px rgba(20,32,48,.30)}
+.ele-sec{margin-top:76px}
+.ele-sec h3{font-size:24px;letter-spacing:.2em;text-indent:.2em;color:var(--ink);display:flex;align-items:center;gap:16px}
 .ele-sec h3::after{content:'';flex:1;height:1px;background:var(--line)}
-.ele-sec .ele-sec-sub{font-size:13px;color:var(--ink-3);margin:6px 0 22px}
-.ele-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.ele-sec .ele-sec-sub{font-size:15.5px;color:var(--ink-3);margin:9px 0 30px}
+.ele-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
 .ele-card{
-  border:1px solid var(--line);border-radius:6px;padding:18px 12px 14px;text-align:center;
+  border:1px solid var(--line);border-radius:8px;padding:28px 18px 22px;text-align:center;
   background:linear-gradient(180deg,rgba(255,253,246,.72),rgba(247,242,230,.3));
   transition:transform var(--t-fast) ease,box-shadow var(--t-fast) ease;
 }
-.ele-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-soft)}
-.ele-card svg{width:44px;height:44px;display:block;margin:0 auto 8px}
-.ele-card img.el-totem{width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 6px}
-.ele-card .e-name{font-size:16px;font-weight:700;letter-spacing:.1em}
-.ele-card .e-tag{display:block;font-size:11px;color:var(--ink-3);margin:1px 0 6px;font-family:var(--sans);letter-spacing:.12em}
-.ele-card .e-desc{font-size:12.5px;color:var(--ink-2);line-height:1.6}
-.intro-foot{margin-top:52px;text-align:center;font-size:12.5px;color:var(--ink-3);line-height:2}
+.ele-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft)}
+.ele-card svg{width:58px;height:58px;display:block;margin:0 auto 10px}
+.ele-card img.el-totem{width:92px;height:92px;object-fit:contain;display:block;margin:0 auto 10px}
+.ele-card .e-name{font-size:20px;font-weight:700;letter-spacing:.1em}
+.ele-card .e-tag{display:block;font-size:12.5px;color:var(--ink-3);margin:3px 0 9px;font-family:var(--sans);letter-spacing:.12em}
+.ele-card .e-desc{font-size:14.5px;color:var(--ink-2);line-height:1.7}
+.intro-foot{margin-top:64px;text-align:center;font-size:14px;color:var(--ink-3);line-height:2.1}
 
 /* ================= 问答 ================= */
 #s-quiz{padding:44px 0 60px}
@@ -285,8 +287,8 @@ details.wiki[open] summary::after{content:'收 起'}
 
 /* ================= 响应式 ================= */
 @media (max-width:880px){
-  .intro-grid{grid-template-columns:1fr;gap:30px}
-  .ele-grid{grid-template-columns:repeat(3,1fr)}
+  .intro-grid{grid-template-columns:1fr;gap:36px}
+  .ele-grid{grid-template-columns:repeat(3,1fr);gap:16px}
   .r-main{grid-template-columns:1fr;gap:20px}
   .r-city-head,.r-city-art,.r-city-detail{grid-column:1;grid-row:auto}
   .r-city-art svg{min-height:300px;height:300px}
@@ -297,7 +299,15 @@ details.wiki[open] summary::after{content:'收 起'}
   .adv-grid{grid-template-columns:1fr}
 }
 @media (max-width:480px){
-  .ele-grid{grid-template-columns:repeat(2,1fr)}
+  .ele-grid{grid-template-columns:repeat(2,1fr);gap:13px}
+  .ele-card{padding:22px 12px 18px}
+  .ele-card img.el-totem{width:78px;height:78px}
+  .ele-card .e-name{font-size:18px}
+  .ele-card .e-desc{font-size:13.5px;line-height:1.65}
+  #s-intro{padding:44px 0 62px}
+  .intro-sub{font-size:16.5px;margin-top:20px}
+  .intro-cta{margin-top:32px;gap:14px}
+  .ele-sec{margin-top:56px}
   .q-nav .btn{min-width:104px;min-height:48px}
   #r-match-num{font-size:32px}
   .r-persona{gap:16px}
@@ -321,17 +331,10 @@ details.wiki[open] summary::after{content:'收 起'}
 .scene-chip:hover img{opacity:1}
 .scene-chip.on{border-color:var(--seal);box-shadow:0 0 0 1px var(--seal)}
 .scene-chip.on b{color:var(--seal)}
-#scene-gallery{margin-top:22px}
 #scene-chips{margin:24px auto 10px;position:relative;z-index:3;padding:0 16px}
 .scene-chip.chip-reset{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;height:102px;background:#fffdf7;border-style:dashed}
 .scene-chip.chip-reset .cr-ico{font-size:19px;color:var(--seal);line-height:1}
 .scene-chip.chip-reset b{background:transparent;color:var(--seal);padding:0}
-#lightbox{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:26px 18px;background:rgba(16,24,34,.93)}
-#lightbox.on{display:flex}
-#lb-img{max-width:min(94vw,880px);max-height:78vh;width:auto;height:auto;border-radius:5px;border:1px solid rgba(244,239,227,.22);box-shadow:0 26px 70px rgba(0,0,0,.5)}
-.lb-cap{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:rgba(240,234,220,.92);font-family:var(--sans);font-size:12.5px;letter-spacing:.2em}
-#lb-close{position:absolute;top:18px;right:20px;background:transparent;border:1px solid rgba(244,239,227,.4);color:rgba(244,239,227,.9);font-family:var(--sans);font-size:12px;letter-spacing:.16em;padding:8px 14px;border-radius:3px;cursor:pointer}
-#lb-close:hover{background:rgba(244,239,227,.12)}
 .hero-scene{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:min(56vh,470px);display:flex;align-items:flex-end;background:#1b2733;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transition:opacity .65s ease}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,22,32,.74) 0%,rgba(14,22,32,.36) 40%,rgba(246,241,230,.10) 74%,var(--paper) 100%)}
@@ -377,12 +380,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
       <h3>五行图鉴</h3>
       <p class="ele-sec-sub">天地有五行，城市有性格——先认识一下五位老朋友。</p>
       <div class="ele-grid" id="ele-grid"></div>
-    </div>
-
-    <div class="ele-sec">
-      <h3>五行城景 · 画卷</h3>
-      <p class="ele-sec-sub">五座城的深夜，五种城市气息——点开任意一幅，看看另一种五行的夜色。</p>
-      <ul class="scene-gallery" id="scene-gallery"></ul>
     </div>
 
     <p class="intro-foot">
@@ -517,12 +514,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
 </section>
 
 <div id="toast" role="status"></div>
-
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="五行城景大图">
-  <button type="button" id="lb-close">关闭 ✕</button>
-  <img id="lb-img" alt="">
-  <p class="lb-cap" id="lb-cap"></p>
-</div>
 
 <script>
 /* 五行城景大图数据：原图质量内嵌（由 _dev/五行城市命书/inject_scene.js 注入，勿手改本段）*/
@@ -1761,7 +1752,7 @@ function cityById(id){
 }
 function fillTpl(t,r){ return t.replace(/\{main\}/g,r.main).replace(/\{sec\}/g,r.sec); }
 
-/* ---------- 五行城景大图：结果页氛围背景 + 画卷 ---------- */
+/* ---------- 五行城景大图：结果页氛围背景 ---------- */
 /* 图片数据由构建脚本注入为全局 EL_SCENE（缺失时以下功能自动隐藏，不影响主流程） */
 var SCENE_CITY = {shanghai:"金", hangzhou:"木", xiamen:"水", chongqing:"火", xian:"土"};
 var SCENE_META = {
@@ -1829,36 +1820,6 @@ function renderSceneChips(){
   var rs=$('chip-reset');
   if(rs) rs.addEventListener('click',function(){ state.previewEl=null; applyHero(); });
 }
-function renderSceneGallery(){
-  var box=$('scene-gallery'); if(!box) return;
-  if(!sceneData){ box.hidden=true; return; }
-  var html='';
-  ELS.forEach(function(el){
-    var meta=SCENE_META[el]||{th:""};
-    html+='<li><button type="button" class="scene-chip" data-el="'+el+'">'+
-      '<img src="'+sceneThumb(el)+'" alt="'+el+'格城市夜景">'+
-      '<b>'+el+' · '+meta.th+'</b></button></li>';
-  });
-  box.innerHTML=html;
-  Array.prototype.forEach.call(box.querySelectorAll('.scene-chip'),function(btn){
-    btn.addEventListener('click',function(){ openLightbox(btn.getAttribute('data-el')); });
-  });
-}
-function openLightbox(el){
-  if(!sceneData) return;
-  var lb=$('lightbox'); if(!lb) return;
-  var img=$('lb-img'), meta=SCENE_META[el];
-  img.src=sceneImg(el); img.alt=el+"格城市夜景";
-  $('lb-cap').textContent=meta ? (el+"格 · "+meta.th+" · "+meta.cap) : el+"格城景";
-  lb.classList.add('on');
-  document.body.style.overflow='hidden';
-}
-function closeLightbox(){
-  var lb=$('lightbox'); if(!lb || !lb.classList.contains('on')) return;
-  lb.classList.remove('on');
-  document.body.style.overflow='';
-}
-
 /* ---------- 序章 ---------- */
 function renderIntro(){
   $('intro-art').innerHTML=(typeof INTRO_IMG!=='undefined'&&INTRO_IMG)?'<img class="intro-photo" src="'+INTRO_IMG+'" alt="中国城市夜景与五行宝石群像">':introArt();
@@ -2157,9 +2118,6 @@ function init(){
   renderIntro();
   $('wiki-art').innerHTML=wikiArt();
   heroLayers=[$('hero-bg-a'),$('hero-bg-b')];
-  renderSceneGallery();
-  $('lb-close').addEventListener('click',closeLightbox);
-  $('lightbox').addEventListener('click',function(e){ if(e.target===this) closeLightbox(); });
   $('btn-start').addEventListener('click',startQuiz);
   $('btn-prev').addEventListener('click',function(){
     if(state.qi>0){ state.qi--; renderQuestion(); }
@@ -2181,7 +2139,6 @@ function init(){
   $('btn-copy').addEventListener('click',copyResult);
   /* 键盘操作：数字键 1-4 快选选项，←→ 翻题（仅问答屏生效） */
   document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'){ closeLightbox(); return; }
     var quiz=$('s-quiz');
     if(!quiz||!quiz.classList.contains('active')) return;
     if(e.key>='1'&&e.key<='4'){
