@@ -62,14 +62,15 @@ h1,h2,h3,h4{font-weight:700;letter-spacing:.02em}
   min-height:52px;padding:12px 34px;border-radius:3px;transition:all var(--t-fast) ease;
   user-select:none;
 }
-.btn-main{background:var(--ink);color:#f7f2e5;box-shadow:var(--shadow)}
-.btn-main:hover{background:#31537a;transform:translateY(-1px)}
+.btn-main{background:var(--ink);color:#f7f2e5;box-shadow:var(--shadow);border:1.5px solid var(--seal)}
+.btn-main:hover{background:#3a4e63;transform:translateY(-1px);border-color:#e6c98c}
 .btn-main .arr{transition:transform var(--t-fast) ease;font-family:var(--sans)}
 .btn-main:hover .arr{transform:translateX(5px)}
-.btn-line{border:1px solid var(--line-2);color:var(--ink-2);background:rgba(255,253,246,.6)}
-.btn-line:hover{border-color:var(--ink-2);color:var(--ink);background:#fffdf6}
-.btn-seal{background:var(--seal);color:#f9f2e4;box-shadow:var(--shadow)}
-.btn-seal:hover{background:#c4603c;transform:translateY(-1px)}
+.btn-line{border:1.5px solid var(--seal);color:var(--ink-2);background:rgba(255,253,246,.72)}
+.btn-line:hover{border-color:#a67c38;color:#4a3713;background:#f8f0de;box-shadow:0 2px 10px rgba(201,160,106,.16)}
+.btn-seal{background:var(--seal);color:#f9f2e4;box-shadow:var(--shadow);border:1.5px solid #e6c98c}
+.btn-seal:hover{background:#c4603c;transform:translateY(-1px);border-color:#f4e0b3}
+.btn:focus-visible{outline:2px solid var(--seal);outline-offset:3px}
 .ghost-btn{
   font-family:var(--sans);font-size:13px;color:var(--ink-3);
   border-bottom:1px dashed var(--line-2);padding:2px 1px;transition:color var(--t-fast);
@@ -126,7 +127,8 @@ h1,h2,h3,h4{font-weight:700;letter-spacing:.02em}
   background:rgba(255,253,247,.75);font-size:15.5px;line-height:1.65;color:var(--ink-2);
   min-height:56px;transition:border-color var(--t-fast),background var(--t-fast),transform var(--t-fast);
 }
-.opt:hover{border-color:var(--line-2);background:#fffdf7;transform:translateX(2px)}
+.opt:hover{border-color:var(--seal);background:#fffdf7;transform:translateX(2px)}
+.opt:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
 .opt .opt-key{
   flex:0 0 auto;width:26px;height:26px;border:1px solid var(--line-2);border-radius:3px;
   display:grid;place-items:center;font-family:var(--sans);font-size:12px;color:var(--ink-3);
@@ -177,11 +179,23 @@ h1,h2,h3,h4{font-weight:700;letter-spacing:.02em}
 .r-city-head{display:flex;flex-direction:column;justify-content:flex-start;padding:6px 0}
 .r-city-detail{display:flex;flex-direction:column;justify-content:flex-start}
 .r-city-art{grid-column:2;grid-row:1/3}
-.city-kicker{font-family:var(--sans);font-size:11.5px;letter-spacing:.3em;color:var(--seal);margin-bottom:8px}
-#r-city-name{font-size:clamp(34px,5vw,52px);line-height:1.2;letter-spacing:.06em}
-#r-city-en{font-family:var(--sans);font-size:12px;letter-spacing:.26em;color:var(--ink-3);margin:2px 0 16px;text-transform:uppercase}
+.city-kicker{font-family:var(--sans);font-size:11.5px;letter-spacing:.22em;color:var(--seal);margin-bottom:10px}
+#r-city-name{
+  font-size:clamp(48px,7.6vw,84px);line-height:1.06;letter-spacing:.1em;font-weight:800;
+  display:inline-block;position:relative;padding-bottom:12px;color:var(--ink);
+  text-shadow:0 2px 0 rgba(255,253,247,.9),0 10px 26px rgba(36,66,92,.14);
+}
+#r-city-name::after{
+  content:'';position:absolute;left:2px;right:10%;bottom:2px;height:7px;border-radius:4px;
+  background:linear-gradient(90deg,var(--seal),rgba(179,80,46,.28) 74%,rgba(201,160,106,0));
+}
+#r-city-en{
+  font-family:var(--sans);font-size:13px;letter-spacing:.16em;color:var(--ink-2);
+  margin:8px 0 18px;padding:5px 15px;border-radius:100px;border:1.5px solid currentColor;
+  display:inline-block;align-self:flex-start;background:rgba(255,253,247,.72);
+}
 .match-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
-#r-match-num{font-size:40px;font-weight:700;color:var(--ink)}
+#r-match-num{font-size:48px;font-weight:700;color:var(--ink);letter-spacing:.02em}
 .match-lab{font-size:13px;color:var(--ink-3)}
 #r-parts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 #r-parts span{
@@ -237,16 +251,17 @@ h1,h2,h3,h4{font-weight:700;letter-spacing:.02em}
 .alt-art img.city-photo{width:100%;height:190px;display:block;object-fit:cover;object-position:top}
 .alt-body{padding:16px 18px 18px}
 .alt-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.alt-name{font-size:21px;letter-spacing:.06em}
-.alt-match{font-family:var(--sans);font-size:13px;color:var(--seal);white-space:nowrap}
+.alt-name{font-size:30px;font-weight:700;letter-spacing:.08em;line-height:1.15;position:relative;padding-bottom:6px}
+.alt-name::after{content:'';position:absolute;left:0;bottom:0;width:46px;height:5px;border-radius:3px;background:linear-gradient(90deg,var(--seal),rgba(179,80,46,.15))}
+.alt-match{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--seal);white-space:nowrap}
 .alt-why{font-size:13.5px;color:var(--ink-2);margin:8px 0 6px;line-height:1.8}
 .alt-remind{font-size:12.5px;color:var(--ink-3);line-height:1.7;margin-bottom:12px}
 .alt-btn{
-  font-family:var(--serif);font-size:13.5px;letter-spacing:.18em;text-indent:.18em;color:var(--ink);
-  border:1px solid var(--ink-2);border-radius:3px;padding:8px 20px;min-height:44px;
-  transition:all var(--t-fast);display:inline-flex;align-items:center;
+  font-family:var(--serif);font-size:13.5px;letter-spacing:.18em;text-indent:.18em;color:#5c4318;
+  border:1.5px solid var(--seal);border-radius:3px;padding:8px 20px;min-height:44px;
+  transition:all var(--t-fast);display:inline-flex;align-items:center;background:rgba(255,253,246,.65);
 }
-.alt-btn:hover{background:var(--ink);color:#f7f2e5}
+.alt-btn:hover{background:var(--seal);color:#f7f2e5;border-color:#a67c38}
 /* 生活建议 */
 .adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .adv-item{border:1px solid var(--line);border-radius:8px;padding:18px 18px 15px;background:rgba(255,253,247,.55)}
@@ -333,10 +348,12 @@ details.wiki[open] summary::after{content:'收 起'}
 .step-dots i.done{background:var(--ink-2);opacity:.75}
 /* 命书小结 */
 .sum-card{border:1px solid var(--line);border-radius:10px;background:rgba(255,253,247,.6);overflow:hidden}
-.sum-row{display:grid;grid-template-columns:118px 1fr;gap:16px;align-items:baseline;padding:15px 22px;border-bottom:1px dashed var(--line)}
+.sum-row{display:grid;grid-template-columns:136px 1fr;gap:16px;align-items:baseline;padding:15px 22px;border-bottom:1px dashed var(--line)}
 .sum-row:last-child{border-bottom:none}
 .sum-lab{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;color:var(--ink-3)}
 .sum-val{font-size:15px;color:var(--ink);line-height:1.7}
+.sum-val.sum-one{font-size:16.5px;line-height:1.95;letter-spacing:.01em}
+.alt-remind b{font-weight:400;color:#8a6d2f}
 @media (max-width:640px){
   .sum-row{grid-template-columns:1fr;gap:4px;padding:13px 16px}
   .step-nav{flex-direction:column-reverse;gap:18px}
@@ -424,7 +441,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
 <!-- ================= 结果 1/4 · 推荐城市与生活发展建议 ================= -->
 <section id="s-result" class="screen">
   <div class="wrap">
-    <p class="step-kicker">第 1 页 / 共 4 页 · 推荐城市</p>
+    <p class="step-kicker">第 1 页 / 共 4 页 · 最配你的城市</p>
     <div class="report-head" id="report-head">
       <span id="report-no"></span>
     </div>
@@ -454,14 +471,14 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
     </div>
 
     <div class="r-block">
-      <h3>生活发展建议</h3>
+      <h3>在那边过日子，大概是这样的</h3>
       <div class="adv-grid" id="r-advice"></div>
     </div>
 
     <nav class="step-nav" data-step="0" aria-label="结果分页导航">
       <button type="button" class="btn btn-line" data-nav="prev">← 上一页</button>
       <span class="step-dots" aria-hidden="true"></span>
-      <button type="button" class="btn btn-main" data-nav="next">下一页 · 其他适配城市 →</button>
+      <button type="button" class="btn btn-main" data-nav="next">下一页 · 还有两座也很配 →</button>
     </nav>
   </div>
 </section>
@@ -469,16 +486,16 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
 <!-- ================= 结果 2/4 · 另外两座适配城市 ================= -->
 <section id="s-alt" class="screen">
   <div class="wrap">
-    <p class="step-kicker">第 2 页 / 共 4 页 · 其他适配城市</p>
+    <p class="step-kicker">第 2 页 / 共 4 页 · 这两座也很配你</p>
     <div class="r-block">
-      <h3>另外两座适配城市</h3>
+      <h3>顺手再推两座，看看合不合眼缘</h3>
       <div class="alt-grid" id="r-alt"></div>
     </div>
 
     <nav class="step-nav" data-step="1" aria-label="结果分页导航">
       <button type="button" class="btn btn-line" data-nav="prev">← 上一页</button>
       <span class="step-dots" aria-hidden="true"></span>
-      <button type="button" class="btn btn-main" data-nav="next">下一页 · 五行能量图谱 →</button>
+      <button type="button" class="btn btn-main" data-nav="next">下一页 · 看看你的五行配比 →</button>
     </nav>
   </div>
 </section>
@@ -486,15 +503,15 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
 <!-- ================= 结果 3/4 · 五行能量图谱与相生相克 ================= -->
 <section id="s-energy" class="screen">
   <div class="wrap">
-    <p class="step-kicker">第 3 页 / 共 4 页 · 五行能量图谱</p>
+    <p class="step-kicker">第 3 页 / 共 4 页 · 你的五行配比</p>
 
     <div class="r-block">
-      <h3>五行能量图谱</h3>
+      <h3>你的五行能量条</h3>
       <div id="r-bars"></div>
     </div>
 
     <div class="r-block">
-      <h3>相生相克解读</h3>
+      <h3>主格和次格，平时是怎么相处的</h3>
       <div class="sx-wrap">
         <figure id="r-sx-art"></figure>
         <div id="r-sx-text"></div>
@@ -502,14 +519,14 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
     </div>
 
     <details class="wiki" id="r-wiki">
-      <summary>五行图鉴 · 相生相克是怎么回事</summary>
+      <summary>顺带说说，相生相克到底是个啥</summary>
       <div class="wiki-body">
         <div class="w-row">
           <figure id="wiki-art"></figure>
           <p>
-            <b>相生</b>，是滋养与成全：木生火（柴薪燃火）、火生土（灰烬成土）、土生金（矿藏于土）、金生水（凝露于金）、水生木（润泽草木）。<br>
-            <b>相克</b>，是制衡与修剪：木克土（根系破土）、土克水（堤坝拦水）、水克火（水能灭火）、火克金（烈火炼金）、金克木（利刃剪枝）。<br>
-            生得太过的，需要一点克来收束；克得太狠的，需要一点生来缓和。城市与人的相处，也是同样的道理——没有完美的匹配，只有愿意互相打磨的缘分。
+            <b>相生</b>，就是谁给谁加油：木生火（木头能烧起火）、火生土（烧完剩下灰，灰就是土）、土生金（金属矿都是从土里挖的）、金生水（金属表面会凝出水珠）、水生木（有水树才长得旺）。<br>
+            <b>相克</b>，就是谁给谁踩刹车：木克土（树根能钻进泥土）、土克水（堤坝能拦住水）、水克火（水能灭火）、火克金（烈火能把金属炼化）、金克木（刀斧能砍倒树）。<br>
+            说白了：生得太猛，就得来点克收一收；克得太狠，就得来点生缓一缓。人跟城市也是这样——没有天生就完全对上的组合，只有愿意互相磨合的关系。
           </p>
         </div>
       </div>
@@ -518,7 +535,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
     <nav class="step-nav" data-step="2" aria-label="结果分页导航">
       <button type="button" class="btn btn-line" data-nav="prev">← 上一页</button>
       <span class="step-dots" aria-hidden="true"></span>
-      <button type="button" class="btn btn-main" data-nav="next">下一页 · 保存命书 →</button>
+      <button type="button" class="btn btn-main" data-nav="next">下一页 · 收好这份命书 →</button>
     </nav>
   </div>
 </section>
@@ -526,19 +543,19 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
 <!-- ================= 结果 4/4 · 保存与再测 ================= -->
 <section id="s-actions" class="screen">
   <div class="wrap">
-    <p class="step-kicker">第 4 页 / 共 4 页 · 保存命书</p>
+    <p class="step-kicker">第 4 页 / 共 4 页 · 收好你的命书</p>
 
     <div class="r-block">
-      <h3>命书小结</h3>
+      <h3>一句话看懂这份命书</h3>
       <div id="r-summary"></div>
     </div>
 
     <div class="r-actions">
-      <button class="btn btn-line" id="btn-back-main" hidden>← 返回推荐城市</button>
-      <button class="btn btn-line" id="btn-view-alt">查看另一座城市</button>
-      <button class="btn btn-line" id="btn-copy">复制测试结果</button>
-      <button class="btn btn-seal" id="btn-share">下载分享卡片</button>
-      <button class="btn btn-line" id="btn-retest">重新测算</button>
+      <button class="btn btn-line" id="btn-back-main" hidden>← 回到推荐城市</button>
+      <button class="btn btn-line" id="btn-view-alt">换一座城市看看</button>
+      <button class="btn btn-line" id="btn-copy">复制我的结果</button>
+      <button class="btn btn-seal" id="btn-share">存一张分享卡片</button>
+      <button class="btn btn-line" id="btn-retest">再测一次</button>
     </div>
 
     <nav class="step-nav" data-step="3" aria-label="结果分页导航">
@@ -547,8 +564,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
     </nav>
 
     <footer class="site-foot">
-      本测试为趣味人格与城市探索体验，五行城市属性为创意设定，匹配指数仅代表内部算法得分。<br>
-      实际迁居请结合职业机会、住房预算、通勤与个人需求综合判断。
+      这就是个图一乐的趣味测试，五行城市属性都是创意设定，合拍度只代表内部算法打的分。<br>
+      真要搬家，还是得把工作机会、房租预算、通勤时长和自己的真实需求一起算进去。
     </footer>
   </div>
 </section>
@@ -700,9 +717,9 @@ var CITIES = [
    industries:"金融、贸易、时尚消费、总部经济与专业服务",
    lifeNote:"节奏快、选择多，深夜的便利店里坐满了刚下班和刚开工的人。",
    houseNote:"内环居住成本高，地铁网络发达，通勤时间值得认真算账。",
-   why:["你的{main}格在这座「金」性的城市里会被打磨得很亮——上海欣赏规则内的聪明，而你的{sec}格正好提供那份聪明",
-        "这座城市的信息浓度和审美浓度都足够高，对喜欢把日子过出质感的{main}型人格非常友好",
-        "机会密度大意味着试错成本低，适合想多看看、再选择的你"],
+   why:["你这份{main}格，在上海会被打磨得特别亮——这地方认的是「规矩之内的聪明」，而这份聪明，你的{sec}格刚好就有",
+        "信息和审美都够密，对喜欢把日子过出质感的{main}型人来说，在这儿基本不用将就",
+        "机会多，试错成本就低，特别适合还想多看看、不急着定下来的你"],
    remind:"生活成本与通勤强度是明牌，先算清每月固定支出再心动。"},
 
   {id:"beijing",name:"北京",en:"BEIJING",el:"土",pace:"structured",scenes:["cultural","urban"],careers:["steady","startup","craft"],
@@ -710,9 +727,9 @@ var CITIES = [
    industries:"科技互联网、文化传媒、教育科研、政务资源",
    lifeNote:"大而有序，城市像一座巨大的图书馆，什么都有，就看你找不找得到。",
    houseNote:"城市半径大，通勤是重要成本，住在哪比想象中更影响生活质量。",
-   why:["皇城根下的「土」格与你的{main}格气味相投——这座城养得住沉得下心的人",
-        "历史厚度和当下的思想浓度同时拉满，{main}格的你在这里既踩得到根，也够得着前沿",
-        "资源和圈子都在这里，适合想认真做点事的{sec}格能量生长"],
+   why:["皇城根下这股「土」味，跟你{main}格的脾气很对——这座城养得住沉得下心的人",
+        "老底子和新想法在这儿都够厚，{main}格的你低头踩得到根，伸手也够得着前沿",
+        "资源和圈子都扎堆在这儿，适合想正经做点事的{sec}格来长本事"],
    remind:"通勤半径和落户门槛是现实变量，选对居住板块比选对行业更先决定幸福感。"},
 
   {id:"shenzhen",name:"深圳",en:"SHENZHEN",el:"火",pace:"fast",scenes:["urban"],careers:["startup","craft"],
@@ -720,9 +737,9 @@ var CITIES = [
    industries:"硬科技、互联网、新能源、智能制造",
    lifeNote:"「来了就是深圳人」不是口号，是这座城市真实的操作系统。",
    houseNote:"居住成本不低，但城市新、配套新，城中村给了年轻人缓冲带。",
-   why:["「火」格的深圳和{main}格的你一拍即合——这里最不缺的就是敢想敢干的热量",
-        "这座城市对失败宽容、对速度痴迷，{sec}格的灵活在这里是硬通货",
-        "产业链密度全国罕见，一个想法从图纸到打样，可能只需要一顿肠粉的时间"],
+   why:["「火」格的深圳跟{main}格的你一拍即合——这儿最不缺的，就是敢想敢干的那股热量",
+        "这里对失败挺宽容，对速度特别上头，{sec}格的灵活在这儿就是硬通货",
+        "产业链密度全国少见，一个想法从画图到打样，可能就一顿肠粉的功夫"],
    remind:"节奏快是双刃剑，记得给自己留出不被推着走的空隙。"},
 
   {id:"guangzhou",name:"广州",en:"GUANGZHOU",el:"火",pace:"flexible",scenes:["cultural","urban"],careers:["startup","free","craft"],
@@ -730,9 +747,9 @@ var CITIES = [
    industries:"商贸会展、汽车制造、美妆日化、跨境电商与直播电商",
    lifeNote:"务实、松弛、讲究：早茶可以谈成生意，生意也要让位给生活。",
    houseNote:"老城区烟火与新城区便利各有拥趸，居住性价比在一线城市里最友好。",
-   why:["广州的「火」不是烈火，是慢火煨汤——{main}格的你会被这座城的耐心滋养",
-        "千年商都的务实和你的{sec}格很合拍：不玩虚的，把日子和生意都过扎实",
-        "吃喝玩乐的生活浓度和创业成本的低门槛，在这里同时成立"],
+   why:["广州的「火」不是烈火，是小火慢煨的汤——{main}格的你在这座城会被慢慢养熟",
+        "千年商都的那股务实，跟你的{sec}格特别合拍：不玩虚的，日子和生意都过得扎实",
+        "吃得好、玩得多的生活浓度，加上门槛不高的创业成本，在这儿能同时拥有"],
    remind:"夏天很长很湿热，体质怕热的话先掂量一下自己的空调信仰。"},
 
   {id:"hangzhou",name:"杭州",en:"HANGZHOU",el:"木",pace:"flexible",scenes:["nature","water","urban"],careers:["startup","craft","free"],
@@ -740,9 +757,9 @@ var CITIES = [
    industries:"电商与云计算、数字内容、直播经济、文旅",
    lifeNote:"一半山水一半代码，周末爬山划船，周中写方案见投资人。",
    houseNote:"互联网板块房租不低，城市不大，通勤友好，西湖是免费的。",
-   why:["「木」格杭州最懂生长——你的{main}格在这里会被浇灌得枝繁叶茂",
-        "山水和野心在这座城里和平共处，{sec}格的你既能拼事业也留得住生活",
-        "数字经济浓度高，{main}格想发芽的很多想法，在这里都能找到土壤和园丁"],
+   why:["「木」格的杭州最懂生长——你的{main}格在这儿会被浇灌得枝繁叶茂",
+        "山水和野心在这座城里能和平共处，{sec}格的你拼事业的同时，也留得住生活",
+        "数字经济扎堆，{main}格那些想发芽的想法，在这儿总能找到土壤，也找得到园丁"],
    remind:"互联网浓度高的另一面是竞争浓度也高，卷不卷取决于你想要的节奏。"},
 
   {id:"chengdu",name:"成都",en:"CHENGDU",el:"水",pace:"slow",scenes:["nature","urban"],careers:["free","craft","startup"],
@@ -750,9 +767,9 @@ var CITIES = [
    industries:"游戏与数字文创、消费品牌、会展、生物医药",
    lifeNote:"雪山下的公园城市，泡在茶馆里的下午，不算虚度。",
    houseNote:"生活成本友好，地铁覆盖广，「安逸」是写进城市基因的关键词。",
-   why:["成都的「水」性温柔地接住你的{main}格——这座城不催你，但机会自己会流过来",
-        "茶馆文化和新经济同时繁荣，{sec}格的你可以在松弛里把事情办成",
-        "生活成本与幸福感的比值极高，适合想清楚「要什么」之后再发力的你"],
+   why:["成都的「水」性会温柔地接住你的{main}格——这座城不催你，但机会自己会流过来",
+        "茶馆文化和新经济都挺旺，{sec}格的你可以松松弛弛地就把事情办了",
+        "花的钱不多，幸福感却很高，适合先把「要什么」想清楚了再发力的你"],
    remind:"太安逸是甜蜜的陷阱——建议先定好目标，再享受巴适。"},
 
   {id:"nanjing",name:"南京",en:"NANJING",el:"土",pace:"slow",scenes:["cultural","nature"],careers:["steady","craft"],
@@ -760,9 +777,9 @@ var CITIES = [
    industries:"科教研发、软件与电子信息、智能制造、文旅",
    lifeNote:"梧桐树影里的城市，节奏不快，但底蕴深得能听见回声。",
    houseNote:"老城有味道、新城更便利，高校多，租房市场对年轻人友好。",
-   why:["南京的「土」格安稳厚重，正好安放{main}格的你那颗想沉下来的心",
-        "高校与科研院所密度高，{sec}格的求知欲在这里永远有去处",
-        "历史感和书卷气让这座城市自带定力，适合慢慢长成大树的{main}型选手"],
+   why:["南京的「土」格安稳厚重，正好接住{main}格的你那颗想沉下来的心",
+        "高校和科研院所密得很，{sec}格的求知欲在这儿永远有地方使",
+        "历史感和书卷气让这城自带定力，适合不着急、慢慢长成大树的{main}型选手"],
    remind:"冬天湿冷没暖气、夏天是标准火炉，体感季节跨度大，先做心理建设。"},
 
   {id:"suzhou",name:"苏州",en:"SUZHOU",el:"木",pace:"slow",scenes:["cultural","water","nature"],careers:["craft","steady"],
@@ -770,9 +787,9 @@ var CITIES = [
    industries:"高端制造、生物医药、纳米技术、工业设计",
    lifeNote:"白墙黛瓦和产业园区各占一半，古典和精密在这里互不干扰。",
    houseNote:"老城限高保风貌，园区现代更实用，通勤半径可控。",
-   why:["「木」格苏州自己就是一座园林——你的{main}格会在这里被修剪出更好的形状",
-        "最强地级市的产业底子配上江南的生活质感，{sec}格的讲究在这里全用得上",
-        "适合手艺人心态：慢慢打磨，苏州城等得起，你的{main}格也等得起"],
+   why:["「木」格的苏州本身就是座大园林——你的{main}格在这儿会被修剪出更好看的形状",
+        "最强地级市的产业底子，配上江南的生活质感，{sec}格的那点讲究在这儿全用得上",
+        "特别适合手艺人心态：慢慢打磨，苏州等得起，你的{main}格也等得起"],
    remind:"城市气质偏静，追求夜生活和热闹的人需要自备娱乐方案。"},
 
   {id:"wuhan",name:"武汉",en:"WUHAN",el:"水",pace:"fast",scenes:["water","urban"],careers:["steady","craft","startup"],
@@ -780,9 +797,9 @@ var CITIES = [
    industries:"光电子信息、汽车、生物医药、高等教育",
    lifeNote:"过早的热干面配长江的汽笛，这座城市的性格是敞亮的。",
    houseNote:"三镇格局让城市很大，选住址先看工作地点，跨江通勤要认真考虑。",
-   why:["「水」格武汉的江湖气和{main}格的你天然合拍——爽朗、直接、不装",
-        "九省通衢意味着流动的机会，{sec}格的能量在这里转得起来",
-        "高校百万在校生撑起的年轻浓度，让{main}格的想法总能找到同频的人"],
+   why:["「水」格武汉的江湖气，跟{main}格的你天生合拍——爽朗、直接、不装",
+        "九省通衢意味着人来人往的机会，{sec}格的能量在这儿能转得起来",
+        "百万在校生撑起的年轻浓度，让{main}格的你总能碰到聊得来的人"],
    remind:"夏天极热、冬天湿冷，「过早」热量爆炸，好City但考验体质。"},
 
   {id:"chongqing",name:"重庆",en:"CHONGQONG",el:"火",pace:"fast",scenes:["urban","nature"],careers:["startup","free"],
@@ -790,9 +807,9 @@ var CITIES = [
    industries:"汽车制造、电子信息、文旅消费、火锅经济",
    lifeNote:"8D魔幻地形自带戏剧感：你以为在1楼，其实在22楼。",
    houseNote:"爬坡上坎是日常，住址和轻轨站的关系直接决定生活幸福度。",
-   why:["「火」格重庆和{main}格的你互相点燃——这座城市的能量场就是热气腾腾四个字",
-        "城市本身即顶流IP，{sec}格的创意和表达欲在这里不缺素材",
-        "生活成本可控、烟火气全国顶级，适合想边闯边生活的你"],
+   why:["「火」格的重庆和{main}格的你互相点燃——这座城的能量场，就是「热气腾腾」四个字",
+        "城市本身就是顶流，{sec}格的创意和表达欲在这儿从来不缺素材",
+        "生活成本还算可控，烟火气全国顶级，适合一边闯一边认真生活的你"],
    remind:"导航在这里经常沉默，出门预留找路的体力，膝盖和鞋底都要好。"},
 
   {id:"tianjin",name:"天津",en:"TIANJIN",el:"水",pace:"slow",scenes:["water","cultural"],careers:["steady","craft"],
@@ -800,9 +817,9 @@ var CITIES = [
    industries:"航空航天、石油化工、高端装备、港口经济",
    lifeNote:"海河穿城，相声下饭，这座城市对「乐呵」有执念。",
    houseNote:"房价友好度高，市区生活半径紧凑，骑车可达很多地方。",
-   why:["天津的「水」格是慢水流深——{main}格的你在这里会莫名地松弛下来",
-        "曲艺之都的幽默感和{sec}格的通透相得益彰，日子过得有滋有味",
-        "生活成本低加上离北京近，进可打拼退可安居，{main}格的选择权很值钱"],
+   why:["天津的「水」格是慢水流深——{main}格的你到这儿会莫名地松弛下来",
+        "曲艺之都的幽默感，配上{sec}格的通透，日子过得有滋有味",
+        "生活成本低，离北京又近，进可打拼、退可安居，{main}格手里这个选择权很值钱"],
    remind:"冬天海河边风大且直，围巾是刚需不是配饰。"},
 
   {id:"qingdao",name:"青岛",en:"QINGDAO",el:"水",pace:"slow",scenes:["water","nature"],careers:["steady","free","craft"],
@@ -810,9 +827,9 @@ var CITIES = [
    industries:"智能家电、海洋经济、啤酒与食品、影视文旅",
    lifeNote:"吹海风、哈啤酒、吃蛤蜊，青岛的生活有一套自己的度量衡。",
    houseNote:"老城区坡多、景色好，新区平缓、更现代，海景房量力而行。",
-   why:["「水」格青岛的海风正好吹散{main}格的燥气——这座城市自带滤镜和凉意",
-        "海滨生活的松弛和产业底子的扎实并存，{sec}格想要的平衡这里真的有",
-        "城市颜值常年在线，对重视生活美感的{main}型人格是持续的加分项"],
+   why:["「水」格青岛的海风，正好吹散{main}格的燥气——这座城市自带滤镜和凉意",
+        "海滨的松弛和产业的扎实能同时存在，{sec}格想要的那种平衡，这儿真的有",
+        "城市颜值常年在线，对在意生活美感的{main}型人来说，是持续的加分项"],
    remind:"旅游旺季游客浓度高，热门海鲜市场请提前做好攻略。"},
 
   {id:"xian",name:"西安",en:"XI'AN",el:"土",pace:"slow",scenes:["cultural"],careers:["steady","craft","startup"],
@@ -820,9 +837,9 @@ var CITIES = [
    industries:"文化旅游、航空航天、半导体与硬科技、高校科研",
    lifeNote:"城墙下唱摇滚，博物馆里过周末，这座城的反差感是天赋。",
    houseNote:"古城内安静有味，高新区现代忙碌，一碗面钱的生活成本很友好。",
-   why:["「土」格西安的厚重正好稳稳托住{main}格的你——历史感这种东西，很治愈焦虑",
-        "硬科技与文旅双轮驱动，{sec}格的才华在这里有古今两个赛道可选",
-        "生活成本友好到可以安心试错，{main}格的新芽在这里不怕长得慢"],
+   why:["「土」格西安的厚重，正好稳稳托住{main}格的你——历史感这东西，真的很治焦虑",
+        "硬科技和文旅两条腿走路，{sec}格的才华在这儿有古今两个赛道可以挑",
+        "生活成本友好到可以安心试错，{main}格的新芽在这儿不怕长得慢"],
    remind:"气候干燥、春天偶有沙尘，南方来的朋友记得备好加湿器——和水杯。"},
 
   {id:"changsha",name:"长沙",en:"CHANGSHA",el:"火",pace:"fast",scenes:["urban","cultural","nature"],careers:["free","startup","craft"],
@@ -830,9 +847,9 @@ var CITIES = [
    industries:"传媒娱乐、工程机械、新消费品牌、文创",
    lifeNote:"茶颜悦色和超级文和友的故乡，把「快乐」做成了产业。",
    houseNote:"房价洼地中的战斗机，市中心安家不是梦想。",
-   why:["「火」格长沙的快乐浓度全国最高——{main}格的你在这里根本冷场不起来",
-        "传媒与文创业态成熟，{sec}格的表达欲和创作欲有出口也有市场",
-        "房价友好到惊人，安居乐业在这里不是并列词，是因果词"],
+   why:["「火」格长沙的快乐浓度全国最高——{main}格的你在这儿根本冷不了场",
+        "传媒和文创都挺成熟，{sec}格的表达欲和创作欲，既有出口也有市场",
+        "房价友好到离谱，在这儿「安居」和「乐业」不是并列关系，是因果关系"],
    remind:"辣度与夜生活强度成正比，作息党的自律将接受终极考验。"},
 
   {id:"zhengzhou",name:"郑州",en:"ZHENGZHOU",el:"土",pace:"structured",scenes:["urban"],careers:["steady","craft"],
@@ -840,9 +857,9 @@ var CITIES = [
    industries:"现代物流、电子信息、食品加工、轨道交通装备",
    lifeNote:"火车拉来的城市，如今高铁半日可达大半个中国。",
    houseNote:"生活成本适中，城市框架拉得大，新区居住体验不断升级。",
-   why:["「土」格郑州的四平八稳正好接住{main}格的你——枢纽城市的好处是「都在路上」",
-        "物流与制造的底盘扎实，{sec}格的执行力在这里非常吃得开",
-        "米字形高铁网让你周五出发周日回，{main}格的探索半径大到惊人"],
+   why:["「土」格郑州的四平八稳，正好接住{main}格的你——枢纽城市最大的好处是「哪儿都在路上」",
+        "物流和制造的底子很扎实，{sec}格的执行力在这儿特别吃得开",
+        "米字形高铁网，周五出发、周日就能回，{main}格的探索半径大得惊人"],
    remind:"春运期间的火车站是国家级奇观，错峰出行保平安。"},
 
   {id:"ningbo",name:"宁波",en:"NINGBO",el:"水",pace:"fast",scenes:["water","urban"],careers:["startup","craft","steady"],
@@ -850,9 +867,9 @@ var CITIES = [
    industries:"港口贸易、绿色石化、高端制造、跨境电商",
    lifeNote:"宁波帮的精明藏在低调里，这座城把「问生意」当作问候语。",
    houseNote:"市区紧凑便利，房价适中，海边新城风景与性价比兼得。",
-   why:["「水」格宁波深谙流动的智慧——{main}格的灵活在这里能兑换成真金白银",
-        "港口连着全球市场，{sec}格的商业嗅觉不愁没有用武之地",
-        "书藏古今的天一阁气质和务实商帮精神并存，适合{main}格的进退有度"],
+   why:["「水」格的宁波太懂流动的智慧——{main}格的灵活在这儿能换成真金白银",
+        "港口直接连着全球市场，{sec}格的商业嗅觉不愁没地方用",
+        "天一阁的书卷气和商帮的务实并存，特别适合{main}格这种进退有度的活法"],
    remind:"台风季需要尊重，七八月的雨说来就来，伞是常驻装备。"},
 
   {id:"wuxi",name:"无锡",en:"WUXI",el:"金",pace:"slow",scenes:["water","nature"],careers:["craft","steady"],
@@ -860,9 +877,9 @@ var CITIES = [
    industries:"物联网、集成电路、生物医药、高端装备",
    lifeNote:"城市不大，产业很硬；樱花季的鼋头渚，是江南的顶配浪漫。",
    houseNote:"宜居榜常客，生活成本适中，市区通勤幸福感高。",
-   why:["「金」格无锡的精密气质和{main}格的讲究一拍即合——这座城小而完整",
-        "物联网与集成电路的产业精度，配得上{sec}格对专业的执着",
-        "太湖和樱花负责治愈，产业园和实验室负责托底，{main}格的平衡感在这里成立"],
+   why:["「金」格无锡的精密气质，跟{main}格的讲究一拍即合——这城不大，但很完整",
+        "物联网和集成电路的精度，配得上{sec}格对专业的那份执着",
+        "太湖和樱花负责治愈，产业园和实验室负责托底，{main}格想要的平衡在这儿能成立"],
    remind:"樱花季鼋头渚人潮汹涌，本地人的攻略是：工作日请假去。"},
 
   {id:"xiamen",name:"厦门",en:"XIA MEN",el:"木",pace:"slow",scenes:["water","nature"],careers:["free","craft","steady"],
@@ -870,9 +887,9 @@ var CITIES = [
    industries:"文旅会展、软件信息、航运物流、创意设计",
    lifeNote:"鼓浪屿的琴声和沙坡尾的咖啡香，是这座城的背景音。",
    houseNote:"岛内紧凑精致、成本偏高，岛外空间更大、性价比更高。",
-   why:["「木」格厦门温柔地适合一切想慢下来的{main}格——海风会替你原谅自己",
-        "文艺浓度和商业气息平衡得刚好，{sec}格的审美在这里能变现",
-        "小而美的城市尺度，{main}格的你可以在半小时内从会议室走到海边"],
+   why:["「木」格的厦门特别适合想慢下来的{main}格——海风会替你原谅自己",
+        "文艺气和商业气平衡得刚刚好，{sec}格的审美在这儿能换成钱",
+        "城市小而美，{main}格的你半小时就能从会议室走到海边"],
    remind:"岛内居住成本不低，游客高峰期出行请预留充足的时间与耐心。"},
 
   {id:"kunming",name:"昆明",en:"KUN MING",el:"木",pace:"slow",scenes:["nature"],careers:["free","craft"],
@@ -880,9 +897,9 @@ var CITIES = [
    industries:"花卉产业、大健康、文旅、绿色食品",
    lifeNote:"海拔1891米的松弛，阳光是这座城市最慷慨的福利。",
    houseNote:"生活成本温和，城市尺度舒适，晒太阳的公共空间管够。",
-   why:["「木」格昆明的治愈力是国家级的——{main}格的紧绷在这里会自动松开",
-        "鲜花和大健康产业自带松弛属性，{sec}格的慢灵感在这里能落地",
-        "四季如春意味着全年户外，{main}格的活力不被季节打断"],
+   why:["「木」格昆明的治愈力是国家级的——{main}格的紧绷，到这儿会自动松开",
+        "鲜花和大健康自带松弛属性，{sec}格那些慢半拍的灵感在这儿能落地",
+        "四季如春意味着全年都能往外跑，{main}格的活力不会被季节打断"],
    remind:"高原紫外线不含糊，防晒是昆明生活的第一门必修课。"},
 
   {id:"jinan",name:"济南",en:"JI NAN",el:"水",pace:"structured",scenes:["cultural","water"],careers:["steady","craft"],
@@ -890,9 +907,9 @@ var CITIES = [
    industries:"软件信息服务、重型装备、医药健康、食品",
    lifeNote:"家家泉水、户户垂杨，老城的松弛感是从地底下冒出来的。",
    houseNote:"生活成本友好，城市节奏平稳，通勤压力整体可控。",
-   why:["「水」格济南的泉水气质温柔地包裹{main}格的你——这座城有一种不争的定力",
-        "软件名城的名号不响但底子扎实，{sec}格的稳扎稳打在这里被珍视",
-        "四面荷花三面柳，{main}格的你花不多的钱就能住进风景里"],
+   why:["「水」格济南的泉水气质会温柔地裹住{main}格的你——这座城有一种不争的定力",
+        "软件名城的名头不响，但底子很扎实，{sec}格的稳扎稳打在这儿是被珍视的",
+        "四面荷花三面柳，{main}格的你不用花太多钱，就能住进风景里"],
    remind:"夏天桑拿天威力不小，泉水再凉也救不了户外暴走，注意补水。"}
 ];
 
@@ -963,17 +980,17 @@ function rankCities(u){
 /* 主次五行关系文案 */
 function relationOf(main,sec){
   if(SHENG[main]===sec) return {type:"sheng",good:true,label:main+" 生 "+sec,
-    h:"你的"+main+"格，自然滋养"+sec+"格",
-    p:"能量从主格顺流到次格——你做事有源源不断的后劲，兴趣和行动力互相供血。要注意的只是别把主格烧干：会休息的人才能一直生长。"};
+    h:"你的"+main+"格，一直在给"+sec+"格加油",
+    p:"主格的能量顺着流到次格，属于互相供血那一挂——所以你做事后劲足，兴趣和执行力总能互相打气。就一点：别把主格烧干，会休息的人才走得远。"};
   if(SHENG[sec]===main) return {type:"sheng",good:true,label:sec+" 生 "+main,
-    h:"你的"+sec+"格，默默滋养"+main+"格",
-    p:"次格是暗地里的补给线——你的底气和恢复力比表现出来的更强。别只顾着输出，记得回头照顾那条给你供能的河。"};
+    h:"你的"+sec+"格，在背后给"+main+"格充电",
+    p:"次格是你暗地里的补给线，说明你比自己以为的更能扛、也恢复得更快。别光顾着输出，回头也照顾一下这条一直在给你供电的河。"};
   if(KE[main]===sec) return {type:"ke",good:false,label:main+" 克 "+sec,
-    h:"你的"+main+"格，时常克制"+sec+"格",
-    p:"主格会时不时压住次格——想冲的劲和想歇的心偶尔打架。这不是内耗，是内部管理问题：主动给次格留固定时间，比如每周放空半天，两格就都服气了。"};
+    h:"你的"+main+"格，总想按住"+sec+"格",
+    p:"主格时不时会压住次格，所以「想冲」和「想歇」偶尔在你脑子里打架。这不叫内耗，这叫内部管理——给次格留点固定时间，比如每周空半天，两格就都消停了。"};
   return {type:"ke",good:false,label:sec+" 克 "+main,
-    h:"你的"+sec+"格，偶尔踩住"+main+"格的刹车",
-    p:"每次想全速冲刺时，总有一根缰绳拉住你——那其实是次格在履行制衡职责。大事决策前它反而帮你避开冲动，学会跟刹车商量油门，你就赢了。"};
+    h:"你的"+sec+"格，时不时踩你一脚刹车",
+    p:"每次想全速冲的时候，总有根缰绳拉住你。那其实不是拖延，是次格在干它该干的活——帮你制衡。大事之前它反而能拦住你的冲动，学会跟刹车商量油门，你就赢了。"};
 }
 
 /* ================================================================
@@ -1778,6 +1795,17 @@ function hashOf(arr){
   for(var i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))|0; }
   return Math.abs(h)+0x100000;
 }
+/* 把哈希值转成中文干支编号；把日期转成中文年月日 */
+function cnNo(n){
+  var G='甲乙丙丁戊己庚辛壬癸', Z='子丑寅卯辰巳午未申酉戌亥', s='';
+  for(var i=0;i<3;i++){ s+=G[n%10]+Z[Math.floor(n/10)%12]; n=Math.floor(n/120); }
+  return s;
+}
+function cnDate(d){
+  var NUM='〇一二三四五六七八九';
+  function cn2(v){ return String(v).split('').map(function(ch){ return NUM[parseInt(ch,10)]; }).join(''); }
+  return cn2(d.getFullYear())+'年'+cn2(d.getMonth()+1)+'月'+cn2(d.getDate())+'日';
+}
 function showScreen(id){
   Array.prototype.forEach.call(document.querySelectorAll('.screen'),function(s){ s.classList.remove('active'); });
   $(id).classList.add('active');
@@ -2040,8 +2068,8 @@ function finishCeremony(){
 /* ---------- 结果渲染 ---------- */
 function renderResult(){
   var r=state.result, info=EL_INFO[r.main], combo=comboOf(r.main,r.sec);
-  var no='No.WX-'+hashOf(state.answers).toString(36).toUpperCase().slice(0,6);
-  $('report-no').textContent='命书档案 '+no+' · '+new Date().toLocaleDateString('zh-CN');
+  var no=cnNo(hashOf(state.answers));
+  $('report-no').textContent='命书编号 '+no+' · '+cnDate(new Date());
   var seal=$('r-seal');
   seal.style.background=info.color;
   seal.querySelector('.s-el').textContent=r.main;
@@ -2060,18 +2088,23 @@ function entryOf(id){
 }
 function renderCityView(id){
   var entry=entryOf(id), c=entry.city, r=state.result;
-  $('r-city-kicker').textContent='主荐城市 · '+c.tagline;
+  $('r-city-kicker').textContent='最推荐 · '+c.tagline;
   $('r-city-name').textContent=c.name;
-  $('r-city-en').textContent='城市五行属「'+c.el+'」';
+  var en=$('r-city-en');
+  en.textContent='五行属「'+c.el+'」· '+EL_INFO[c.el].tag;
+  en.style.color=EL_INFO[c.el].color;
+  en.style.borderColor=EL_INFO[c.el].color;
+  en.style.background=EL_INFO[c.el].bg;
   $('r-match-num').textContent=entry.match;
-  $('r-parts').innerHTML='<span>五行契合 '+entry.parts.el+'/40</span><span>生活节奏 '+entry.parts.pace+'/20</span><span>场景偏好 '+entry.parts.scene+'/24</span><span>发展方向 '+entry.parts.car+'/16</span>';
+  $('r-match-num').style.color=EL_INFO[c.el].color;
+  $('r-parts').innerHTML='<span>五行超对味 '+entry.parts.el+'/40</span><span>节奏合得上 '+entry.parts.pace+'/20</span><span>环境正合适 '+entry.parts.scene+'/24</span><span>方向对路子 '+entry.parts.car+'/16</span>';
   $('r-reasons').innerHTML=c.why.map(function(t,i){
     return '<div class="rs-item"><span class="rs-no">'+String.fromCharCode(65+i)+'</span><span>'+fillTpl(t,r)+'</span></div>';
   }).join('');
   var keNote='';
-  if(KE[c.el]===r.main) keNote='<br>五行上「'+c.el+'」克你的「'+r.main+'」——这座城市对你更像磨刀石，会逼你成长，但摩擦要主动管理。';
-  else if(KE[r.main]===c.el) keNote='<br>你的「'+r.main+'」克这座城的「'+c.el+'」——主动权在你手里，但别把城市节奏全按自己的来。';
-  $('r-remind').innerHTML='<b>现实提醒：</b>'+c.remind+keNote;
+  if(KE[c.el]===r.main) keNote='<br>另外，五行上这座城的「'+c.el+'」克你的「'+r.main+'」——它对你更像一块磨刀石，会推着你成长，但摩擦得你自己主动去管。';
+  else if(KE[r.main]===c.el) keNote='<br>另外，你的「'+r.main+'」克这座城的「'+c.el+'」——主动权在你手上，不过也别把整座城的节奏都按自己那套来。';
+  $('r-remind').innerHTML='<b>说点大实话：</b>'+c.remind+keNote;
   $('r-city-art').innerHTML=cityArtHtml(c.id)+'<figcaption class="art-cap">'+c.name+'</figcaption>';
   $('btn-back-main').hidden = (id===state.originalTop);
   renderAdvice(id);
@@ -2082,14 +2115,18 @@ function renderCityView(id){
 function renderSummary(){
   var box=$('r-summary'); if(!box) return;
   var r=state.result, entry=entryOf(state.currentCity), c=entry.city;
+  var info=EL_INFO[r.main], combo=comboOf(r.main,r.sec);
   var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
   var top=state.ranked.slice(0,3);
+  var one='你是「'+info.title+'」，'+r.main+'格带着'+r.sec+'格，做事的套路是——'+combo.l+
+          ' 最配你的城市是'+c.name+'，合拍度 '+entry.match+' 分。去了别急着证明什么，先把日子过成自己喜欢的样子。';
   box.innerHTML='<div class="sum-card">'+
-    '<div class="sum-row"><span class="sum-lab">人格称号</span><span class="sum-val">'+EL_INFO[r.main].title+'</span></div>'+
-    '<div class="sum-row"><span class="sum-lab">五行主次</span><span class="sum-val">主格 <b style="color:'+EL_INFO[r.main].color+'">'+r.main+' · '+EL_INFO[r.main].tag+'</b>　×　次格 <b style="color:'+EL_INFO[r.sec].color+'">'+r.sec+' · '+EL_INFO[r.sec].tag+'</b></span></div>'+
-    '<div class="sum-row"><span class="sum-lab">推荐城市</span><span class="sum-val">'+c.name+' · 匹配指数 '+entry.match+'（'+c.el+'格）</span></div>'+
-    '<div class="sum-row"><span class="sum-lab">城市排序</span><span class="sum-val">'+top.map(function(e){ return e.city.name+' '+e.match; }).join('　｜　')+'</span></div>'+
-    '<div class="sum-row"><span class="sum-lab">五行分布</span><span class="sum-val">'+ELS.map(function(e){ return e+' '+Math.round(r.scores[e]/sum*100)+'%'; }).join('　｜　')+'</span></div>'+
+    '<div class="sum-row"><span class="sum-lab">一句话总结</span><span class="sum-val sum-one">'+one+'</span></div>'+
+    '<div class="sum-row"><span class="sum-lab">你的人设</span><span class="sum-val">「'+info.title+'」</span></div>'+
+    '<div class="sum-row"><span class="sum-lab">主格 / 次格</span><span class="sum-val">主格 <b style="color:'+EL_INFO[r.main].color+'">'+r.main+' · '+EL_INFO[r.main].tag+'</b>　带着　次格 <b style="color:'+EL_INFO[r.sec].color+'">'+r.sec+' · '+EL_INFO[r.sec].tag+'</b></span></div>'+
+    '<div class="sum-row"><span class="sum-lab">最推荐的城市</span><span class="sum-val">'+c.name+' · 合拍度 <b style="color:'+EL_INFO[c.el].color+'">'+entry.match+'</b>（'+c.el+'格）</span></div>'+
+    '<div class="sum-row"><span class="sum-lab">城市前三名</span><span class="sum-val">'+top.map(function(e){ return e.city.name+' '+e.match; }).join('　｜　')+'</span></div>'+
+    '<div class="sum-row"><span class="sum-lab">五行占比</span><span class="sum-val">'+ELS.map(function(e){ return e+' '+Math.round(r.scores[e]/sum*100)+'%'; }).join('　｜　')+'</span></div>'+
   '</div>';
 }
 function renderBars(){
@@ -2120,10 +2157,10 @@ function renderAlts(){
   others.forEach(function(e){
     var c=e.city;
     html+='<div class="alt-card"><div class="alt-art">'+cityArtHtml(c.id)+'</div><div class="alt-body">'+
-    '<div class="alt-top"><span class="alt-name">'+c.name+'</span><span class="alt-match">匹配指数 '+e.match+'</span></div>'+
+    '<div class="alt-top"><span class="alt-name">'+c.name+'</span><span class="alt-match">合拍度 '+e.match+'</span></div>'+
     '<p class="alt-why">'+fillTpl(c.why[0],state.result)+'</p>'+
-    '<p class="alt-remind">'+c.remind+'</p>'+
-    '<button type="button" class="alt-btn" data-id="'+c.id+'">查看这座城市 →</button></div></div>';
+    '<p class="alt-remind"><b>先泼盆冷水：</b>'+c.remind+'</p>'+
+    '<button type="button" class="alt-btn" data-id="'+c.id+'">换去这座城看看 →</button></div></div>';
   });
   $('r-alt').innerHTML=html;
   Array.prototype.forEach.call($('r-alt').querySelectorAll('.alt-btn'),function(b){
@@ -2133,9 +2170,9 @@ function renderAlts(){
 function renderAdvice(id){
   var c=cityById(id||state.currentCity);
   $('r-advice').innerHTML=
-    '<div class="adv-item"><h4>◆ 产业方向</h4><p>'+c.industries+'</p></div>'+
-    '<div class="adv-item"><h4>◆ 生活节奏</h4><p>'+c.lifeNote+'</p></div>'+
-    '<div class="adv-item"><h4>◆ 住房与通勤</h4><p>'+c.houseNote+'</p></div>';
+    '<div class="adv-item"><h4>◆ 那边什么行业多</h4><p>'+c.industries+'</p></div>'+
+    '<div class="adv-item"><h4>◆ 日常大概是这样</h4><p>'+c.lifeNote+'</p></div>'+
+    '<div class="adv-item"><h4>◆ 住哪儿、怎么通勤</h4><p>'+c.houseNote+'</p></div>';
 }
 function switchCity(id){
   state.currentCity=id;
@@ -2154,12 +2191,12 @@ function buildResultText(){
   var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
   var lines=[];
   lines.push('【五行城市命书】');
-  lines.push('我的人格称号：'+EL_INFO[r.main].title+'（'+r.main+'·'+EL_INFO[r.main].tag+' × '+r.sec+'·'+EL_INFO[r.sec].tag+'）');
-  lines.push('五行分布：'+ELS.map(function(e){ return e+' '+Math.round(r.scores[e]/sum*100)+'%'; }).join(' ｜ '));
-  lines.push('主推荐城市：'+c.name+'（匹配指数 '+entry.match+'）');
+  lines.push('我的人设：'+EL_INFO[r.main].title+'（'+r.main+'·'+EL_INFO[r.main].tag+' 带着 '+r.sec+'·'+EL_INFO[r.sec].tag+'）');
+  lines.push('五行占比：'+ELS.map(function(e){ return e+' '+Math.round(r.scores[e]/sum*100)+'%'; }).join(' ｜ '));
+  lines.push('最推荐的城市：'+c.name+'（合拍度 '+entry.match+'）');
   c.why.forEach(function(t,i){ lines.push((i+1)+'. '+fillTpl(t,r)); });
-  lines.push('现实提醒：'+c.remind);
-  lines.push('备选城市：'+alts.map(function(a){ return a.city.name+'（'+a.match+'）'; }).join('、'));
+  lines.push('说点大实话：'+c.remind);
+  lines.push('另外两座也很配：'+alts.map(function(a){ return a.city.name+'（'+a.match+'）'; }).join('、'));
   lines.push('——————————');
   lines.push('测测你的下一站藏在哪座城（趣味测试 · 五行属性为创意设定）');
   return lines.join('\n');
@@ -2211,10 +2248,8 @@ function shareCard(){
   ctx.strokeStyle='#c6b99c'; ctx.lineWidth=3; ctx.strokeRect(36,36,W-72,H-72);
   ctx.strokeStyle='#d8cfba'; ctx.lineWidth=1; ctx.strokeRect(48,48,W-96,H-96);
   /* 头部 */
-  ctx.fillStyle='#7d92a3'; ctx.font='600 25px sans-serif';
-  ctx.fillText('Y O U R   E L E M E N T A L   C I T Y   R E P O R T',W/2,108);
   ctx.fillStyle='#24425c'; ctx.font='bold 78px serif';
-  ctx.fillText('五行城市命书',W/2,196);
+  ctx.fillText('五行城市命书',W/2,168);
   /* 主格印章 */
   var sc=EL_INFO[r.main].color;
   ctx.fillStyle=sc; rr(ctx,874,66,122,122,14); ctx.fill();
@@ -2239,11 +2274,11 @@ function shareCard(){
     ctx.strokeStyle='#d8cfba'; ctx.lineWidth=1.5; rr(ctx,ax,ay,iw,ih,14); ctx.stroke();
     /* 城市信息 */
     ctx.fillStyle='#b3502e'; ctx.font='600 25px sans-serif';
-    ctx.fillText('主 荐 城 市 · 匹 配 指 数 '+entry.match,W/2,ay+ih+64);
-    ctx.fillStyle='#24425c'; ctx.font='bold 88px serif';
-    ctx.fillText(c.name,W/2,ay+ih+168);
+    ctx.fillText('最 推 荐 你 去 的 城 市 · 合 拍 度 '+entry.match,W/2,ay+ih+64);
+    ctx.fillStyle='#24425c'; ctx.font='bold 104px serif';
+    ctx.fillText(c.name,W/2,ay+ih+178);
     ctx.fillStyle='#7d92a3'; ctx.font='24px sans-serif';
-    ctx.fillText('城市五行属「'+c.el+'」 · '+c.tagline,W/2,ay+ih+212);
+    ctx.fillText('五行属「'+c.el+'」 · '+c.tagline,W/2,ay+ih+222);
     /* 五行能量条 */
     var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
     var by=ay+ih+268, rowH=40;
