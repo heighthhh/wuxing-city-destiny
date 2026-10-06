@@ -362,10 +362,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
   <div class="wrap">
     <div class="intro-grid">
       <div class="intro-title">
-        <span class="kicker">五行城市命书 · 东方城市人格测试</span>
+        <span class="kicker">五行城市命书</span>
         <h1>你的下一站，<br>藏在<em>五行</em>里。</h1>
         <p class="intro-sub">用 12 道关于生活的小问题，测出你的五行人格，寻找与你的生活节奏更合拍的城市。</p>
-        <p class="intro-en">东方命理 × 城市合拍</p>
         <div class="intro-cta">
           <button class="btn btn-main" id="btn-start">开始测算我的城市命格 <span class="arr">→</span></button>
           <span class="intro-note">约需三分钟 · 全程本地计算 · 不收集任何信息</span>
@@ -431,7 +430,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--seal);outline-offse
     <span class="hero-scrim" aria-hidden="true"></span>
     <div class="hero-inner">
       <div class="report-head" id="report-head">
-        <span class="report-en">你的五行城市命书报告</span>
         <span id="report-no"></span>
       </div>
       <p class="hero-caption">
@@ -1973,7 +1971,7 @@ function renderCityView(id){
   if(KE[c.el]===r.main) keNote='<br>五行上「'+c.el+'」克你的「'+r.main+'」——这座城市对你更像磨刀石，会逼你成长，但摩擦要主动管理。';
   else if(KE[r.main]===c.el) keNote='<br>你的「'+r.main+'」克这座城的「'+c.el+'」——主动权在你手里，但别把城市节奏全按自己的来。';
   $('r-remind').innerHTML='<b>现实提醒：</b>'+c.remind+keNote;
-  $('r-city-art').innerHTML=cityArtHtml(c.id)+'<figcaption class="art-cap">'+c.name+' · 城市夜景</figcaption>';
+  $('r-city-art').innerHTML=cityArtHtml(c.id)+'<figcaption class="art-cap">'+c.name+'</figcaption>';
   $('btn-back-main').hidden = (id===state.originalTop);
   renderAdvice(id);
   applyHero();
