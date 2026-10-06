@@ -1884,10 +1884,13 @@ var RESULT_STEPS = [
 var resultStep = 0;
 function goStep(i){
   if(i<0 || i>RESULT_STEPS.length-1) return;
+  if(i>0 && !state.result) return;      /* 防御：结果尚未生成时，不允许翻到后续结果页 */
   resultStep = i;
   showScreen(RESULT_STEPS[i].id);
   syncStepNav();
-  if(i===0) startCityFX(cityById(state.currentCity).el);
+  /* 防御：未测算出结果 / 城市数据缺失时，只做静态展示，不动效、不抛错 */
+  var cur = state.currentCity ? cityById(state.currentCity) : null;
+  if(i===0 && cur) startCityFX(cur.el);
   else stopCityFX();
 }
 function syncStepNav(){
@@ -2129,7 +2132,8 @@ function finishCeremony(){
 
 /* ---------- 结果渲染 ---------- */
 function renderResult(){
-  var r=state.result, info=EL_INFO[r.main], combo=comboOf(r.main,r.sec);
+  var r=state.result; if(!r) return;                          /* 防御：结果未生成时不渲染 */
+  var info=EL_INFO[r.main], combo=comboOf(r.main,r.sec);
   var no=cnNo(hashOf(state.answers));
   $('report-no').textContent='命书编号 '+no+' · '+cnDate(new Date());
   var seal=$('r-seal');
@@ -2149,7 +2153,8 @@ function entryOf(id){
   var f=null; state.ranked.forEach(function(e){ if(e.city.id===id) f=e; }); return f;
 }
 function renderCityView(id){
-  var entry=entryOf(id), c=entry.city, r=state.result;
+  var entry=entryOf(id); if(!entry||!entry.city) return;      /* 防御：结果未生成时不渲染 */
+  var c=entry.city, r=state.result;
   $('r-city-kicker').textContent='最推荐 · '+c.tagline;
   $('r-city-name').textContent=c.name;
   var en=$('r-city-en');
@@ -2176,7 +2181,9 @@ function renderCityView(id){
 /* 命书小结（第 4 页） */
 function renderSummary(){
   var box=$('r-summary'); if(!box) return;
-  var r=state.result, entry=entryOf(state.currentCity), c=entry.city;
+  var r=state.result, entry=entryOf(state.currentCity);
+  if(!r || !entry || !entry.city) return;                     /* 防御：结果未生成时不渲染 */
+  var c=entry.city;
   var info=EL_INFO[r.main], combo=comboOf(r.main,r.sec);
   var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
   var top=state.ranked.slice(0,3);
@@ -2192,7 +2199,7 @@ function renderSummary(){
   '</div>';
 }
 function renderBars(){
-  var r=state.result;
+  var r=state.result; if(!r) return;                          /* 防御：结果未生成时不渲染 */
   var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
   var html='';
   ELS.forEach(function(el){
@@ -2207,13 +2214,15 @@ function renderBars(){
   },100);
 }
 function renderSx(){
-  var r=state.result, rel=relationOf(r.main,r.sec);
+  var r=state.result; if(!r) return;                           /* 防御：结果未生成时不渲染 */
+  var rel=relationOf(r.main,r.sec);
   $('r-sx-art').innerHTML=sxArt(r.main,r.sec,rel);
   $('r-sx-text').innerHTML='<h4><span class="sx-tag '+(rel.good?'sx-good':'sx-warn')+'">'+rel.label+'</span>'+
     (rel.good?'相生 · 互相滋养':'相克 · 互相制衡')+'</h4>'+
     '<p class="sx-p" style="margin-top:12px">'+rel.h+'</p><p class="sx-p">'+rel.p+'</p>';
 }
 function renderAlts(){
+  if(!state.ranked || !state.result) return;                   /* 防御：结果未生成时不渲染 */
   var others=state.ranked.filter(function(e){ return e.city.id!==state.currentCity; }).slice(0,2);
   var html='';
   others.forEach(function(e){
@@ -2230,13 +2239,14 @@ function renderAlts(){
   });
 }
 function renderAdvice(id){
-  var c=cityById(id||state.currentCity);
+  var c=cityById(id||state.currentCity); if(!c) return;        /* 防御：城市数据缺失时不渲染 */
   $('r-advice').innerHTML=
     '<div class="adv-item"><h4>◆ 那边什么行业多</h4><p>'+c.industries+'</p></div>'+
     '<div class="adv-item"><h4>◆ 日常大概是这样</h4><p>'+c.lifeNote+'</p></div>'+
     '<div class="adv-item"><h4>◆ 住哪儿、怎么通勤</h4><p>'+c.houseNote+'</p></div>';
 }
 function switchCity(id){
+  if(!cityById(id)) return;                                   /* 防御：未知城市 id 直接忽略 */
   state.currentCity=id;
   renderCityView(id);
   renderAlts();
@@ -2248,7 +2258,9 @@ function switchCity(id){
 
 /* ---------- 复制结果 ---------- */
 function buildResultText(){
-  var r=state.result, entry=entryOf(state.currentCity), c=entry.city;
+  var r=state.result, entry=entryOf(state.currentCity);
+  if(!r || !entry || !entry.city) return '';                  /* 防御：结果未生成时返回空串 */
+  var c=entry.city;
   var alts=state.ranked.filter(function(e){ return e.city.id!==state.currentCity; }).slice(0,2);
   var sum=ELS.reduce(function(s,e){ return s+r.scores[e]; },0)||1;
   var lines=[];
@@ -2265,6 +2277,7 @@ function buildResultText(){
 }
 function copyResult(){
   var txt=buildResultText();
+  if(!txt){ toast('还没有测试结果，先测一次再复制吧'); return; }
   function ok(){ toast('测试结果已复制，去粘贴分享吧'); }
   function fallback(){
     var ta=document.createElement('textarea');
@@ -2294,8 +2307,10 @@ function rr(ctx,x,y,w,h,r){
   ctx.closePath();
 }
 function shareCard(){
+  var r=state.result, entry=entryOf(state.currentCity);
+  if(!r || !entry || !entry.city){ toast('还没有测试结果，先测一次再生成卡片吧'); return; }
   toast('正在生成分享卡片……');
-  var r=state.result, entry=entryOf(state.currentCity), c=entry.city;
+  var c=entry.city;
   var W=1080,H=1350;
   var cv=document.createElement('canvas'); cv.width=W; cv.height=H;
   var ctx=cv.getContext('2d');
