@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="五行城市命书——用12道关于生活的小问题，测出你的五行人格，寻找与你生活节奏更合拍的城市。趣味测试，创意设定。">
 <meta property="og:title" content="五行城市命书 · 你的下一站，藏在五行里">
-<meta property="og:description" content="12 道关于生活的小问题，测出你的五行人格，找到与你生活节奏更合拍的城市。22 座城市手绘插画，一键生成专属命书与分享卡片。">
+<meta property="og:description" content="12 道关于生活的小问题，测出你的五行人格，找到与你生活节奏更合拍的城市。20 座城市手绘插画，一键生成专属命书与分享卡片。">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_CN">
 <meta name="theme-color" content="#f6f1e6">
@@ -649,7 +649,7 @@ var QUESTIONS = [
   ]}
 ];
 
-/* ---------- 城市数据库（22 座 · 五行属性为创意设定） ----------
+/* ---------- 城市数据库（20 座 · 五行属性为创意设定） ----------
    el:城市五行  pace:节奏  scenes:场景  careers:发展方向
    why:3条匹配理由模板 {main}=主格 {sec}=次格  remind:现实提醒  ke:与相克五行组合时的附加提示 */
 var CITIES = [
@@ -803,16 +803,6 @@ var CITIES = [
         "米字形高铁网让你周五出发周日回，{main}格的探索半径大到惊人"],
    remind:"春运期间的火车站是国家级奇观，错峰出行保平安。"},
 
-  {id:"hefei",name:"合肥",en:"HEFEI",el:"木",pace:"fast",scenes:["urban","nature"],careers:["startup","craft"],
-   tagline:"闷声干大事、疯狂生长的科创木格黑马",
-   industries:"新能源汽车、量子科技、半导体、生物医药",
-   lifeNote:"「风投之城」的胆子和科学城的脑子，都在悄悄变大。",
-   houseNote:"城市扩张快，新区房子新、马路宽，性价比正在被发现。",
-   why:["「木」格合肥是长势最猛的城市之一——{main}格的你和它一起长，速度加倍",
-        "科创浓度远超城市知名度，{sec}格的技术宅属性在这里如鱼得水",
-        "现在入场还是「潜力股」价格，{main}格的判断力值得在这里押一注"],
-   remind:"城市配套还在追产业发展速度，对新区的「暂时不便」要有预期。"},
-
   {id:"ningbo",name:"宁波",en:"NINGBO",el:"水",pace:"fast",scenes:["water","urban"],careers:["startup","craft","steady"],
    tagline:"通江达海、书藏古今的实干水格港城",
    industries:"港口贸易、绿色石化、高端制造、跨境电商",
@@ -861,17 +851,7 @@ var CITIES = [
    why:["「水」格济南的泉水气质温柔地包裹{main}格的你——这座城有一种不争的定力",
         "软件名城的名号不响但底子扎实，{sec}格的稳扎稳打在这里被珍视",
         "四面荷花三面柳，{main}格的你花不多的钱就能住进风景里"],
-   remind:"夏天桑拿天威力不小，泉水再凉也救不了户外暴走，注意补水。"},
-
-  {id:"fuzhou",name:"福州",en:"FU ZHOU",el:"火",pace:"fast",scenes:["water","cultural"],careers:["startup","craft","free"],
-   tagline:"爱拼才会赢的榕荫火格闽都",
-   industries:"数字经济、纺织化纤、海洋渔业、跨境电商",
-   lifeNote:"榕树荫下泡温泉，闽江边上谈生意，福州人的松弛是热腾腾的。",
-   houseNote:"老城烟火、新城现代，房价在沿海省会里相对温柔。",
-   why:["「火」格福州的闯劲藏在茶香里——{main}格的你和闽商精神意外地对味",
-        "数字经济增速惊人，{sec}格的实干在这里有赛道也有回响",
-        "温泉与榕树负责生活质感，{main}格的打拼可以不那么苦大仇深"],
-   remind:"回南天加台风季双重考验，除湿机是福州家居的隐藏家电。"}
+   remind:"夏天桑拿天威力不小，泉水再凉也救不了户外暴走，注意补水。"}
 ];
 
 /* ---------- 场景关联度（用于部分匹配） ---------- */
@@ -1293,18 +1273,6 @@ zhengzhou:function(){ var g='';
   g+=fTrain(400,392,1.0);
   g+='<path d="M 300 396 H 700" stroke="#8fa3ad" stroke-width="2.4"/><path d="M 300 392 H 700" stroke="#8fa3ad" stroke-width="1.2" opacity=".6"/>';
   return g; },
-hefei:function(){ var g='';
-  /* 科学岛 */
-  g+='<ellipse cx="150" cy="318" rx="60" ry="16" fill="#7a9b6d"/><circle cx="126" cy="308" r="10" fill="#5c7a58"/><circle cx="158" cy="304" r="12" fill="#6f8f6a"/><circle cx="184" cy="310" r="8" fill="#5c7a58"/>';
-  /* 天鹅 */
-  g+='<path d="M 96 340 Q 92 328 100 324 Q 106 330 104 340 Z" fill="#f6f4ec" stroke="#b0a58e" stroke-width="1"/><path d="M 100 324 Q 104 316 112 318 Q 108 324 104 326 Z" fill="#f6f4ec" stroke="#b0a58e" stroke-width="1"/>';
-  g+='<path d="M 132 344 Q 128 332 136 328 Q 142 334 140 344 Z" fill="#f6f4ec" stroke="#b0a58e" stroke-width="1"/>';
-  /* 天际线与广电中心 */
-  g+=fBld(380,340,38,104,'#8fa5b5',false)+fBld(428,340,32,80,'#7d92a3',false);
-  g+='<rect x="512" y="256" width="12" height="84" fill="#8fa3ad"/><circle cx="518" cy="240" r="17" fill="none" stroke="#8fa3ad" stroke-width="9"/>';
-  g+=fBld(560,340,34,62,'#8fa5b5',false)+fBld(602,340,44,96,'#7d92a3',false);
-  g+=fTree(350,344,26,'#6f8f6a')+fTree(672,344,30,'#6f8f6a');
-  return g; },
 ningbo:function(){ var g='';
   g+=fCrane(180,338,1.25,'#b56a5f')+fCrane(292,338,1.0,'#8fa3ad');
   var cs=[[96,326,14,'#c15b54'],[112,326,14,'#c9a06a'],[128,326,14,'#7a9b6d'],[104,312,14,'#8fa3ad'],[120,312,14,'#c9a06a'],[136,312,14,'#b56a5f']];
@@ -1372,19 +1340,6 @@ jinan:function(){ var g='';
   g+='<path d="M 118 348 q 6 -9 12 0 q 6 -9 12 0" stroke="#f2ede0" stroke-width="2.2" fill="none" opacity=".7"/>';
   g+=fPavilion(170,318,0.8,'#a05252','#46586a');
   g+=fWillow(80,346,1.4,'#7a9b6d')+fWillow(280,346,1.6,'#7a9b6d');
-  return g; },
-fuzhou:function(){ var g='';
-  /* 榕树 */
-  g+='<g><path d="M 92 344 C 96 318 84 300 96 282 M 100 344 C 106 314 118 300 110 284" stroke="#8a7a5e" stroke-width="7" fill="none"/>';
-  g+='<path d="M 96 320 q -14 8 -20 24 M 104 310 q 16 6 22 22" stroke="#a8996e" stroke-width="1.6" fill="none"/>';
-  g+='<circle cx="96" cy="258" r="44" fill="#6f8f6a"/><circle cx="60" cy="282" r="30" fill="#7a9b6d"/><circle cx="134" cy="280" r="32" fill="#7a9b6d"/><circle cx="102" cy="296" r="26" fill="#5c7a58" opacity=".8"/></g>';
-  /* 白塔与乌塔 */
-  g+=fPagoda(438,336,6,0.95,40,'#f2ede0','#8a7a5e','#c9a06a');
-  g+=fPagoda(340,340,5,0.8,34,'#5a5a52','#4a4a44',null);
-  /* 三坊七巷 */
-  g+='<rect x="500" y="300" width="52" height="40" fill="#f2ede0" stroke="#d8cfba"/><path d="M 496 302 L 526 288 L 556 302 Z" fill="#46586a"/>';
-  g+='<rect x="562" y="306" width="48" height="34" fill="#f2ede0" stroke="#d8cfba"/><path d="M 558 308 L 586 294 L 614 308 Z" fill="#46586a"/>';
-  g+='<rect x="516" y="312" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/><rect x="576" y="318" width="9" height="9" fill="none" stroke="#8a7a5e" stroke-width="1"/>';
   return g; }
 };
 
@@ -1405,13 +1360,11 @@ var ARTCFG = {
   xian:{sky:["#e8e0ce","#f6eeda"],mounts:[["-10,290 140,228 300,290","#c5b8a0",".55"]],water:null,bld:[]},
   changsha:{sky:["#dfe4dc","#f2ecda"],water:{y:346,c:"#b9cfd8"},bld:[]},
   zhengzhou:{sky:["#e4e2d4","#f5eedc"],mounts:[["-10,296 110,246 230,296","#c0bba8",".5"]],water:null,bld:[]},
-  hefei:{sky:["#e0e6e0","#f2ecd9"],water:{y:326,c:"#b9cfd8"},bld:[]},
   ningbo:{sky:["#e2e4da","#f4ecda"],water:{y:338,c:"#b9cfd8"},bld:[]},
   wuxi:{sky:["#dde7e2","#f2ecdb"],mounts:[["-10,286 120,230 250,286","#a9c0b3",".55"]],water:{y:316,c:"#b9cfd8"},bld:[]},
   xiamen:{sky:["#d8e4e4","#eef0e0"],water:{y:340,c:"#a8c3cf"},bld:[]},
   kunming:{sky:["#dce6dc","#f4eedd"],water:{y:342,c:"#b9cfd8"},bld:[]},
-  jinan:{sky:["#e2e2d6","#f4ecda"],water:{y:346,c:"#b9cfd8"},bld:[]},
-  fuzhou:{sky:["#e0e2d6","#f4ecda"],mounts:[["-10,290 140,248 290,290","#b0bfc4",".45"]],water:{y:352,c:"#b9cfd8"},bld:[]}
+  jinan:{sky:["#e2e2d6","#f4ecda"],water:{y:346,c:"#b9cfd8"},bld:[]}
 };
 
 function cityArt(id){
@@ -1919,6 +1872,7 @@ function shareCard(){
   var W=1080,H=1350;
   var cv=document.createElement('canvas'); cv.width=W; cv.height=H;
   var ctx=cv.getContext('2d');
+  if(!ctx){ toast('当前浏览器不支持生成分享卡片，可截图保存'); return; }
   /* 纸底 */
   ctx.fillStyle='#f6f1e6'; ctx.fillRect(0,0,W,H);
   var grd=ctx.createLinearGradient(0,0,0,H);
